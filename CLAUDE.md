@@ -46,10 +46,24 @@ ChroniclesOfRifts/
 
 ### Key Patterns
 
-- **GameManager** (singleton): Central game state management, save/load progress
+- **GameManager** (singleton): Central game state management, save/load progress via `@Published` properties and UserDefaults
 - **SceneManager**: Scene transitions with animations
-- **BaseGameScene**: Base class for game scenes with camera, HUD, and input handling
-- **LevelData/LevelLoader**: JSON-based level definitions
+- **BaseGameScene**: Base class for game scenes providing:
+  - Three-layer structure: `backgroundLayer` (z=-100), `gameLayer` (z=0), `hudLayer` (z=100)
+  - Camera setup with HUD attached to `gameCamera.hudContainer` (immune to shake)
+  - Touch controls routing via `TouchControlsOverlay`
+  - Pause/resume with physics world control
+- **LevelData/LevelLoader**: JSON-based level definitions with automatic tile-to-pixel conversion
+
+### Scene Layer Hierarchy
+
+```
+SKScene
+├── backgroundLayer (z=-100) ← ParallaxBackground layers
+├── gameLayer (z=0) ← Platforms, Player, Enemies, Collectibles
+└── gameCamera
+    └── hudContainer ← hudLayer (z=100) ← TouchControlsOverlay, HUD elements
+```
 
 ### Physics Categories (bitmask)
 
@@ -87,8 +101,10 @@ The game consists of 10 levels with unique themes:
 ## Development Notes
 
 - Level data is stored in JSON format in `Levels/level_X.json`
-- Tile coordinates in JSON are converted to pixels (multiply by tileSize, default 32)
+- Tile coordinates in JSON are converted to pixels using `CGPoint.toPixels(tileSize:)` extension (default tileSize=32)
 - Touch controls: virtual joystick (left) + action buttons (right)
-- Camera follows player with smoothing and bounds constraints
-- Support for parallax backgrounds (3 layers)
+- Camera follows player with smoothing (`lerp`) and bounds constraints
+- Support for parallax backgrounds (3 layers with different `parallaxFactor` values)
 - All text/dialogs are in Russian
+- Platform types: `solid`, `oneWay`, `crumbling`, `moving`
+- Enemy types defined as strings in JSON (e.g., "Cultist", "FloatingEye")

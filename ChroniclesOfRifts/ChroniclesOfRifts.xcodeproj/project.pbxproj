@@ -30,6 +30,11 @@
 		E0000202 /* LevelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000211; };
 		E0000203 /* LevelLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000212; };
 		E0000204 /* level_1.json in Resources */ = {isa = PBXBuildFile; fileRef = E0000213; };
+		E0000205 /* level_test.json in Resources */ = {isa = PBXBuildFile; fileRef = E0000214; };
+		E0000301 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000310; };
+		E0000302 /* AnimationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000311; };
+		E0000401 /* MeleeAttack.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000410; };
+		E0000501 /* Collectible.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000510; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +63,11 @@
 		E0000211 /* LevelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelData.swift; sourceTree = "<group>"; };
 		E0000212 /* LevelLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelLoader.swift; sourceTree = "<group>"; };
 		E0000213 /* level_1.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = level_1.json; sourceTree = "<group>"; };
+		E0000214 /* level_test.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = level_test.json; sourceTree = "<group>"; };
+		E0000310 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		E0000311 /* AnimationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationManager.swift; sourceTree = "<group>"; };
+		E0000410 /* MeleeAttack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeleeAttack.swift; sourceTree = "<group>"; };
+		E0000510 /* Collectible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collectible.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +122,8 @@
 		E0000041 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				E0000310 /* Player.swift */,
+				E0000510 /* Collectible.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -125,6 +137,7 @@
 				E0000120,
 				E0000122,
 				E0000124,
+				E0000410,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -137,6 +150,7 @@
 				E0000112,
 				E0000113,
 				E0000126,
+				E0000311,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -157,6 +171,7 @@
 				E0000211,
 				E0000212,
 				E0000213,
+				E0000214,
 			);
 			path = Levels;
 			sourceTree = "<group>";
@@ -252,6 +267,7 @@
 				E0000005,
 				E0000006,
 				E0000204,
+				E0000205,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -281,6 +297,10 @@
 				E0000201,
 				E0000202,
 				E0000203,
+				E0000301,
+				E0000302,
+				E0000401,
+				E0000501,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

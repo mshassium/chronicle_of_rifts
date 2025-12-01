@@ -34,33 +34,33 @@ class LevelLoader {
 
     // MARK: - Building
 
-    func buildLevel(from data: LevelData, in scene: SKScene) {
+    func buildLevel(from data: LevelData, in parentNode: SKNode) {
         let tileSize = data.tileSize
 
         // Create containers
         let platformsContainer = SKNode()
         platformsContainer.name = NodeNames.platformsContainer
-        scene.addChild(platformsContainer)
+        parentNode.addChild(platformsContainer)
 
         let enemiesContainer = SKNode()
         enemiesContainer.name = NodeNames.enemiesContainer
-        scene.addChild(enemiesContainer)
+        parentNode.addChild(enemiesContainer)
 
         let collectiblesContainer = SKNode()
         collectiblesContainer.name = NodeNames.collectiblesContainer
-        scene.addChild(collectiblesContainer)
+        parentNode.addChild(collectiblesContainer)
 
         let triggersContainer = SKNode()
         triggersContainer.name = NodeNames.triggersContainer
-        scene.addChild(triggersContainer)
+        parentNode.addChild(triggersContainer)
 
         let interactablesContainer = SKNode()
         interactablesContainer.name = NodeNames.interactablesContainer
-        scene.addChild(interactablesContainer)
+        parentNode.addChild(interactablesContainer)
 
         let backgroundContainer = SKNode()
         backgroundContainer.name = NodeNames.backgroundContainer
-        scene.addChild(backgroundContainer)
+        parentNode.addChild(backgroundContainer)
 
         // Build background layers (lowest z)
         for layerData in data.backgroundLayers {
