@@ -9,4 +9,5 @@ struct PhysicsCategory {
     static let hazard: UInt32 = 0b10000
     static let trigger: UInt32 = 0b100000
     static let playerAttack: UInt32 = 0b1000000
+    static let enemyProjectile: UInt32 = 0b10000000
 }

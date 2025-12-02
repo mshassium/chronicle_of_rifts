@@ -7,34 +7,57 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E0000001 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000010; };
-		E0000002 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000011; };
-		E0000003 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000012; };
-		E0000004 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0000090; };
-		E0000005 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0000015; };
-		E0000006 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0000091; };
-		E0000101 /* GameSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000110; };
-		E0000102 /* PlayerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000111; };
-		E0000103 /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000112; };
-		E0000104 /* SceneManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000113; };
-		E0000105 /* BaseGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000114; };
-		E0000106 /* GameSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000115; };
-		E0000107 /* GameCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000116; };
-		E0000108 /* ParallaxBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000117; };
-		E0000109 /* CameraEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000118; };
-		E0000119 /* VirtualJoystick.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000120; };
-		E0000121 /* ActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000122; };
-		E0000123 /* TouchControlsOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000124; };
-		E0000125 /* InputManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000126; };
-		E0000201 /* PhysicsCategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000210; };
-		E0000202 /* LevelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000211; };
-		E0000203 /* LevelLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000212; };
-		E0000204 /* level_1.json in Resources */ = {isa = PBXBuildFile; fileRef = E0000213; };
-		E0000205 /* level_test.json in Resources */ = {isa = PBXBuildFile; fileRef = E0000214; };
-		E0000301 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000310; };
-		E0000302 /* AnimationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000311; };
-		E0000401 /* MeleeAttack.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000410; };
-		E0000501 /* Collectible.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000510; };
+		E0000001 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000010 /* AppDelegate.swift */; };
+		E0000002 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000011 /* GameScene.swift */; };
+		E0000003 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000012 /* GameViewController.swift */; };
+		E0000004 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0000090 /* Main.storyboard */; };
+		E0000005 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0000015 /* Assets.xcassets */; };
+		E0000006 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0000091 /* LaunchScreen.storyboard */; };
+		E0000101 /* GameSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000110 /* GameSettings.swift */; };
+		E0000102 /* PlayerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000111 /* PlayerData.swift */; };
+		E0000103 /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000112 /* GameManager.swift */; };
+		E0000104 /* SceneManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000113 /* SceneManager.swift */; };
+		E0000105 /* BaseGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000114 /* BaseGameScene.swift */; };
+		E0000106 /* GameSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000115 /* GameSceneDelegate.swift */; };
+		E0000107 /* GameCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000116 /* GameCamera.swift */; };
+		E0000108 /* ParallaxBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000117 /* ParallaxBackground.swift */; };
+		E0000109 /* CameraEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000118 /* CameraEffects.swift */; };
+		E0000119 /* VirtualJoystick.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000120 /* VirtualJoystick.swift */; };
+		E0000121 /* ActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000122 /* ActionButton.swift */; };
+		E0000123 /* TouchControlsOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000124 /* TouchControlsOverlay.swift */; };
+		E0000125 /* InputManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000126 /* InputManager.swift */; };
+		E0000201 /* PhysicsCategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000210 /* PhysicsCategories.swift */; };
+		E0000202 /* LevelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000211 /* LevelData.swift */; };
+		E0000203 /* LevelLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000212 /* LevelLoader.swift */; };
+		E0000204 /* level_1.json in Resources */ = {isa = PBXBuildFile; fileRef = E0000213 /* level_1.json */; };
+		E0000205 /* level_test.json in Resources */ = {isa = PBXBuildFile; fileRef = E0000214 /* level_test.json */; };
+		E0000301 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000310 /* Player.swift */; };
+		E0000302 /* AnimationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000311 /* AnimationManager.swift */; };
+		E0000401 /* MeleeAttack.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000410 /* MeleeAttack.swift */; };
+		E0000501 /* Collectible.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000510 /* Collectible.swift */; };
+		E0000601 /* Enemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000610 /* Enemy.swift */; };
+		E0000701 /* Cultist.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000710 /* Cultist.swift */; };
+		E0000702 /* CorruptedSpirit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000712 /* CorruptedSpirit.swift */; };
+		E0000801 /* FloatingEye.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000810 /* FloatingEye.swift */; };
+		E0000802 /* EyeProjectile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000811 /* EyeProjectile.swift */; };
+		E0000901 /* Skeleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000910 /* Skeleton.swift */; };
+		E0001001 /* IceGolem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0001010 /* IceGolem.swift */; };
+		E0001101 /* SkyDevourer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0001110 /* SkyDevourer.swift */; };
+		E0001201 /* EliteCultist.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0001210 /* EliteCultist.swift */; };
+		E0002001 /* Boss.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0002010 /* Boss.swift */; };
+		E0002002 /* BossPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0002011 /* BossPhase.swift */; };
+		E0002003 /* AttackPattern.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0002012 /* AttackPattern.swift */; };
+		E0002004 /* Defiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0002014 /* Defiler.swift */; };
+		E0002005 /* GroundWave.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0002015 /* GroundWave.swift */; };
+		E0002006 /* ChainMasterGrondar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0002016 /* ChainMasterGrondar.swift */; };
+		E0002007 /* HeartOfCorruption.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0002017 /* HeartOfCorruption.swift */; };
+		E0002008 /* ArchnecromancerSalvus.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0002018 /* ArchnecromancerSalvus.swift */; };
+		E0002009 /* FrostGuardianKromar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0002019 /* FrostGuardianKromar.swift */; };
+		E000200A /* SkyQueenSkirra.swift in Sources */ = {isa = PBXBuildFile; fileRef = E000201A /* SkyQueenSkirra.swift */; };
+		E000200B /* GeneralMaltorus.swift in Sources */ = {isa = PBXBuildFile; fileRef = E000201B /* GeneralMaltorus.swift */; };
+		E000200C /* Morgana.swift in Sources */ = {isa = PBXBuildFile; fileRef = E000201C /* Morgana.swift */; };
+		E000200D /* Velkor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E000201D /* Velkor.swift */; };
+		E0003001 /* EnemyFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0003010 /* EnemyFactory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +91,29 @@
 		E0000311 /* AnimationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationManager.swift; sourceTree = "<group>"; };
 		E0000410 /* MeleeAttack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeleeAttack.swift; sourceTree = "<group>"; };
 		E0000510 /* Collectible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collectible.swift; sourceTree = "<group>"; };
+		E0000610 /* Enemy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enemy.swift; sourceTree = "<group>"; };
+		E0000710 /* Cultist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cultist.swift; sourceTree = "<group>"; };
+		E0000712 /* CorruptedSpirit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorruptedSpirit.swift; sourceTree = "<group>"; };
+		E0000810 /* FloatingEye.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingEye.swift; sourceTree = "<group>"; };
+		E0000811 /* EyeProjectile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EyeProjectile.swift; sourceTree = "<group>"; };
+		E0000910 /* Skeleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Skeleton.swift; sourceTree = "<group>"; };
+		E0001010 /* IceGolem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IceGolem.swift; sourceTree = "<group>"; };
+		E0001110 /* SkyDevourer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkyDevourer.swift; sourceTree = "<group>"; };
+		E0001210 /* EliteCultist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EliteCultist.swift; sourceTree = "<group>"; };
+		E0002010 /* Boss.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Boss.swift; sourceTree = "<group>"; };
+		E0002011 /* BossPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BossPhase.swift; sourceTree = "<group>"; };
+		E0002012 /* AttackPattern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttackPattern.swift; sourceTree = "<group>"; };
+		E0002014 /* Defiler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defiler.swift; sourceTree = "<group>"; };
+		E0002015 /* GroundWave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroundWave.swift; sourceTree = "<group>"; };
+		E0002016 /* ChainMasterGrondar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainMasterGrondar.swift; sourceTree = "<group>"; };
+		E0002017 /* HeartOfCorruption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartOfCorruption.swift; sourceTree = "<group>"; };
+		E0002018 /* ArchnecromancerSalvus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchnecromancerSalvus.swift; sourceTree = "<group>"; };
+		E0002019 /* FrostGuardianKromar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrostGuardianKromar.swift; sourceTree = "<group>"; };
+		E000201A /* SkyQueenSkirra.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkyQueenSkirra.swift; sourceTree = "<group>"; };
+		E000201B /* GeneralMaltorus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralMaltorus.swift; sourceTree = "<group>"; };
+		E000201C /* Morgana.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Morgana.swift; sourceTree = "<group>"; };
+		E000201D /* Velkor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Velkor.swift; sourceTree = "<group>"; };
+		E0003010 /* EnemyFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyFactory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,27 +130,27 @@
 		E0000030 = {
 			isa = PBXGroup;
 			children = (
-				E0000031,
-				E0000008,
+				E0000031 /* ChroniclesOfRifts */,
+				E0000008 /* ChroniclesOfRifts.app */,
 			);
 			sourceTree = "<group>";
 		};
 		E0000031 /* ChroniclesOfRifts */ = {
 			isa = PBXGroup;
 			children = (
-				E0000010,
-				E0000012,
-				E0000040,
-				E0000041,
-				E0000042,
-				E0000043,
-				E0000044,
-				E0000045,
-				E0000046,
-				E0000090,
-				E0000015,
-				E0000091,
-				E0000018,
+				E0000010 /* AppDelegate.swift */,
+				E0000012 /* GameViewController.swift */,
+				E0000040 /* Scenes */,
+				E0000041 /* Entities */,
+				E0000042 /* Components */,
+				E0000043 /* Managers */,
+				E0000044 /* Resources */,
+				E0000045 /* Levels */,
+				E0000046 /* Utils */,
+				E0000090 /* Main.storyboard */,
+				E0000015 /* Assets.xcassets */,
+				E0000091 /* LaunchScreen.storyboard */,
+				E0000018 /* Info.plist */,
 			);
 			path = ChroniclesOfRifts;
 			sourceTree = "<group>";
@@ -112,9 +158,9 @@
 		E0000040 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				E0000011,
-				E0000114,
-				E0000115,
+				E0000011 /* GameScene.swift */,
+				E0000114 /* BaseGameScene.swift */,
+				E0000115 /* GameSceneDelegate.swift */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -124,20 +170,67 @@
 			children = (
 				E0000310 /* Player.swift */,
 				E0000510 /* Collectible.swift */,
+				E0000610 /* Enemy.swift */,
+				E0003010 /* EnemyFactory.swift */,
+				E0000711 /* Enemies */,
+				E0002013 /* Bosses */,
+				E0000812 /* Projectiles */,
 			);
 			path = Entities;
+			sourceTree = "<group>";
+		};
+		E0002013 /* Bosses */ = {
+			isa = PBXGroup;
+			children = (
+				E0002010 /* Boss.swift */,
+				E0002011 /* BossPhase.swift */,
+				E0002012 /* AttackPattern.swift */,
+				E0002014 /* Defiler.swift */,
+				E0002016 /* ChainMasterGrondar.swift */,
+				E0002017 /* HeartOfCorruption.swift */,
+				E0002018 /* ArchnecromancerSalvus.swift */,
+				E0002019 /* FrostGuardianKromar.swift */,
+				E000201A /* SkyQueenSkirra.swift */,
+				E000201B /* GeneralMaltorus.swift */,
+				E000201C /* Morgana.swift */,
+				E000201D /* Velkor.swift */,
+			);
+			path = Bosses;
+			sourceTree = "<group>";
+		};
+		E0000711 /* Enemies */ = {
+			isa = PBXGroup;
+			children = (
+				E0000710 /* Cultist.swift */,
+				E0000712 /* CorruptedSpirit.swift */,
+				E0001210 /* EliteCultist.swift */,
+				E0000810 /* FloatingEye.swift */,
+				E0001010 /* IceGolem.swift */,
+				E0000910 /* Skeleton.swift */,
+				E0001110 /* SkyDevourer.swift */,
+			);
+			path = Enemies;
+			sourceTree = "<group>";
+		};
+		E0000812 /* Projectiles */ = {
+			isa = PBXGroup;
+			children = (
+				E0000811 /* EyeProjectile.swift */,
+				E0002015 /* GroundWave.swift */,
+			);
+			path = Projectiles;
 			sourceTree = "<group>";
 		};
 		E0000042 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				E0000116,
-				E0000117,
-				E0000118,
-				E0000120,
-				E0000122,
-				E0000124,
-				E0000410,
+				E0000116 /* GameCamera.swift */,
+				E0000117 /* ParallaxBackground.swift */,
+				E0000118 /* CameraEffects.swift */,
+				E0000120 /* VirtualJoystick.swift */,
+				E0000122 /* ActionButton.swift */,
+				E0000124 /* TouchControlsOverlay.swift */,
+				E0000410 /* MeleeAttack.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -145,12 +238,12 @@
 		E0000043 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				E0000110,
-				E0000111,
-				E0000112,
-				E0000113,
-				E0000126,
-				E0000311,
+				E0000110 /* GameSettings.swift */,
+				E0000111 /* PlayerData.swift */,
+				E0000112 /* GameManager.swift */,
+				E0000113 /* SceneManager.swift */,
+				E0000126 /* InputManager.swift */,
+				E0000311 /* AnimationManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -158,9 +251,9 @@
 		E0000044 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				E0000047,
-				E0000048,
-				E0000049,
+				E0000047 /* Textures */,
+				E0000048 /* Audio */,
+				E0000049 /* Fonts */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -168,10 +261,10 @@
 		E0000045 /* Levels */ = {
 			isa = PBXGroup;
 			children = (
-				E0000211,
-				E0000212,
-				E0000213,
-				E0000214,
+				E0000211 /* LevelData.swift */,
+				E0000212 /* LevelLoader.swift */,
+				E0000213 /* level_1.json */,
+				E0000214 /* level_test.json */,
 			);
 			path = Levels;
 			sourceTree = "<group>";
@@ -179,7 +272,7 @@
 		E0000046 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				E0000210,
+				E0000210 /* PhysicsCategories.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -210,11 +303,11 @@
 /* Begin PBXNativeTarget section */
 		E0000050 /* ChroniclesOfRifts */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E0000060;
+			buildConfigurationList = E0000060 /* Build configuration list for PBXNativeTarget "ChroniclesOfRifts" */;
 			buildPhases = (
-				E0000051,
-				E0000020,
-				E0000052,
+				E0000051 /* Sources */,
+				E0000020 /* Frameworks */,
+				E0000052 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -222,7 +315,7 @@
 			);
 			name = ChroniclesOfRifts;
 			productName = ChroniclesOfRifts;
-			productReference = E0000008;
+			productReference = E0000008 /* ChroniclesOfRifts.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -240,7 +333,7 @@
 					};
 				};
 			};
-			buildConfigurationList = E0000071;
+			buildConfigurationList = E0000071 /* Build configuration list for PBXProject "ChroniclesOfRifts" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -253,7 +346,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E0000050,
+				E0000050 /* ChroniclesOfRifts */,
 			);
 		};
 /* End PBXProject section */
@@ -263,11 +356,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E0000004,
-				E0000005,
-				E0000006,
-				E0000204,
-				E0000205,
+				E0000004 /* Main.storyboard in Resources */,
+				E0000005 /* Assets.xcassets in Resources */,
+				E0000006 /* LaunchScreen.storyboard in Resources */,
+				E0000204 /* level_1.json in Resources */,
+				E0000205 /* level_test.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -278,29 +371,52 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E0000001,
-				E0000002,
-				E0000003,
-				E0000101,
-				E0000102,
-				E0000103,
-				E0000104,
-				E0000105,
-				E0000106,
-				E0000107,
-				E0000108,
-				E0000109,
-				E0000119,
-				E0000121,
-				E0000123,
-				E0000125,
-				E0000201,
-				E0000202,
-				E0000203,
-				E0000301,
-				E0000302,
-				E0000401,
-				E0000501,
+				E0000001 /* AppDelegate.swift in Sources */,
+				E0000002 /* GameScene.swift in Sources */,
+				E0000003 /* GameViewController.swift in Sources */,
+				E0000101 /* GameSettings.swift in Sources */,
+				E0000102 /* PlayerData.swift in Sources */,
+				E0000103 /* GameManager.swift in Sources */,
+				E0000104 /* SceneManager.swift in Sources */,
+				E0000105 /* BaseGameScene.swift in Sources */,
+				E0000106 /* GameSceneDelegate.swift in Sources */,
+				E0000107 /* GameCamera.swift in Sources */,
+				E0000108 /* ParallaxBackground.swift in Sources */,
+				E0000109 /* CameraEffects.swift in Sources */,
+				E0000119 /* VirtualJoystick.swift in Sources */,
+				E0000121 /* ActionButton.swift in Sources */,
+				E0000123 /* TouchControlsOverlay.swift in Sources */,
+				E0000125 /* InputManager.swift in Sources */,
+				E0000201 /* PhysicsCategories.swift in Sources */,
+				E0000202 /* LevelData.swift in Sources */,
+				E0000203 /* LevelLoader.swift in Sources */,
+				E0000301 /* Player.swift in Sources */,
+				E0000302 /* AnimationManager.swift in Sources */,
+				E0000401 /* MeleeAttack.swift in Sources */,
+				E0000501 /* Collectible.swift in Sources */,
+				E0000601 /* Enemy.swift in Sources */,
+				E0000701 /* Cultist.swift in Sources */,
+				E0000702 /* CorruptedSpirit.swift in Sources */,
+				E0000801 /* FloatingEye.swift in Sources */,
+				E0000802 /* EyeProjectile.swift in Sources */,
+				E0000901 /* Skeleton.swift in Sources */,
+				E0001001 /* IceGolem.swift in Sources */,
+				E0001101 /* SkyDevourer.swift in Sources */,
+				E0001201 /* EliteCultist.swift in Sources */,
+				E0002001 /* Boss.swift in Sources */,
+				E0002002 /* BossPhase.swift in Sources */,
+				E0002003 /* AttackPattern.swift in Sources */,
+				E0002004 /* Defiler.swift in Sources */,
+				E0002005 /* GroundWave.swift in Sources */,
+				E0002006 /* ChainMasterGrondar.swift in Sources */,
+				E0002007 /* HeartOfCorruption.swift in Sources */,
+				E0002008 /* ArchnecromancerSalvus.swift in Sources */,
+				E0002009 /* FrostGuardianKromar.swift in Sources */,
+				E000200A /* SkyQueenSkirra.swift in Sources */,
+				E000200B /* GeneralMaltorus.swift in Sources */,
+				E000200C /* Morgana.swift in Sources */,
+				E000200D /* Velkor.swift in Sources */,
+				E0003001 /* EnemyFactory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -310,7 +426,7 @@
 		E0000090 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				E0000013,
+				E0000013 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -318,7 +434,7 @@
 		E0000091 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				E0000016,
+				E0000016 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -454,6 +570,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = STZQ93XSP6;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ChroniclesOfRifts/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -482,6 +599,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = STZQ93XSP6;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ChroniclesOfRifts/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -509,8 +627,8 @@
 		E0000060 /* Build configuration list for PBXNativeTarget "ChroniclesOfRifts" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				E0000082,
-				E0000083,
+				E0000082 /* Debug */,
+				E0000083 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -518,8 +636,8 @@
 		E0000071 /* Build configuration list for PBXProject "ChroniclesOfRifts" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				E0000080,
-				E0000081,
+				E0000080 /* Debug */,
+				E0000081 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

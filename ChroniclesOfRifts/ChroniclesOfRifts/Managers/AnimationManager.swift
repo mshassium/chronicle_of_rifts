@@ -39,6 +39,68 @@ struct PlayerAnimationConfig {
     static let color = UIColor(red: 1.0, green: 0.84, blue: 0.0, alpha: 1.0) // Gold
 }
 
+// MARK: - CultistAnimationConfig
+
+/// Конфигурация анимаций для Cultist (культист)
+struct CultistAnimationConfig {
+    static let animations: [(name: String, frames: Int, timePerFrame: TimeInterval, repeats: Bool)] = [
+        ("idle", 2, 0.3, true),      // 2 кадра, 0.3 сек каждый, зациклено
+        ("walk", 4, 0.15, true),     // 4 кадра, 0.15 сек, зациклено
+        ("hurt", 1, 0.2, false),     // 1 кадр, без цикла
+        ("death", 3, 0.15, false)    // 3 кадра, без цикла
+    ]
+
+    static let size = CGSize(width: 24, height: 32)
+    static let color = UIColor(red: 0.545, green: 0, blue: 0, alpha: 1.0) // Тёмно-красный (#8B0000)
+}
+
+// MARK: - CorruptedSpiritAnimationConfig
+
+/// Конфигурация анимаций для CorruptedSpirit (повреждённый дух)
+struct CorruptedSpiritAnimationConfig {
+    static let animations: [(name: String, frames: Int, timePerFrame: TimeInterval, repeats: Bool)] = [
+        ("idle", 4, 0.25, true),     // 4 кадра, плавное мерцание
+        ("move", 4, 0.2, true),      // 4 кадра, зациклено
+        ("fade", 2, 0.3, false),     // 2 кадра, для перехода в прозрачность
+        ("death", 4, 0.15, false)    // 4 кадра, рассеивание
+    ]
+
+    static let size = CGSize(width: 28, height: 28)
+    static let color = UIColor(red: 0.6, green: 0.2, blue: 0.8, alpha: 0.7) // Фиолетовый полупрозрачный
+}
+
+// MARK: - FloatingEyeAnimationConfig
+
+/// Конфигурация анимаций для FloatingEye (летающий глаз)
+struct FloatingEyeAnimationConfig {
+    static let animations: [(name: String, frames: Int, timePerFrame: TimeInterval, repeats: Bool)] = [
+        ("idle", 2, 0.5, true),      // 2 кадра, моргание
+        ("alert", 2, 0.15, false),   // 2 кадра, расширение зрачка
+        ("attack", 3, 0.1, false),   // 3 кадра, выстрел
+        ("death", 3, 0.15, false)    // 3 кадра, уничтожение
+    ]
+
+    static let size = CGSize(width: 32, height: 32)
+    static let color = UIColor.white // Белый глаз
+}
+
+// MARK: - SkeletonAnimationConfig
+
+/// Конфигурация анимаций для Skeleton (скелет со щитом)
+struct SkeletonAnimationConfig {
+    static let animations: [(name: String, frames: Int, timePerFrame: TimeInterval, repeats: Bool)] = [
+        ("idle", 2, 0.4, true),      // 2 кадра, лёгкое покачивание
+        ("walk", 4, 0.15, true),     // 4 кадра, ходьба
+        ("attack", 4, 0.1, false),   // 4 кадра, удар мечом
+        ("block", 2, 0.1, false),    // 2 кадра, поднятие щита
+        ("hurt", 2, 0.1, false),     // 2 кадра, получение урона
+        ("death", 4, 0.15, false)    // 4 кадра, распад костей
+    ]
+
+    static let size = CGSize(width: 24, height: 40)
+    static let color = UIColor(red: 0.85, green: 0.85, blue: 0.8, alpha: 1.0) // Серо-белый (кости)
+}
+
 // MARK: - AnimationManager
 
 /// Менеджер анимаций (синглтон)
@@ -63,6 +125,14 @@ final class AnimationManager {
     private init() {
         // Создаём placeholder анимации для игрока
         setupPlayerPlaceholderAnimations()
+        // Создаём placeholder анимации для культиста
+        setupCultistPlaceholderAnimations()
+        // Создаём placeholder анимации для повреждённого духа
+        setupCorruptedSpiritPlaceholderAnimations()
+        // Создаём placeholder анимации для летающего глаза
+        setupFloatingEyePlaceholderAnimations()
+        // Создаём placeholder анимации для скелета
+        setupSkeletonPlaceholderAnimations()
     }
 
     // MARK: - Setup
@@ -86,6 +156,98 @@ final class AnimationManager {
             )
 
             let key = "player_\(config.name)"
+            animationCache[key] = animationData
+        }
+    }
+
+    /// Создаёт placeholder анимации для культиста при инициализации
+    private func setupCultistPlaceholderAnimations() {
+        for config in CultistAnimationConfig.animations {
+            let textures = createPlaceholderTextures(
+                for: "cultist",
+                animationName: config.name,
+                frameCount: config.frames,
+                size: CultistAnimationConfig.size,
+                color: CultistAnimationConfig.color
+            )
+
+            let animationData = AnimationData(
+                name: config.name,
+                frames: textures,
+                timePerFrame: config.timePerFrame,
+                repeatForever: config.repeats
+            )
+
+            let key = "cultist_\(config.name)"
+            animationCache[key] = animationData
+        }
+    }
+
+    /// Создаёт placeholder анимации для повреждённого духа при инициализации
+    private func setupCorruptedSpiritPlaceholderAnimations() {
+        for config in CorruptedSpiritAnimationConfig.animations {
+            let textures = createPlaceholderTextures(
+                for: "corruptedSpirit",
+                animationName: config.name,
+                frameCount: config.frames,
+                size: CorruptedSpiritAnimationConfig.size,
+                color: CorruptedSpiritAnimationConfig.color
+            )
+
+            let animationData = AnimationData(
+                name: config.name,
+                frames: textures,
+                timePerFrame: config.timePerFrame,
+                repeatForever: config.repeats
+            )
+
+            let key = "corruptedSpirit_\(config.name)"
+            animationCache[key] = animationData
+        }
+    }
+
+    /// Создаёт placeholder анимации для летающего глаза при инициализации
+    private func setupFloatingEyePlaceholderAnimations() {
+        for config in FloatingEyeAnimationConfig.animations {
+            let textures = createPlaceholderTextures(
+                for: "floatingEye",
+                animationName: config.name,
+                frameCount: config.frames,
+                size: FloatingEyeAnimationConfig.size,
+                color: FloatingEyeAnimationConfig.color
+            )
+
+            let animationData = AnimationData(
+                name: config.name,
+                frames: textures,
+                timePerFrame: config.timePerFrame,
+                repeatForever: config.repeats
+            )
+
+            let key = "floatingEye_\(config.name)"
+            animationCache[key] = animationData
+        }
+    }
+
+    /// Создаёт placeholder анимации для скелета при инициализации
+    private func setupSkeletonPlaceholderAnimations() {
+        for config in SkeletonAnimationConfig.animations {
+            let textures = createPlaceholderTextures(
+                for: "skeleton",
+                animationName: config.name,
+                frameCount: config.frames,
+                size: SkeletonAnimationConfig.size,
+                color: SkeletonAnimationConfig.color
+            )
+
+            let animationData = AnimationData(
+                name: config.name,
+                frames: textures,
+                timePerFrame: config.timePerFrame,
+                repeatForever: config.repeats
+            )
+
+            let key = "skeleton_\(config.name)"
             animationCache[key] = animationData
         }
     }

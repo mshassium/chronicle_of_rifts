@@ -8,6 +8,9 @@ class GameScene: BaseGameScene, InputDelegate {
     /// Игрок
     private var player: Player!
 
+    /// Враги на уровне
+    private var enemies: [Enemy] = []
+
     /// Загрузчик уровней
     private let levelLoader = LevelLoader()
 
@@ -211,6 +214,9 @@ class GameScene: BaseGameScene, InputDelegate {
             let spawnPos = levelData.playerSpawn.toPixels(tileSize: tileSize)
             setupPlayer(at: spawnPos, levelBounds: levelBounds)
 
+            // Спавним врагов через EnemyFactory
+            spawnEnemies(from: levelData)
+
             // Обновляем HUD
             levelLabel?.text = levelData.name
 
@@ -219,6 +225,24 @@ class GameScene: BaseGameScene, InputDelegate {
         } catch {
             print("GameScene: Ошибка загрузки уровня - \(error)")
         }
+    }
+
+    /// Спавнит врагов из данных уровня
+    /// - Parameter levelData: Данные уровня
+    private func spawnEnemies(from levelData: LevelData) {
+        // Очищаем старых врагов
+        enemies.forEach { $0.removeFromParent() }
+        enemies.removeAll()
+
+        // Спавним новых врагов через LevelLoader
+        enemies = levelLoader.spawnEnemies(in: gameLayer, from: levelData)
+
+        // Устанавливаем targetPlayer для всех врагов
+        for enemy in enemies {
+            enemy.targetPlayer = player
+        }
+
+        print("GameScene: Создано \(enemies.count) врагов, targetPlayer установлен")
     }
 
     /// Настройка игрока в заданной позиции
@@ -242,9 +266,23 @@ class GameScene: BaseGameScene, InputDelegate {
         // Обновление игрока
         player.update(deltaTime: deltaTime)
 
+        // Обновление врагов
+        updateEnemies(deltaTime: deltaTime)
+
         // Обновление HUD
         healthLabel?.text = "\(player.currentHealth)"
         crystalsLabel?.text = "\(crystalsCollected)"
+    }
+
+    /// Обновляет всех врагов и удаляет мёртвых
+    private func updateEnemies(deltaTime: TimeInterval) {
+        // Удаляем мёртвых врагов из массива
+        enemies.removeAll { $0.parent == nil || $0.currentState == .dead }
+
+        // Обновляем живых врагов
+        for enemy in enemies {
+            enemy.update(deltaTime: deltaTime)
+        }
     }
 
     // MARK: - InputDelegate
@@ -272,9 +310,12 @@ class GameScene: BaseGameScene, InputDelegate {
     // MARK: - Touch Handling
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        // Передаём касания в базовый класс для обработки контролов
+        super.touchesBegan(touches, with: event)
+
         guard let touch = touches.first else { return }
 
-        // Проверка нажатия на HUD элементы
+        // Проверка нажатия на HUD элементы (кроме контролов)
         let hudLocation = touch.location(in: hudLayer)
         let hudNodes = hudLayer.nodes(at: hudLocation)
 
@@ -284,17 +325,11 @@ class GameScene: BaseGameScene, InputDelegate {
                 return
             }
         }
+    }
 
-        // Тестовое взаимодействие - перемещение цели камеры
-        let gameLocation = touch.location(in: gameLayer)
-        if let target = gameLayer.childNode(withName: "cameraTarget") {
-            let moveAction = SKAction.move(to: gameLocation, duration: 0.5)
-            moveAction.timingMode = .easeInEaseOut
-            target.run(moveAction)
-
-            // Тест тряски камеры
-            gameCamera.shake(intensity: 5, duration: 0.2)
-        }
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        // Передаём касания в базовый класс для обработки контролов (джойстик)
+        super.touchesMoved(touches, with: event)
     }
 
     // MARK: - Pause Menu
@@ -372,6 +407,9 @@ class GameScene: BaseGameScene, InputDelegate {
     }
 
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        // Передаём касания в базовый класс для обработки контролов
+        super.touchesEnded(touches, with: event)
+
         guard isGamePaused, let touch = touches.first else { return }
 
         let location = touch.location(in: hudLayer)
@@ -576,6 +614,14 @@ extension GameScene: SKPhysicsContactDelegate {
             return
         }
 
+        // Player + EnemyProjectile
+        if collision == PhysicsCategory.player | PhysicsCategory.enemyProjectile {
+            if let projectile = getNode(from: contact, withCategory: PhysicsCategory.enemyProjectile) {
+                handlePlayerProjectileContact(player: player, projectile: projectile)
+            }
+            return
+        }
+
         // Player + Hazard
         if collision == PhysicsCategory.player | PhysicsCategory.hazard {
             handlePlayerHazardContact(player: player)
@@ -617,16 +663,22 @@ extension GameScene: SKPhysicsContactDelegate {
         let enemyTop = enemy.position.y + (enemy.frame.height / 2)
         let isStompingEnemy = playerBottom > enemyTop - 10 && player.velocity.dy < 0
 
-        if isStompingEnemy {
-            // Урон врагу
-            // TODO: if let enemyEntity = enemy as? Enemy { enemyEntity.takeDamage(1, knockback: 0) }
-
-            // Отскок игрока
-            player.bounce()
+        if let enemyEntity = enemy as? Enemy {
+            if isStompingEnemy {
+                // Stomp атака - враг обрабатывает это сам
+                enemyEntity.handleStomp(by: player)
+            } else {
+                // Контактный урон игроку
+                enemyEntity.dealContactDamage(to: player)
+            }
         } else {
-            // Урон игроку
-            let knockbackDir: CGFloat = player.position.x < enemy.position.x ? -1 : 1
-            player.takeDamage(1, knockbackDirection: knockbackDir)
+            // Fallback для placeholder врагов
+            if isStompingEnemy {
+                player.bounce()
+            } else {
+                let knockbackDir: CGFloat = player.position.x < enemy.position.x ? -1 : 1
+                player.takeDamage(1, knockbackDirection: knockbackDir)
+            }
         }
     }
 
@@ -634,6 +686,16 @@ extension GameScene: SKPhysicsContactDelegate {
     private func handlePlayerHazardContact(player: Player) {
         // Hazard наносит урон без отбрасывания
         player.takeDamage(1)
+    }
+
+    /// Обрабатывает контакт игрока со снарядом врага
+    private func handlePlayerProjectileContact(player: Player, projectile: SKNode) {
+        // Наносим урон игроку
+        let knockbackDirection: CGFloat = player.position.x < projectile.position.x ? -1 : 1
+        player.takeDamage(1, knockbackDirection: knockbackDirection)
+
+        // Удаляем снаряд
+        projectile.removeFromParent()
     }
 
     /// Хелпер для получения ноды из контакта по категории

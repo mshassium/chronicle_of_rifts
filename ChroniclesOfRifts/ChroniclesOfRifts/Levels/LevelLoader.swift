@@ -179,33 +179,113 @@ class LevelLoader {
         platform.run(SKAction.repeatForever(sequence))
     }
 
-    // MARK: - Enemy Creation (Stub)
+    // MARK: - Enemy Creation
 
+    /// Создаёт врага используя EnemyFactory
+    /// - Parameters:
+    ///   - data: Данные спавна врага
+    ///   - tileSize: Размер тайла для конвертации координат
+    /// - Returns: Созданный враг или placeholder если тип неизвестен
     func createEnemy(from data: EnemySpawnData, tileSize: CGFloat) -> SKNode {
         let position = data.position.toPixels(tileSize: tileSize)
 
-        // Stub implementation - colored rectangle
-        let enemy = SKSpriteNode(color: .red, size: CGSize(width: 32, height: 48))
-        enemy.position = position
-        enemy.name = "enemy_\(data.type)"
-        enemy.xScale = data.facing == .left ? -1 : 1
+        // Используем EnemyFactory для создания врага
+        if let enemy = EnemyFactory.createEnemy(from: data) {
+            enemy.position = position
 
-        // Physics body
-        enemy.physicsBody = SKPhysicsBody(rectangleOf: enemy.size)
-        enemy.physicsBody?.isDynamic = true
-        enemy.physicsBody?.allowsRotation = false
-        enemy.physicsBody?.categoryBitMask = PhysicsCategory.enemy
-        enemy.physicsBody?.contactTestBitMask = PhysicsCategory.player | PhysicsCategory.playerAttack
-        enemy.physicsBody?.collisionBitMask = PhysicsCategory.ground
+            // Конвертируем путь патрулирования в пиксели
+            if let path = data.patrolPath {
+                enemy.patrolPath = path.map { $0.toPixels(tileSize: tileSize) }
+            }
 
-        // Store enemy data for later use
-        enemy.userData = [
+            return enemy
+        }
+
+        // Fallback: если тип неизвестен, создаём placeholder
+        print("LevelLoader: Неизвестный тип врага '\(data.type)', создаю placeholder")
+        let placeholder = SKSpriteNode(color: .red, size: CGSize(width: 32, height: 48))
+        placeholder.position = position
+        placeholder.name = "enemy_\(data.type)_placeholder"
+        placeholder.xScale = data.facing == .left ? -1 : 1
+
+        placeholder.physicsBody = SKPhysicsBody(rectangleOf: placeholder.size)
+        placeholder.physicsBody?.isDynamic = true
+        placeholder.physicsBody?.allowsRotation = false
+        placeholder.physicsBody?.categoryBitMask = PhysicsCategory.enemy
+        placeholder.physicsBody?.contactTestBitMask = PhysicsCategory.player | PhysicsCategory.playerAttack
+        placeholder.physicsBody?.collisionBitMask = PhysicsCategory.ground
+
+        placeholder.userData = [
             "type": data.type,
             "facing": data.facing.rawValue,
-            "patrolPath": data.patrolPath?.map { $0.toPixels(tileSize: tileSize) } ?? []
+            "isPlaceholder": true
         ]
 
-        return enemy
+        return placeholder
+    }
+
+    // MARK: - Enemy Spawning
+
+    /// Спавнит врагов в сцене на основе данных уровня
+    /// - Parameters:
+    ///   - scene: Сцена для добавления врагов
+    ///   - levelData: Данные уровня
+    /// - Returns: Массив созданных врагов
+    @discardableResult
+    func spawnEnemies(in scene: SKScene, from levelData: LevelData) -> [Enemy] {
+        var spawnedEnemies: [Enemy] = []
+
+        for enemyData in levelData.enemies {
+            guard let enemy = EnemyFactory.createEnemy(from: enemyData) else {
+                print("LevelLoader: Неизвестный тип врага '\(enemyData.type)' — пропускаю")
+                continue
+            }
+
+            // Конвертируем позицию в пиксели
+            enemy.position = enemyData.position.toPixels(tileSize: levelData.tileSize)
+
+            // Конвертируем путь патрулирования в пиксели
+            if let path = enemyData.patrolPath {
+                enemy.patrolPath = path.map { $0.toPixels(tileSize: levelData.tileSize) }
+            }
+
+            scene.addChild(enemy)
+            spawnedEnemies.append(enemy)
+        }
+
+        print("LevelLoader: Создано \(spawnedEnemies.count) врагов из \(levelData.enemies.count)")
+        return spawnedEnemies
+    }
+
+    /// Спавнит врагов в указанную ноду (например, gameLayer)
+    /// - Parameters:
+    ///   - parentNode: Родительская нода для врагов
+    ///   - levelData: Данные уровня
+    /// - Returns: Массив созданных врагов
+    @discardableResult
+    func spawnEnemies(in parentNode: SKNode, from levelData: LevelData) -> [Enemy] {
+        var spawnedEnemies: [Enemy] = []
+
+        for enemyData in levelData.enemies {
+            guard let enemy = EnemyFactory.createEnemy(from: enemyData) else {
+                print("LevelLoader: Неизвестный тип врага '\(enemyData.type)' — пропускаю")
+                continue
+            }
+
+            // Конвертируем позицию в пиксели
+            enemy.position = enemyData.position.toPixels(tileSize: levelData.tileSize)
+
+            // Конвертируем путь патрулирования в пиксели
+            if let path = enemyData.patrolPath {
+                enemy.patrolPath = path.map { $0.toPixels(tileSize: levelData.tileSize) }
+            }
+
+            parentNode.addChild(enemy)
+            spawnedEnemies.append(enemy)
+        }
+
+        print("LevelLoader: Создано \(spawnedEnemies.count) врагов из \(levelData.enemies.count)")
+        return spawnedEnemies
     }
 
     // MARK: - Collectible Creation

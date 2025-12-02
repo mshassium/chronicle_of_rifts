@@ -11,6 +11,7 @@ enum PlayerState {
     case attacking  // Атака мечом
     case hurt       // Получение урона (кратковременно)
     case dead       // Смерть
+    case grabbed    // Захвачен врагом (SkyDevourer)
 }
 
 // MARK: - PlayerConfig
@@ -107,6 +108,14 @@ final class Player: SKSpriteNode {
     /// Таймер неуязвимости
     private var invulnerabilityTimer: TimeInterval = 0
 
+    // MARK: - Slow Effect
+
+    /// Множитель замедления (1.0 = нормальная скорость)
+    private(set) var slowMultiplier: CGFloat = 1.0
+
+    /// Таймер замедления
+    private var slowTimer: TimeInterval = 0
+
     // MARK: - Attack Hitbox
 
     /// Компонент ближней атаки
@@ -156,7 +165,8 @@ final class Player: SKSpriteNode {
         physicsBody.contactTestBitMask = PhysicsCategory.enemy |
                                           PhysicsCategory.collectible |
                                           PhysicsCategory.hazard |
-                                          PhysicsCategory.trigger
+                                          PhysicsCategory.trigger |
+                                          PhysicsCategory.enemyProjectile
 
         self.physicsBody = physicsBody
     }
@@ -168,10 +178,29 @@ final class Player: SKSpriteNode {
         facingDirection = .right
         velocity = .zero
         isGrounded = false
+        slowMultiplier = 1.0
+        slowTimer = 0
 
         // Запускаем начальную анимацию
         currentAnimation = ""
         playAnimation(for: .idle)
+
+        // Подписываемся на уведомления
+        subscribeToNotifications()
+    }
+
+    /// Подписка на уведомления
+    private func subscribeToNotifications() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleSlowEffect(_:)),
+            name: .playerSlowed,
+            object: nil
+        )
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 
     // MARK: - Update
@@ -202,7 +231,9 @@ final class Player: SKSpriteNode {
             return
         }
 
-        let targetSpeed = inputDirection * PlayerConfig.moveSpeed
+        // Применяем множитель замедления к скорости
+        let effectiveSpeed = PlayerConfig.moveSpeed * slowMultiplier
+        let targetSpeed = inputDirection * effectiveSpeed
 
         if isGrounded {
             // На земле - полный контроль
@@ -290,6 +321,15 @@ final class Player: SKSpriteNode {
             if invulnerabilityTimer <= 0 {
                 isInvulnerable = false
                 stopInvulnerabilityEffect()
+            }
+        }
+
+        // Slow timer
+        if slowTimer > 0 {
+            slowTimer -= deltaTime
+
+            if slowTimer <= 0 {
+                removeSlow()
             }
         }
     }
@@ -391,6 +431,16 @@ final class Player: SKSpriteNode {
         case (.attacking, _):
             return attackTimer <= 0
 
+        // Из grabbed можно только в falling или idle (при освобождении)
+        case (.grabbed, .falling), (.grabbed, .idle):
+            return true
+        case (.grabbed, _):
+            return false
+
+        // В grabbed можно из любого состояния кроме dead и hurt
+        case (_, .grabbed):
+            return currentState != .dead && currentState != .hurt
+
         // Все остальные переходы разрешены
         default:
             return true
@@ -441,6 +491,12 @@ final class Player: SKSpriteNode {
                     self?.onDeathAnimationComplete()
                 }
             ]))
+
+        case .grabbed:
+            // Отключаем управление и физику
+            velocity = .zero
+            physicsBody?.velocity = .zero
+            physicsBody?.isDynamic = false
         }
     }
 
@@ -456,6 +512,10 @@ final class Player: SKSpriteNode {
             isInvulnerable = true
             invulnerabilityTimer = PlayerConfig.invulnerabilityDuration
             startInvulnerabilityEffect()
+
+        case .grabbed:
+            // Восстанавливаем физику
+            physicsBody?.isDynamic = true
 
         default:
             break
@@ -628,6 +688,36 @@ final class Player: SKSpriteNode {
         changeState(to: .jumping)
     }
 
+    // MARK: - Slow Effect
+
+    /// Применить эффект замедления
+    /// - Parameters:
+    ///   - duration: Длительность замедления в секундах
+    ///   - multiplier: Множитель скорости (0.5 = 50% скорости)
+    func applySlow(duration: TimeInterval, multiplier: CGFloat) {
+        guard currentState != .dead else { return }
+
+        slowMultiplier = multiplier
+        slowTimer = duration
+    }
+
+    /// Снять эффект замедления
+    private func removeSlow() {
+        slowMultiplier = 1.0
+        slowTimer = 0
+    }
+
+    /// Обработка уведомления о замедлении
+    @objc private func handleSlowEffect(_ notification: Notification) {
+        // Проверяем, что уведомление предназначено нам
+        guard notification.object as? Player === self else { return }
+
+        if let duration = notification.userInfo?["duration"] as? TimeInterval,
+           let multiplier = notification.userInfo?["multiplier"] as? CGFloat {
+            applySlow(duration: duration, multiplier: multiplier)
+        }
+    }
+
     /// Callback после завершения анимации смерти
     private func onDeathAnimationComplete() {
         guard currentState == .dead else { return }
@@ -668,6 +758,7 @@ final class Player: SKSpriteNode {
         case .attacking: return "attack"
         case .hurt: return "hurt"
         case .dead: return "death"
+        case .grabbed: return "hurt" // Используем анимацию hurt для захвата
         }
     }
 
@@ -712,7 +803,31 @@ final class Player: SKSpriteNode {
         attackCooldown = 0
         jumpBufferTime = 0
         timeSinceGrounded = 0
+        slowMultiplier = 1.0
+        slowTimer = 0
         stopInvulnerabilityEffect()
+
+        // Удаляем визуальные эффекты замедления
+        childNode(withName: "freezeOverlay")?.removeFromParent()
+        childNode(withName: "iceParticles")?.removeFromParent()
+    }
+
+    // MARK: - Grab Mechanics
+
+    /// Захват игрока врагом
+    func setGrabbed() {
+        changeState(to: .grabbed)
+    }
+
+    /// Освобождение игрока из захвата
+    func releaseFromGrab() {
+        guard currentState == .grabbed else { return }
+        changeState(to: .falling)
+    }
+
+    /// Проверка, захвачен ли игрок
+    var isGrabbed: Bool {
+        return currentState == .grabbed
     }
 }
 
@@ -730,4 +845,7 @@ extension Notification.Name {
 
     /// Запрос тряски камеры
     static let requestCameraShake = Notification.Name("requestCameraShake")
+
+    /// Уведомление о замедлении игрока (от ледяных врагов)
+    static let playerSlowed = Notification.Name("playerSlowed")
 }
