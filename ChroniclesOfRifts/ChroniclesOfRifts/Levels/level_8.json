@@ -1,0 +1,340 @@
+{
+    "id": 8,
+    "name": "Сердце Цитадели",
+    "width": 75,
+    "height": 25,
+    "tileSize": 32,
+
+    "playerSpawn": { "x": 3, "y": 3 },
+
+    "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 75,
+        "height": 25
+    },
+    "deathZoneY": -5,
+
+    "backgroundLayers": [
+        {
+            "imageName": "bg_citadel_heart_far",
+            "parallaxFactor": 0.1,
+            "zPosition": -100
+        },
+        {
+            "imageName": "bg_citadel_heart_mid",
+            "parallaxFactor": 0.3,
+            "zPosition": -50
+        },
+        {
+            "imageName": "bg_citadel_heart_near",
+            "parallaxFactor": 0.6,
+            "zPosition": -20
+        }
+    ],
+
+    "platforms": [
+        {
+            "position": { "x": 0, "y": 1 },
+            "size": { "width": 8, "height": 2 },
+            "type": "solid"
+        },
+        {
+            "position": { "x": 5, "y": 4 },
+            "size": { "width": 3, "height": 1 },
+            "type": "oneWay"
+        },
+        {
+            "position": { "x": 10, "y": 2 },
+            "size": { "width": 5, "height": 2 },
+            "type": "solid"
+        },
+        {
+            "position": { "x": 13, "y": 5 },
+            "size": { "width": 3, "height": 1 },
+            "type": "oneWay"
+        },
+        {
+            "position": { "x": 17, "y": 3 },
+            "size": { "width": 3, "height": 2 },
+            "type": "solid"
+        },
+
+        {
+            "position": { "x": 22, "y": 4 },
+            "size": { "width": 3, "height": 1 },
+            "type": "moving",
+            "movementPath": [
+                { "x": 22, "y": 4 },
+                { "x": 22, "y": 10 }
+            ],
+            "movementSpeed": 25
+        },
+        {
+            "position": { "x": 27, "y": 8 },
+            "size": { "width": 4, "height": 1 },
+            "type": "solid"
+        },
+        {
+            "position": { "x": 32, "y": 6 },
+            "size": { "width": 3, "height": 1 },
+            "type": "crumbling"
+        },
+        {
+            "position": { "x": 36, "y": 8 },
+            "size": { "width": 4, "height": 1 },
+            "type": "moving",
+            "movementPath": [
+                { "x": 36, "y": 8 },
+                { "x": 42, "y": 8 }
+            ],
+            "movementSpeed": 30
+        },
+
+        {
+            "position": { "x": 42, "y": 2 },
+            "size": { "width": 13, "height": 3 },
+            "type": "solid"
+        },
+        {
+            "position": { "x": 45, "y": 6 },
+            "size": { "width": 4, "height": 1 },
+            "type": "solid"
+        },
+        {
+            "position": { "x": 50, "y": 8 },
+            "size": { "width": 3, "height": 1 },
+            "type": "oneWay"
+        },
+
+        {
+            "position": { "x": 57, "y": 2 },
+            "size": { "width": 18, "height": 3 },
+            "type": "solid"
+        },
+        {
+            "position": { "x": 60, "y": 6 },
+            "size": { "width": 5, "height": 1 },
+            "type": "solid"
+        },
+        {
+            "position": { "x": 66, "y": 8 },
+            "size": { "width": 4, "height": 1 },
+            "type": "solid"
+        },
+        {
+            "position": { "x": 71, "y": 6 },
+            "size": { "width": 4, "height": 2 },
+            "type": "solid"
+        }
+    ],
+
+    "enemies": [
+        {
+            "type": "EliteCultist",
+            "position": { "x": 12, "y": 5 },
+            "facing": "left"
+        },
+        {
+            "type": "FloatingEye",
+            "position": { "x": 25, "y": 12 },
+            "facing": "right"
+        },
+        {
+            "type": "Skeleton",
+            "position": { "x": 29, "y": 10 },
+            "facing": "left"
+        },
+        {
+            "type": "EliteCultist",
+            "position": { "x": 38, "y": 10 },
+            "facing": "right"
+        },
+        {
+            "type": "FloatingEye",
+            "position": { "x": 35, "y": 14 },
+            "facing": "left"
+        },
+
+        {
+            "type": "Skeleton",
+            "position": { "x": 60, "y": 5 },
+            "patrolPath": [
+                { "x": 58, "y": 5 },
+                { "x": 64, "y": 5 }
+            ],
+            "facing": "right"
+        },
+        {
+            "type": "EliteCultist",
+            "position": { "x": 62, "y": 8 },
+            "facing": "left"
+        },
+        {
+            "type": "Skeleton",
+            "position": { "x": 65, "y": 5 },
+            "facing": "right"
+        },
+        {
+            "type": "FloatingEye",
+            "position": { "x": 68, "y": 12 },
+            "facing": "left"
+        },
+        {
+            "type": "EliteCultist",
+            "position": { "x": 70, "y": 5 },
+            "patrolPath": [
+                { "x": 68, "y": 5 },
+                { "x": 73, "y": 5 }
+            ],
+            "facing": "right"
+        },
+        {
+            "type": "Skeleton",
+            "position": { "x": 67, "y": 10 },
+            "facing": "left"
+        },
+        {
+            "type": "EliteCultist",
+            "position": { "x": 72, "y": 10 },
+            "facing": "right"
+        },
+        {
+            "type": "FloatingEye",
+            "position": { "x": 63, "y": 14 },
+            "facing": "left"
+        },
+        {
+            "type": "Skeleton",
+            "position": { "x": 69, "y": 5 },
+            "facing": "left"
+        },
+        {
+            "type": "EliteCultist",
+            "position": { "x": 74, "y": 5 },
+            "facing": "right"
+        }
+    ],
+
+    "collectibles": [
+        { "type": "manaCrystal", "position": { "x": 3, "y": 4 } },
+        { "type": "manaCrystal", "position": { "x": 5, "y": 4 } },
+        { "type": "manaCrystal", "position": { "x": 6, "y": 6 } },
+        { "type": "manaCrystal", "position": { "x": 11, "y": 5 } },
+        { "type": "manaCrystal", "position": { "x": 14, "y": 7 } },
+        { "type": "manaCrystal", "position": { "x": 18, "y": 6 } },
+
+        { "type": "healthPickup", "position": { "x": 15, "y": 7 } },
+
+        { "type": "manaCrystal", "position": { "x": 23, "y": 8 } },
+        { "type": "manaCrystal", "position": { "x": 28, "y": 10 } },
+        { "type": "manaCrystal", "position": { "x": 30, "y": 10 } },
+        { "type": "manaCrystal", "position": { "x": 33, "y": 8 } },
+        { "type": "manaCrystal", "position": { "x": 38, "y": 10 } },
+        { "type": "manaCrystal", "position": { "x": 40, "y": 10 } },
+
+        { "type": "checkpoint", "position": { "x": 38, "y": 10 } },
+
+        { "type": "manaCrystal", "position": { "x": 44, "y": 6 } },
+        { "type": "manaCrystal", "position": { "x": 46, "y": 8 } },
+        { "type": "manaCrystal", "position": { "x": 48, "y": 8 } },
+        { "type": "manaCrystal", "position": { "x": 51, "y": 10 } },
+        { "type": "manaCrystal", "position": { "x": 53, "y": 6 } },
+
+        { "type": "healthPickup", "position": { "x": 52, "y": 10 } },
+
+        {
+            "type": "chroniclePage",
+            "position": { "x": 48, "y": 6 },
+            "id": "page_8_1"
+        },
+
+        { "type": "checkpoint", "position": { "x": 55, "y": 5 } },
+
+        { "type": "manaCrystal", "position": { "x": 59, "y": 6 } },
+        { "type": "manaCrystal", "position": { "x": 61, "y": 8 } },
+        { "type": "manaCrystal", "position": { "x": 63, "y": 8 } },
+        { "type": "manaCrystal", "position": { "x": 67, "y": 10 } },
+        { "type": "manaCrystal", "position": { "x": 69, "y": 10 } },
+        { "type": "manaCrystal", "position": { "x": 72, "y": 9 } },
+        { "type": "manaCrystal", "position": { "x": 74, "y": 9 } },
+
+        { "type": "healthPickup", "position": { "x": 68, "y": 10 } },
+        { "type": "healthPickup", "position": { "x": 73, "y": 9 } }
+    ],
+
+    "interactables": [
+        {
+            "type": "rune",
+            "position": { "x": 8, "y": 4 },
+            "runeId": "rune_1",
+            "activationOrder": 1
+        },
+        {
+            "type": "rune",
+            "position": { "x": 14, "y": 4 },
+            "runeId": "rune_2",
+            "activationOrder": 2
+        },
+        {
+            "type": "rune",
+            "position": { "x": 18, "y": 6 },
+            "runeId": "rune_3",
+            "activationOrder": 3
+        },
+        {
+            "type": "levelExit",
+            "position": { "x": 73, "y": 9 }
+        }
+    ],
+
+    "triggers": [
+        {
+            "type": "dialog",
+            "position": { "x": 5, "y": 3 },
+            "size": { "width": 3, "height": 4 },
+            "dialogId": "citadel_heart_intro",
+            "oneTime": true
+        },
+        {
+            "type": "dialog",
+            "position": { "x": 46, "y": 5 },
+            "size": { "width": 4, "height": 5 },
+            "dialogId": "father_tariel_meeting",
+            "oneTime": true
+        },
+        {
+            "type": "waveSpawn",
+            "position": { "x": 58, "y": 4 },
+            "size": { "width": 16, "height": 8 },
+            "waveId": "defense_waves",
+            "oneTime": true
+        },
+        {
+            "type": "dialog",
+            "position": { "x": 72, "y": 8 },
+            "size": { "width": 3, "height": 4 },
+            "dialogId": "defense_complete",
+            "oneTime": true
+        }
+    ],
+
+    "hazards": [
+        {
+            "type": "spikes",
+            "position": { "x": 25, "y": 1 },
+            "size": { "width": 5, "height": 1 }
+        },
+        {
+            "type": "spikes",
+            "position": { "x": 34, "y": 1 },
+            "size": { "width": 4, "height": 1 }
+        }
+    ],
+
+    "darkZones": [],
+    "torches": [],
+    "fallingGates": [],
+    "icicles": [],
+    "avalanches": []
+}

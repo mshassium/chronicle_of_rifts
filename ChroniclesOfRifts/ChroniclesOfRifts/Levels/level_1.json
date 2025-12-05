@@ -17,17 +17,17 @@
 
     "backgroundLayers": [
         {
-            "imageName": "bg_mountains_far",
+            "imageName": "bg_village_far",
             "parallaxFactor": 0.1,
             "zPosition": -100
         },
         {
-            "imageName": "bg_hills_mid",
+            "imageName": "bg_village_mid",
             "parallaxFactor": 0.3,
             "zPosition": -50
         },
         {
-            "imageName": "bg_trees_near",
+            "imageName": "bg_village_near",
             "parallaxFactor": 0.6,
             "zPosition": -20
         }
@@ -41,7 +41,7 @@
         },
         {
             "position": { "x": 22, "y": 1 },
-            "size": { "width": 15, "height": 1 },
+            "size": { "width": 16, "height": 1 },
             "type": "solid"
         },
         {
@@ -55,8 +55,13 @@
             "type": "crumbling"
         },
         {
-            "position": { "x": 40, "y": 1 },
-            "size": { "width": 25, "height": 1 },
+            "position": { "x": 34, "y": 3 },
+            "size": { "width": 3, "height": 1 },
+            "type": "solid"
+        },
+        {
+            "position": { "x": 42, "y": 1 },
+            "size": { "width": 23, "height": 1 },
             "type": "solid"
         },
         {
@@ -71,18 +76,38 @@
             "movementSpeed": 40
         },
         {
-            "position": { "x": 55, "y": 5 },
-            "size": { "width": 5, "height": 1 },
+            "position": { "x": 52, "y": 4 },
+            "size": { "width": 4, "height": 1 },
             "type": "oneWay"
         },
         {
+            "position": { "x": 56, "y": 6 },
+            "size": { "width": 4, "height": 1 },
+            "type": "oneWay"
+        },
+        {
+            "position": { "x": 60, "y": 9 },
+            "size": { "width": 3, "height": 1 },
+            "type": "solid"
+        },
+        {
             "position": { "x": 68, "y": 1 },
-            "size": { "width": 15, "height": 1 },
+            "size": { "width": 17, "height": 1 },
             "type": "solid"
         },
         {
             "position": { "x": 70, "y": 4 },
             "size": { "width": 3, "height": 1 },
+            "type": "crumbling"
+        },
+        {
+            "position": { "x": 74, "y": 3 },
+            "size": { "width": 8, "height": 1 },
+            "type": "solid"
+        },
+        {
+            "position": { "x": 76, "y": 6 },
+            "size": { "width": 4, "height": 1 },
             "type": "crumbling"
         },
         {
@@ -123,12 +148,21 @@
         },
         {
             "type": "Cultist",
-            "position": { "x": 75, "y": 3 },
+            "position": { "x": 72, "y": 3 },
             "patrolPath": [
-                { "x": 72, "y": 3 },
-                { "x": 78, "y": 3 }
+                { "x": 70, "y": 3 },
+                { "x": 75, "y": 3 }
             ],
             "facing": "right"
+        },
+        {
+            "type": "Cultist",
+            "position": { "x": 75, "y": 5 },
+            "patrolPath": [
+                { "x": 73, "y": 5 },
+                { "x": 78, "y": 5 }
+            ],
+            "facing": "left"
         }
     ],
 
@@ -137,24 +171,28 @@
         { "type": "manaCrystal", "position": { "x": 7, "y": 3 } },
         { "type": "manaCrystal", "position": { "x": 9, "y": 3 } },
         { "type": "manaCrystal", "position": { "x": 11, "y": 3 } },
+
         { "type": "manaCrystal", "position": { "x": 26, "y": 6 } },
         { "type": "manaCrystal", "position": { "x": 27, "y": 6 } },
         { "type": "manaCrystal", "position": { "x": 31, "y": 8 } },
+
         { "type": "manaCrystal", "position": { "x": 43, "y": 3 } },
-        { "type": "manaCrystal", "position": { "x": 45, "y": 3 } },
-        { "type": "manaCrystal", "position": { "x": 47, "y": 3 } },
-        { "type": "manaCrystal", "position": { "x": 56, "y": 7 } },
-        { "type": "manaCrystal", "position": { "x": 57, "y": 7 } },
-        { "type": "manaCrystal", "position": { "x": 58, "y": 7 } },
+        { "type": "manaCrystal", "position": { "x": 53, "y": 6 } },
+        { "type": "manaCrystal", "position": { "x": 57, "y": 8 } },
+        { "type": "manaCrystal", "position": { "x": 58, "y": 8 } },
+
+        { "type": "manaCrystal", "position": { "x": 69, "y": 3 } },
         { "type": "manaCrystal", "position": { "x": 71, "y": 6 } },
-        { "type": "manaCrystal", "position": { "x": 72, "y": 6 } },
+        { "type": "manaCrystal", "position": { "x": 77, "y": 8 } },
+        { "type": "manaCrystal", "position": { "x": 78, "y": 8 } },
+
         { "type": "manaCrystal", "position": { "x": 88, "y": 3 } },
         { "type": "manaCrystal", "position": { "x": 90, "y": 3 } },
         { "type": "manaCrystal", "position": { "x": 92, "y": 3 } },
         { "type": "manaCrystal", "position": { "x": 94, "y": 3 } },
         { "type": "manaCrystal", "position": { "x": 96, "y": 3 } },
 
-        { "type": "healthPickup", "position": { "x": 35, "y": 3 } },
+        { "type": "healthPickup", "position": { "x": 35, "y": 5 } },
         { "type": "healthPickup", "position": { "x": 80, "y": 3 } },
 
         { "type": "checkpoint", "position": { "x": 20, "y": 3 } },
@@ -163,7 +201,7 @@
 
         {
             "type": "chroniclePage",
-            "position": { "x": 62, "y": 3 },
+            "position": { "x": 61, "y": 11 },
             "id": "page_1_1"
         }
     ],

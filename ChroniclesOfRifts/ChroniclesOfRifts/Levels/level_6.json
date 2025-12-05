@@ -1,0 +1,340 @@
+{
+    "id": 6,
+    "name": "Море Осколков",
+    "width": 95,
+    "height": 30,
+    "tileSize": 32,
+
+    "playerSpawn": { "x": 3, "y": 5 },
+
+    "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 95,
+        "height": 30
+    },
+    "deathZoneY": -5,
+
+    "backgroundLayers": [
+        {
+            "imageName": "bg_sea_of_shards_far",
+            "parallaxFactor": 0.1,
+            "zPosition": -100
+        },
+        {
+            "imageName": "bg_sea_of_shards_mid",
+            "parallaxFactor": 0.3,
+            "zPosition": -50
+        },
+        {
+            "imageName": "bg_sea_of_shards_near",
+            "parallaxFactor": 0.6,
+            "zPosition": -20
+        }
+    ],
+
+    "platforms": [
+        {
+            "position": { "x": 0, "y": 3 },
+            "size": { "width": 5, "height": 2 },
+            "type": "solid"
+        },
+        {
+            "position": { "x": 7, "y": 4 },
+            "size": { "width": 3, "height": 1 },
+            "type": "floating",
+            "floatAmplitude": 0.5,
+            "floatPeriod": 3.0
+        },
+        {
+            "position": { "x": 12, "y": 5 },
+            "size": { "width": 2, "height": 1 },
+            "type": "solid"
+        },
+        {
+            "position": { "x": 16, "y": 6 },
+            "size": { "width": 4, "height": 2 },
+            "type": "floating",
+            "floatAmplitude": 0.8,
+            "floatPeriod": 4.0
+        },
+        {
+            "position": { "x": 22, "y": 5 },
+            "size": { "width": 3, "height": 1 },
+            "type": "solid"
+        },
+
+        {
+            "position": { "x": 27, "y": 6 },
+            "size": { "width": 3, "height": 1 },
+            "type": "disappearing",
+            "visibleTime": 2.0,
+            "hiddenTime": 1.5,
+            "startVisible": true
+        },
+        {
+            "position": { "x": 32, "y": 7 },
+            "size": { "width": 2, "height": 1 },
+            "type": "disappearing",
+            "visibleTime": 2.5,
+            "hiddenTime": 1.0,
+            "startVisible": false
+        },
+        {
+            "position": { "x": 36, "y": 8 },
+            "size": { "width": 3, "height": 1 },
+            "type": "moving",
+            "movementPath": [
+                { "x": 36, "y": 8 },
+                { "x": 40, "y": 8 }
+            ],
+            "movementSpeed": 30
+        },
+        {
+            "position": { "x": 38, "y": 5 },
+            "size": { "width": 4, "height": 2 },
+            "type": "solid"
+        },
+        {
+            "position": { "x": 43, "y": 6 },
+            "size": { "width": 2, "height": 1 },
+            "type": "disappearing",
+            "visibleTime": 1.8,
+            "hiddenTime": 1.2,
+            "startVisible": true
+        },
+
+        {
+            "position": { "x": 47, "y": 5 },
+            "size": { "width": 12, "height": 3 },
+            "type": "solid"
+        },
+
+        {
+            "position": { "x": 61, "y": 6 },
+            "size": { "width": 3, "height": 1 },
+            "type": "floating",
+            "floatAmplitude": 0.6,
+            "floatPeriod": 2.5
+        },
+        {
+            "position": { "x": 66, "y": 7 },
+            "size": { "width": 2, "height": 1 },
+            "type": "disappearing",
+            "visibleTime": 2.0,
+            "hiddenTime": 1.0,
+            "startVisible": true
+        },
+        {
+            "position": { "x": 70, "y": 5 },
+            "size": { "width": 4, "height": 2 },
+            "type": "solid"
+        },
+        {
+            "position": { "x": 75, "y": 8 },
+            "size": { "width": 3, "height": 1 },
+            "type": "moving",
+            "movementPath": [
+                { "x": 75, "y": 8 },
+                { "x": 75, "y": 12 }
+            ],
+            "movementSpeed": 25
+        },
+        {
+            "position": { "x": 79, "y": 6 },
+            "size": { "width": 2, "height": 1 },
+            "type": "floating",
+            "floatAmplitude": 0.7,
+            "floatPeriod": 3.5
+        },
+
+        {
+            "position": { "x": 83, "y": 5 },
+            "size": { "width": 4, "height": 2 },
+            "type": "moving",
+            "movementPath": [
+                { "x": 83, "y": 5 },
+                { "x": 87, "y": 8 },
+                { "x": 91, "y": 5 }
+            ],
+            "movementSpeed": 35
+        },
+        {
+            "position": { "x": 88, "y": 6 },
+            "size": { "width": 3, "height": 1 },
+            "type": "moving",
+            "movementPath": [
+                { "x": 88, "y": 6 },
+                { "x": 85, "y": 9 },
+                { "x": 88, "y": 12 }
+            ],
+            "movementSpeed": 30
+        },
+        {
+            "position": { "x": 92, "y": 7 },
+            "size": { "width": 3, "height": 2 },
+            "type": "solid"
+        }
+    ],
+
+    "enemies": [
+        {
+            "type": "SkyDevourer",
+            "position": { "x": 15, "y": 10 },
+            "facing": "left"
+        },
+        {
+            "type": "FloatingEye",
+            "position": { "x": 22, "y": 8 },
+            "facing": "left"
+        },
+        {
+            "type": "SkyDevourer",
+            "position": { "x": 35, "y": 12 },
+            "patrolPath": [
+                { "x": 30, "y": 12 },
+                { "x": 40, "y": 12 }
+            ],
+            "facing": "right"
+        },
+        {
+            "type": "SkyDevourer",
+            "position": { "x": 42, "y": 15 },
+            "facing": "left"
+        },
+        {
+            "type": "Cultist",
+            "position": { "x": 50, "y": 9 },
+            "facing": "right"
+        },
+        {
+            "type": "SkyDevourer",
+            "position": { "x": 65, "y": 10 },
+            "patrolPath": [
+                { "x": 62, "y": 10 },
+                { "x": 68, "y": 10 }
+            ],
+            "facing": "left"
+        },
+        {
+            "type": "SkyDevourer",
+            "position": { "x": 70, "y": 8 },
+            "facing": "right"
+        },
+        {
+            "type": "SkyDevourer",
+            "position": { "x": 75, "y": 12 },
+            "patrolPath": [
+                { "x": 73, "y": 12 },
+                { "x": 78, "y": 12 }
+            ],
+            "facing": "left"
+        },
+        {
+            "type": "FloatingEye",
+            "position": { "x": 78, "y": 6 },
+            "facing": "left"
+        }
+    ],
+
+    "collectibles": [
+        { "type": "manaCrystal", "position": { "x": 2, "y": 6 } },
+        { "type": "manaCrystal", "position": { "x": 4, "y": 6 } },
+        { "type": "manaCrystal", "position": { "x": 8, "y": 7 } },
+        { "type": "manaCrystal", "position": { "x": 9, "y": 7 } },
+        { "type": "manaCrystal", "position": { "x": 12, "y": 8 } },
+        { "type": "manaCrystal", "position": { "x": 17, "y": 10 } },
+        { "type": "manaCrystal", "position": { "x": 18, "y": 10 } },
+        { "type": "manaCrystal", "position": { "x": 22, "y": 8 } },
+        { "type": "manaCrystal", "position": { "x": 23, "y": 8 } },
+
+        { "type": "manaCrystal", "position": { "x": 28, "y": 9 } },
+        { "type": "manaCrystal", "position": { "x": 33, "y": 10 } },
+        { "type": "manaCrystal", "position": { "x": 37, "y": 11 } },
+        { "type": "manaCrystal", "position": { "x": 38, "y": 11 } },
+        { "type": "manaCrystal", "position": { "x": 40, "y": 8 } },
+        { "type": "manaCrystal", "position": { "x": 44, "y": 9 } },
+
+        { "type": "checkpoint", "position": { "x": 38, "y": 8 } },
+
+        { "type": "manaCrystal", "position": { "x": 48, "y": 9 } },
+        { "type": "manaCrystal", "position": { "x": 50, "y": 9 } },
+        { "type": "manaCrystal", "position": { "x": 52, "y": 9 } },
+        { "type": "manaCrystal", "position": { "x": 54, "y": 9 } },
+        { "type": "manaCrystal", "position": { "x": 56, "y": 9 } },
+
+        {
+            "type": "chroniclePage",
+            "position": { "x": 53, "y": 10 },
+            "id": "page_6_1"
+        },
+
+        { "type": "manaCrystal", "position": { "x": 62, "y": 9 } },
+        { "type": "manaCrystal", "position": { "x": 63, "y": 9 } },
+        { "type": "manaCrystal", "position": { "x": 67, "y": 10 } },
+        { "type": "manaCrystal", "position": { "x": 71, "y": 8 } },
+        { "type": "manaCrystal", "position": { "x": 72, "y": 8 } },
+        { "type": "manaCrystal", "position": { "x": 76, "y": 14 } },
+        { "type": "manaCrystal", "position": { "x": 80, "y": 9 } },
+
+        { "type": "healthPickup", "position": { "x": 76, "y": 15 } },
+
+        { "type": "checkpoint", "position": { "x": 71, "y": 8 } },
+
+        { "type": "manaCrystal", "position": { "x": 84, "y": 8 } },
+        { "type": "manaCrystal", "position": { "x": 86, "y": 10 } },
+        { "type": "manaCrystal", "position": { "x": 89, "y": 9 } },
+        { "type": "manaCrystal", "position": { "x": 90, "y": 10 } },
+        { "type": "manaCrystal", "position": { "x": 93, "y": 10 } },
+        { "type": "manaCrystal", "position": { "x": 94, "y": 10 } },
+
+        { "type": "healthPickup", "position": { "x": 88, "y": 14 } },
+
+        { "type": "checkpoint", "position": { "x": 82, "y": 8 } }
+    ],
+
+    "interactables": [
+        {
+            "type": "levelExit",
+            "position": { "x": 93, "y": 10 }
+        }
+    ],
+
+    "triggers": [
+        {
+            "type": "dialog",
+            "position": { "x": 5, "y": 5 },
+            "size": { "width": 3, "height": 4 },
+            "dialogId": "sea_of_shards_intro",
+            "oneTime": true
+        },
+        {
+            "type": "dialog",
+            "position": { "x": 50, "y": 8 },
+            "size": { "width": 4, "height": 5 },
+            "dialogId": "morgana_encounter",
+            "oneTime": true
+        },
+        {
+            "type": "bossSpawn",
+            "position": { "x": 85, "y": 7 },
+            "size": { "width": 6, "height": 6 },
+            "bossType": "SkyQueenSkirra",
+            "oneTime": true
+        },
+        {
+            "type": "dialog",
+            "position": { "x": 92, "y": 9 },
+            "size": { "width": 3, "height": 4 },
+            "dialogId": "skirra_defeat",
+            "oneTime": true
+        }
+    ],
+
+    "hazards": [],
+    "darkZones": [],
+    "torches": [],
+    "fallingGates": [],
+    "icicles": [],
+    "avalanches": []
+}

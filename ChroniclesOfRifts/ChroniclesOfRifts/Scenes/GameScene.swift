@@ -2,7 +2,7 @@ import SpriteKit
 import GameplayKit
 
 /// Основная игровая сцена уровня
-class GameScene: BaseGameScene, InputDelegate {
+class GameScene: BaseGameScene, InputDelegate, DialogManagerDelegate {
     // MARK: - Entities
 
     /// Игрок
@@ -10,6 +10,9 @@ class GameScene: BaseGameScene, InputDelegate {
 
     /// Враги на уровне
     private var enemies: [Enemy] = []
+
+    /// Движущиеся платформы на уровне
+    private var movingPlatforms: [MovingPlatform] = []
 
     /// Загрузчик уровней
     private let levelLoader = LevelLoader()
@@ -37,6 +40,14 @@ class GameScene: BaseGameScene, InputDelegate {
     private var crystalsLabel: SKLabelNode?
     private var levelLabel: SKLabelNode?
     private var pauseButton: SKSpriteNode?
+
+    // MARK: - Dialog
+
+    /// Диалоговое окно
+    private var dialogBox: DialogBox?
+
+    /// Флаг активного диалога
+    private var isDialogActive: Bool = false
 
     // MARK: - Lifecycle
 
@@ -94,6 +105,20 @@ class GameScene: BaseGameScene, InputDelegate {
             name: .requestCameraShake,
             object: nil
         )
+
+        // Подписка на активацию чекпоинта
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleCheckpointActivated(_:)),
+            name: .checkpointActivated,
+            object: nil
+        )
+
+        // Подписка на события диалогов
+        DialogManager.shared.delegate = self
+
+        // Создаём диалоговое окно
+        setupDialogBox()
 
         GameManager.shared.changeState(to: .playing)
     }
@@ -185,9 +210,84 @@ class GameScene: BaseGameScene, InputDelegate {
         hudLayer.addChild(pauseLabel)
     }
 
+    /// Настройка диалогового окна
+    private func setupDialogBox() {
+        dialogBox = DialogBox(size: size)
+        hudLayer.addChild(dialogBox!)
+    }
+
+    // MARK: - Dialog Methods
+
+    /// Показать диалоговое окно
+    func showDialogBox() {
+        dialogBox?.show(animated: true)
+    }
+
+    /// Скрыть диалоговое окно
+    func hideDialogBox() {
+        dialogBox?.hide(animated: true)
+    }
+
+    /// Запустить диалог по ID
+    func startDialog(id: String) {
+        guard !isDialogActive else { return }
+
+        isDialogActive = true
+
+        // Приостанавливаем игру (но не показываем меню паузы)
+        pauseGameForDialog()
+
+        // Показываем диалоговое окно
+        showDialogBox()
+
+        // Запускаем диалог
+        DialogManager.shared.startDialog(id: id)
+    }
+
+    /// Пауза игры для диалога (без показа меню паузы)
+    private func pauseGameForDialog() {
+        guard !isGamePaused else { return }
+
+        gameLayer.isPaused = true
+        physicsWorld.speed = 0
+    }
+
+    /// Возобновить игру после диалога
+    private func resumeGameFromDialog() {
+        guard isDialogActive else { return }
+
+        isDialogActive = false
+        gameLayer.isPaused = false
+        physicsWorld.speed = 1
+    }
+
+    // MARK: - DialogManagerDelegate
+
+    func dialogDidStart(dialogId: String) {
+        print("GameScene: Dialog '\(dialogId)' started")
+    }
+
+    func dialogDidEnd(dialogId: String) {
+        print("GameScene: Dialog '\(dialogId)' ended")
+
+        // Скрываем диалоговое окно
+        hideDialogBox()
+
+        // Возобновляем игру
+        resumeGameFromDialog()
+    }
+
+    func dialogLineChanged(line: DialogLine, index: Int, total: Int) {
+        // Отображаем реплику в диалоговом окне
+        dialogBox?.displayLine(line)
+    }
+
     /// Загрузить уровень по номеру
     /// - Parameter number: Номер уровня (0 = тестовый)
     private func loadLevel(number: Int) {
+        // Очищаем менеджер переключателей и дверей от предыдущего уровня
+        SwitchDoorManager.shared.clearAll()
+
         // Определяем имя файла
         let levelName = number == 0 ? "level_test" : "level_\(number)"
 
@@ -209,6 +309,14 @@ class GameScene: BaseGameScene, InputDelegate {
 
             // Создаём уровень через LevelLoader
             levelLoader.buildLevel(from: levelData, in: gameLayer)
+
+            // Получаем движущиеся платформы
+            movingPlatforms = levelLoader.getMovingPlatforms()
+
+            // Запускаем движение платформ
+            for platform in movingPlatforms {
+                platform.moveToNextWaypoint()
+            }
 
             // Создаём игрока в точке спавна
             let spawnPos = levelData.playerSpawn.toPixels(tileSize: tileSize)
@@ -269,9 +377,44 @@ class GameScene: BaseGameScene, InputDelegate {
         // Обновление врагов
         updateEnemies(deltaTime: deltaTime)
 
+        // Обновление движущихся платформ и перемещение игрока с ними
+        updatePlayerOnPlatforms()
+
         // Обновление HUD
         healthLabel?.text = "\(player.currentHealth)"
         crystalsLabel?.text = "\(crystalsCollected)"
+    }
+
+    /// Проверяет, стоит ли игрок на движущейся платформе, и перемещает его вместе с ней
+    private func updatePlayerOnPlatforms() {
+        // Находим платформу, на которой стоит игрок
+        let playerFeetY = player.position.y - player.size.height / 2
+        let playerLeft = player.position.x - player.size.width / 2
+        let playerRight = player.position.x + player.size.width / 2
+
+        // Проверяем вертикальную скорость игрока (если падает быстро - не на платформе)
+        let playerVelocityY = player.physicsBody?.velocity.dy ?? 0
+        let isPlayerFalling = playerVelocityY < -50
+
+        for platform in movingPlatforms {
+            let platformTop = platform.position.y + platform.size.height / 2
+            let platformLeft = platform.position.x - platform.size.width / 2
+            let platformRight = platform.position.x + platform.size.width / 2
+
+            // Проверяем, стоит ли игрок на этой платформе
+            let isOnTop = abs(playerFeetY - platformTop) < 10
+            let isWithinX = playerRight > platformLeft && playerLeft < platformRight
+
+            if isOnTop && isWithinX && !isPlayerFalling {
+                // Применяем дельту движения платформы к игроку
+                let delta = platform.calculateMovementDelta()
+                player.position.x += delta.dx
+                player.position.y += delta.dy
+            }
+
+            // Обновляем previousPosition после проверки
+            platform.updatePreviousPosition()
+        }
     }
 
     /// Обновляет всех врагов и удаляет мёртвых
@@ -310,6 +453,12 @@ class GameScene: BaseGameScene, InputDelegate {
     // MARK: - Touch Handling
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        // Обработка касания во время диалога
+        if isDialogActive {
+            handleDialogTouch()
+            return
+        }
+
         // Передаём касания в базовый класс для обработки контролов
         super.touchesBegan(touches, with: event)
 
@@ -324,6 +473,19 @@ class GameScene: BaseGameScene, InputDelegate {
                 togglePause()
                 return
             }
+        }
+    }
+
+    /// Обработка касания во время диалога
+    private func handleDialogTouch() {
+        guard let dialogBox = dialogBox else { return }
+
+        if dialogBox.isTyping {
+            // Если текст ещё печатается - показать весь текст
+            dialogBox.skipTypewriter()
+        } else {
+            // Если текст полностью показан - следующая реплика
+            DialogManager.shared.advanceDialog()
         }
     }
 
@@ -469,7 +631,10 @@ class GameScene: BaseGameScene, InputDelegate {
     /// Респавн игрока на чекпоинте
     func respawnPlayer() {
         let tileSize = currentLevelData?.tileSize ?? 32
-        let spawnPosition = currentCheckpoint ?? currentLevelData?.playerSpawn.toPixels(tileSize: tileSize) ?? CGPoint(x: size.width / 2, y: 200)
+
+        // Приоритет: 1) GameManager checkpoint, 2) локальный checkpoint, 3) playerSpawn из уровня
+        let checkpointFromManager = GameManager.shared.getCheckpointPosition(for: levelNumber)
+        let spawnPosition = checkpointFromManager ?? currentCheckpoint ?? currentLevelData?.playerSpawn.toPixels(tileSize: tileSize) ?? CGPoint(x: size.width / 2, y: 200)
         let levelBounds = currentLevelData?.bounds.toPixels(tileSize: tileSize) ?? CGRect(x: 0, y: 0, width: size.width * 2, height: size.height * 2)
 
         player.removeFromParent()
@@ -479,6 +644,11 @@ class GameScene: BaseGameScene, InputDelegate {
 
         // Восстанавливаем физику
         player.physicsBody?.isDynamic = true
+
+        // Устанавливаем targetPlayer для всех врагов
+        for enemy in enemies {
+            enemy.targetPlayer = player
+        }
 
         // Камера следит за игроком
         gameCamera.configure(
@@ -511,7 +681,7 @@ class GameScene: BaseGameScene, InputDelegate {
         case .checkpoint:
             currentCheckpoint = collectible.position
             collectible.activateCheckpoint()
-            // TODO: Показать уведомление "Checkpoint!"
+            showCheckpointMessage()
         }
     }
 
@@ -551,6 +721,78 @@ class GameScene: BaseGameScene, InputDelegate {
               let duration = notification.userInfo?["duration"] as? TimeInterval else { return }
 
         gameCamera.shake(intensity: intensity, duration: duration)
+    }
+
+    @objc private func handleCheckpointActivated(_ notification: Notification) {
+        guard let checkpoint = notification.object as? Checkpoint else { return }
+
+        // Обновляем локальную позицию чекпоинта
+        currentCheckpoint = checkpoint.getRespawnPosition()
+
+        // Показываем сообщение
+        showCheckpointMessage()
+    }
+
+    /// Показать сообщение "CHECKPOINT" на экране
+    private func showCheckpointMessage() {
+        // Создаём текст
+        let messageLabel = SKLabelNode(text: "CHECKPOINT")
+        messageLabel.fontName = "AvenirNext-Bold"
+        messageLabel.fontSize = 36
+        messageLabel.fontColor = SKColor(red: 0.3, green: 0.9, blue: 0.4, alpha: 1.0)
+        messageLabel.position = CGPoint(x: 0, y: 0)
+        messageLabel.zPosition = 200
+        messageLabel.alpha = 0
+
+        // Свечение текста
+        let glowLabel = SKLabelNode(text: "CHECKPOINT")
+        glowLabel.fontName = "AvenirNext-Bold"
+        glowLabel.fontSize = 36
+        glowLabel.fontColor = SKColor(red: 0.3, green: 0.9, blue: 0.4, alpha: 0.5)
+        glowLabel.position = .zero
+        glowLabel.zPosition = -1
+        glowLabel.setScale(1.1)
+        messageLabel.addChild(glowLabel)
+
+        hudLayer.addChild(messageLabel)
+
+        // Анимация: появление, подъём вверх, затухание
+        let appear = SKAction.fadeIn(withDuration: 0.2)
+        let wait = SKAction.wait(forDuration: 0.8)
+        let moveUp = SKAction.moveBy(x: 0, y: 50, duration: 0.5)
+        let fadeOut = SKAction.fadeOut(withDuration: 0.5)
+        let moveAndFade = SKAction.group([moveUp, fadeOut])
+        let remove = SKAction.removeFromParent()
+
+        let sequence = SKAction.sequence([appear, wait, moveAndFade, remove])
+        messageLabel.run(sequence)
+    }
+
+    // MARK: - Dialog Trigger Handling
+
+    /// Обработка триггера диалога
+    private func handleDialogTrigger(_ triggerNode: SKNode) {
+        guard let userData = triggerNode.userData else { return }
+
+        // Проверяем, не был ли триггер уже активирован (для oneTime триггеров)
+        let oneTime = userData["oneTime"] as? Bool ?? false
+        let alreadyTriggered = userData["triggered"] as? Bool ?? false
+
+        if oneTime && alreadyTriggered {
+            return
+        }
+
+        // Получаем dialogId
+        guard let dialogId = userData["dialogId"] as? String, !dialogId.isEmpty else {
+            print("GameScene: Dialog trigger has no dialogId")
+            return
+        }
+
+        // Отмечаем триггер как активированный
+        triggerNode.userData?["triggered"] = true
+
+        // Запускаем диалог
+        startDialog(id: dialogId)
     }
 
     /// Показать визуальный эффект урона
@@ -605,6 +847,42 @@ extension GameScene: SKPhysicsContactDelegate {
             return
         }
 
+        // Attack hitbox + Switch (attack activation)
+        if collision == PhysicsCategory.playerAttack | PhysicsCategory.trigger {
+            if let gameSwitch = getNode(from: contact, withCategory: PhysicsCategory.trigger) as? GameSwitch {
+                if gameSwitch.activationType == .attack {
+                    gameSwitch.activate()
+                }
+            }
+            return
+        }
+
+        // Player + Switch (step activation) or LevelExit or Dialog Trigger
+        if collision == PhysicsCategory.player | PhysicsCategory.trigger {
+            // Проверяем LevelExit
+            if let levelExit = getNode(from: contact, withCategory: PhysicsCategory.trigger) as? LevelExit {
+                levelExit.enter(player: player)
+                return
+            }
+
+            // Проверяем GameSwitch
+            if let gameSwitch = getNode(from: contact, withCategory: PhysicsCategory.trigger) as? GameSwitch {
+                if gameSwitch.activationType == .step {
+                    gameSwitch.activate()
+                }
+            }
+
+            // Проверяем Dialog Trigger
+            if let triggerNode = getNode(from: contact, withCategory: PhysicsCategory.trigger),
+               let userData = triggerNode.userData,
+               let typeString = userData["type"] as? String,
+               typeString == "dialog" {
+                handleDialogTrigger(triggerNode)
+                return
+            }
+            // Продолжаем обработку - могут быть другие триггеры
+        }
+
         // Player + Enemy
         if collision == PhysicsCategory.player | PhysicsCategory.enemy {
             if let enemyBody = bodyA.categoryBitMask == PhysicsCategory.enemy ? bodyA : bodyB as SKPhysicsBody?,
@@ -624,12 +902,23 @@ extension GameScene: SKPhysicsContactDelegate {
 
         // Player + Hazard
         if collision == PhysicsCategory.player | PhysicsCategory.hazard {
-            handlePlayerHazardContact(player: player)
+            if let hazard = getNode(from: contact, withCategory: PhysicsCategory.hazard) as? Hazard {
+                hazard.applyDamage(to: player)
+            } else {
+                // Fallback для старых hazard-нод
+                handlePlayerHazardContact(player: player)
+            }
             return
         }
 
         // Player + Collectible
         if collision == PhysicsCategory.player | PhysicsCategory.collectible {
+            // Проверяем, является ли это Checkpoint
+            if let checkpoint = getNode(from: contact, withCategory: PhysicsCategory.collectible) as? Checkpoint {
+                checkpoint.activate(by: player)
+                return
+            }
+            // Иначе это обычный Collectible
             if let collectible = getNode(from: contact, withCategory: PhysicsCategory.collectible) as? Collectible {
                 collectible.collect(by: player)
             }
@@ -651,6 +940,11 @@ extension GameScene: SKPhysicsContactDelegate {
                 // Если игрок выше или на уровне верха платформы - он приземлился
                 if playerBottom >= groundTop - 10 {
                     player.setGrounded(true)
+
+                    // Если это разрушающаяся платформа - активируем её
+                    if let crumblingPlatform = groundNode as? CrumblingPlatform {
+                        crumblingPlatform.trigger()
+                    }
                 }
             }
         }
@@ -716,6 +1010,13 @@ extension GameScene: SKPhysicsContactDelegate {
             // Небольшая задержка перед setGrounded(false) для стабильности
             // (coyote time в Player уже обрабатывает это)
             player.setGrounded(false)
+        }
+
+        // Окончание контакта с опасностью - остановить периодический урон
+        if collision == PhysicsCategory.player | PhysicsCategory.hazard {
+            if let hazard = getNode(from: contact, withCategory: PhysicsCategory.hazard) as? Hazard {
+                hazard.stopPeriodicDamage()
+            }
         }
     }
 }

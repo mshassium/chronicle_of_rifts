@@ -1,0 +1,243 @@
+{
+    "id": 9,
+    "name": "Тронный Зал Бездны",
+    "width": 60,
+    "height": 30,
+    "tileSize": 32,
+
+    "playerSpawn": { "x": 3, "y": 3 },
+
+    "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 60,
+        "height": 30
+    },
+    "deathZoneY": -3,
+
+    "backgroundLayers": [
+        {
+            "imageName": "bg_throne_hall_far",
+            "parallaxFactor": 0.1,
+            "zPosition": -100
+        },
+        {
+            "imageName": "bg_throne_hall_mid",
+            "parallaxFactor": 0.3,
+            "zPosition": -50
+        },
+        {
+            "imageName": "bg_throne_hall_near",
+            "parallaxFactor": 0.6,
+            "zPosition": -20
+        }
+    ],
+
+    "platforms": [
+        {
+            "position": { "x": 0, "y": 1 },
+            "size": { "width": 6, "height": 2 },
+            "type": "solid"
+        },
+        {
+            "position": { "x": 8, "y": 2 },
+            "size": { "width": 4, "height": 1 },
+            "type": "solid"
+        },
+        {
+            "position": { "x": 13, "y": 4 },
+            "size": { "width": 3, "height": 1 },
+            "type": "oneWay"
+        },
+
+        {
+            "position": { "x": 17, "y": 1 },
+            "size": { "width": 43, "height": 2 },
+            "type": "solid"
+        },
+
+        {
+            "position": { "x": 20, "y": 6 },
+            "size": { "width": 6, "height": 1 },
+            "type": "solid"
+        },
+        {
+            "position": { "x": 28, "y": 10 },
+            "size": { "width": 4, "height": 1 },
+            "type": "solid"
+        },
+        {
+            "position": { "x": 34, "y": 6 },
+            "size": { "width": 6, "height": 1 },
+            "type": "solid"
+        },
+
+        {
+            "position": { "x": 42, "y": 10 },
+            "size": { "width": 4, "height": 1 },
+            "type": "solid"
+        },
+        {
+            "position": { "x": 48, "y": 14 },
+            "size": { "width": 6, "height": 1 },
+            "type": "solid"
+        },
+
+        {
+            "position": { "x": 25, "y": 18 },
+            "size": { "width": 10, "height": 2 },
+            "type": "solid"
+        },
+
+        {
+            "position": { "x": 22, "y": 14 },
+            "size": { "width": 3, "height": 1 },
+            "type": "moving",
+            "movementPath": [
+                { "x": 22, "y": 14 },
+                { "x": 22, "y": 18 }
+            ],
+            "movementSpeed": 20
+        },
+        {
+            "position": { "x": 35, "y": 14 },
+            "size": { "width": 3, "height": 1 },
+            "type": "moving",
+            "movementPath": [
+                { "x": 35, "y": 14 },
+                { "x": 35, "y": 18 }
+            ],
+            "movementSpeed": 20
+        },
+
+        {
+            "position": { "x": 28, "y": 24 },
+            "size": { "width": 4, "height": 2 },
+            "type": "solid"
+        }
+    ],
+
+    "enemies": [
+        {
+            "type": "EliteCultist",
+            "position": { "x": 9, "y": 4 },
+            "facing": "left"
+        },
+        {
+            "type": "Skeleton",
+            "position": { "x": 14, "y": 6 },
+            "facing": "right"
+        }
+    ],
+
+    "collectibles": [
+        { "type": "manaCrystal", "position": { "x": 3, "y": 4 } },
+        { "type": "manaCrystal", "position": { "x": 5, "y": 4 } },
+        { "type": "manaCrystal", "position": { "x": 9, "y": 4 } },
+        { "type": "manaCrystal", "position": { "x": 14, "y": 6 } },
+
+        { "type": "checkpoint", "position": { "x": 15, "y": 3 } },
+
+        { "type": "manaCrystal", "position": { "x": 21, "y": 8 } },
+        { "type": "manaCrystal", "position": { "x": 23, "y": 8 } },
+        { "type": "manaCrystal", "position": { "x": 29, "y": 12 } },
+        { "type": "manaCrystal", "position": { "x": 35, "y": 8 } },
+        { "type": "manaCrystal", "position": { "x": 37, "y": 8 } },
+
+        { "type": "healthPickup", "position": { "x": 30, "y": 12 } },
+        { "type": "healthPickup", "position": { "x": 28, "y": 20 } }
+    ],
+
+    "interactables": [
+        {
+            "type": "levelExit",
+            "position": { "x": 29, "y": 27 }
+        }
+    ],
+
+    "triggers": [
+        {
+            "type": "dialog",
+            "position": { "x": 5, "y": 3 },
+            "size": { "width": 3, "height": 4 },
+            "dialogId": "throne_hall_intro",
+            "oneTime": true
+        },
+        {
+            "type": "bossSpawn",
+            "position": { "x": 17, "y": 3 },
+            "size": { "width": 5, "height": 5 },
+            "bossType": "Morgana",
+            "oneTime": true
+        },
+        {
+            "type": "bossPhase",
+            "position": { "x": 20, "y": 3 },
+            "size": { "width": 40, "height": 25 },
+            "bossType": "Morgana",
+            "phaseId": "phase_1",
+            "description": "Shadow magic and teleport"
+        },
+        {
+            "type": "bossPhase",
+            "position": { "x": 20, "y": 3 },
+            "size": { "width": 40, "height": 25 },
+            "bossType": "Morgana",
+            "phaseId": "phase_2",
+            "description": "Merge with Velkor shadow",
+            "healthThreshold": 0.66
+        },
+        {
+            "type": "bossPhase",
+            "position": { "x": 20, "y": 3 },
+            "size": { "width": 40, "height": 25 },
+            "bossType": "Morgana",
+            "phaseId": "phase_3",
+            "description": "Half-demon form",
+            "healthThreshold": 0.33
+        },
+        {
+            "type": "dialog",
+            "position": { "x": 28, "y": 26 },
+            "size": { "width": 4, "height": 4 },
+            "dialogId": "morgana_defeat",
+            "oneTime": true
+        }
+    ],
+
+    "hazards": [],
+    "darkZones": [],
+    "torches": [],
+    "fallingGates": [],
+    "icicles": [],
+    "avalanches": [],
+
+    "bossArena": {
+        "bounds": {
+            "x": 17,
+            "y": 1,
+            "width": 43,
+            "height": 28
+        },
+        "phases": [
+            {
+                "id": "phase_1",
+                "name": "Shadow Magic",
+                "healthThreshold": 1.0,
+                "attacks": ["shadowBolt", "teleport", "darkWave"]
+            },
+            {
+                "id": "phase_2",
+                "name": "Velkor's Shadow",
+                "healthThreshold": 0.66,
+                "attacks": ["shadowBolt", "teleport", "darkWave", "shadowMerge", "abyssalGrasp"]
+            },
+            {
+                "id": "phase_3",
+                "name": "Half-Demon Form",
+                "healthThreshold": 0.33,
+                "attacks": ["demonSlash", "teleport", "darkWave", "abyssalGrasp", "chaosStorm"]
+            }
+        ]
+    }
+}

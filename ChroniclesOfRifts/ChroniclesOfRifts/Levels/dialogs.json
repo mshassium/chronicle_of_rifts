@@ -1,0 +1,1064 @@
+{
+    "dialogs": [
+        {
+            "id": "intro_level1",
+            "lines": [
+                {
+                    "speaker": "Каэль",
+                    "text": "Что происходит?! Деревня в огне!",
+                    "portraitName": "kael_portrait",
+                    "emotion": "shocked"
+                },
+                {
+                    "speaker": "Торвальд",
+                    "text": "Культисты... Они атаковали Якорь. Беги, предупреди Аурелион!",
+                    "portraitName": "torvald_portrait",
+                    "emotion": "urgent"
+                },
+                {
+                    "speaker": "Каэль",
+                    "text": "Но учитель...",
+                    "portraitName": "kael_portrait",
+                    "emotion": "sad"
+                },
+                {
+                    "speaker": "Торвальд",
+                    "text": "Иди! Найди других хранителей... Это наш единственный шанс...",
+                    "portraitName": "torvald_portrait",
+                    "emotion": "dying"
+                }
+            ]
+        },
+        {
+            "id": "exit_level1",
+            "lines": [
+                {
+                    "speaker": "Каэль",
+                    "text": "Торвальд... Я не подведу тебя. Я найду способ остановить их.",
+                    "portraitName": "kael_portrait",
+                    "emotion": "determined"
+                }
+            ]
+        },
+        {
+            "id": "intro_level2",
+            "lines": [
+                {
+                    "speaker": "Каэль",
+                    "text": "Боги... Масштаб разрушений огромен. Мосты едва держатся.",
+                    "portraitName": "kael_portrait",
+                    "emotion": "shocked"
+                },
+                {
+                    "speaker": "Каэль",
+                    "text": "Нужно быть осторожным. Один неверный шаг — и я сорвусь в бездну.",
+                    "portraitName": "kael_portrait",
+                    "emotion": "neutral"
+                }
+            ]
+        },
+        {
+            "id": "bridge_crumbling",
+            "lines": [
+                {
+                    "speaker": "Каэль",
+                    "text": "Мост рушится! Нужно бежать!",
+                    "portraitName": "kael_portrait",
+                    "emotion": "shocked"
+                }
+            ]
+        },
+        {
+            "id": "grondar_intro",
+            "lines": [
+                {
+                    "speaker": "Грондар",
+                    "text": "Ещё один глупец, пытающийся спасти этот обречённый мир.",
+                    "portraitName": "grondar_portrait",
+                    "emotion": "evil"
+                },
+                {
+                    "speaker": "Каэль",
+                    "text": "Грондар?! Ты был хранителем этого Якоря! Почему ты предал свой народ?",
+                    "portraitName": "kael_portrait",
+                    "emotion": "angry"
+                },
+                {
+                    "speaker": "Грондар",
+                    "text": "Предал? Я открыл глаза! Велькор обещал мне силу, которой хранители никогда не знали.",
+                    "portraitName": "grondar_portrait",
+                    "emotion": "evil"
+                }
+            ]
+        },
+        {
+            "id": "grondar_defeat",
+            "lines": [
+                {
+                    "speaker": "Грондар",
+                    "text": "Невозможно... Ты силён, юный хранитель... Но уже слишком поздно...",
+                    "portraitName": "grondar_portrait",
+                    "emotion": "dying"
+                },
+                {
+                    "speaker": "Грондар",
+                    "text": "Якоря падают один за другим... Морганна уже близка к цели...",
+                    "portraitName": "grondar_portrait",
+                    "emotion": "dying"
+                },
+                {
+                    "speaker": "Каэль",
+                    "text": "Морганна... Я остановлю её.",
+                    "portraitName": "kael_portrait",
+                    "emotion": "determined"
+                }
+            ]
+        },
+        {
+            "id": "intro_level3",
+            "lines": [
+                {
+                    "speaker": "Каэль",
+                    "text": "Мировые Корни... Древняя роща, которая держит острова на плаву.",
+                    "portraitName": "kael_portrait",
+                    "emotion": "neutral"
+                },
+                {
+                    "speaker": "Каэль",
+                    "text": "Торвальд говорил, что здесь живут духи леса. Может, они помогут.",
+                    "portraitName": "kael_portrait",
+                    "emotion": "neutral"
+                }
+            ]
+        },
+        {
+            "id": "corruption_spreading",
+            "lines": [
+                {
+                    "speaker": "Каэль",
+                    "text": "Скверна... Она распространяется по корням. Деревья умирают.",
+                    "portraitName": "kael_portrait",
+                    "emotion": "sad"
+                },
+                {
+                    "speaker": "Каэль",
+                    "text": "Если не остановить это, вся роща погибнет.",
+                    "portraitName": "kael_portrait",
+                    "emotion": "determined"
+                }
+            ]
+        },
+        {
+            "id": "gnarled_guardian",
+            "lines": [
+                {
+                    "speaker": "Гнилой Страж",
+                    "text": "Чужак... в нашем... доме...",
+                    "portraitName": "gnarled_guardian_portrait",
+                    "emotion": "angry"
+                },
+                {
+                    "speaker": "Каэль",
+                    "text": "Я пришёл помочь! Скверна захватила рощу!",
+                    "portraitName": "kael_portrait",
+                    "emotion": "determined"
+                },
+                {
+                    "speaker": "Гнилой Страж",
+                    "text": "Слишком... поздно... Теперь ты... тоже станешь... частью тьмы...",
+                    "portraitName": "gnarled_guardian_portrait",
+                    "emotion": "evil"
+                }
+            ]
+        },
+        {
+            "id": "elvira_freed",
+            "lines": [
+                {
+                    "speaker": "Эльвира",
+                    "text": "Свободна... Наконец-то свободна от скверны.",
+                    "portraitName": "elvira_portrait",
+                    "emotion": "happy"
+                },
+                {
+                    "speaker": "Эльвира",
+                    "text": "Благодарю тебя, хранитель. Ты очистил Сердце Порчи и спас рощу.",
+                    "portraitName": "elvira_portrait",
+                    "emotion": "happy"
+                },
+                {
+                    "speaker": "Каэль",
+                    "text": "Я рад помочь. Но скверна распространяется и в других местах.",
+                    "portraitName": "kael_portrait",
+                    "emotion": "neutral"
+                },
+                {
+                    "speaker": "Эльвира",
+                    "text": "Я пойду с тобой. Моя магия поможет тебе в борьбе с тьмой.",
+                    "portraitName": "elvira_portrait",
+                    "emotion": "determined"
+                }
+            ]
+        },
+        {
+            "id": "catacombs_intro",
+            "lines": [
+                {
+                    "speaker": "Каэль",
+                    "text": "Катакомбы Аурелиона... Здесь хоронили древних королей.",
+                    "portraitName": "kael_portrait",
+                    "emotion": "neutral"
+                },
+                {
+                    "speaker": "Эльвира",
+                    "text": "Я чувствую тёмную магию. Здесь поднимают мёртвых.",
+                    "portraitName": "elvira_portrait",
+                    "emotion": "sad"
+                },
+                {
+                    "speaker": "Каэль",
+                    "text": "Некроманты... Ещё одни слуги Велькора.",
+                    "portraitName": "kael_portrait",
+                    "emotion": "angry"
+                }
+            ]
+        },
+        {
+            "id": "meet_korina",
+            "lines": [
+                {
+                    "speaker": "Корина",
+                    "text": "Стой! Ты не похож на одного из них.",
+                    "portraitName": "korina_portrait",
+                    "emotion": "neutral"
+                },
+                {
+                    "speaker": "Каэль",
+                    "text": "Я Каэль, хранитель из Элара. Кто ты?",
+                    "portraitName": "kael_portrait",
+                    "emotion": "neutral"
+                },
+                {
+                    "speaker": "Корина",
+                    "text": "Корина. Командир сопротивления. Мы пытаемся остановить некроманта Сальвуса.",
+                    "portraitName": "korina_portrait",
+                    "emotion": "determined"
+                },
+                {
+                    "speaker": "Корина",
+                    "text": "Он поднимает армию мёртвых для Морганны. Нам нужна помощь.",
+                    "portraitName": "korina_portrait",
+                    "emotion": "determined"
+                },
+                {
+                    "speaker": "Каэль",
+                    "text": "Тогда нам по пути. Веди.",
+                    "portraitName": "kael_portrait",
+                    "emotion": "determined"
+                }
+            ]
+        },
+        {
+            "id": "salvus_intro",
+            "lines": [
+                {
+                    "speaker": "Архинекромант Сальвус",
+                    "text": "А, гости... Как мило. Вы как раз успели к завершению ритуала.",
+                    "portraitName": "salvus_portrait",
+                    "emotion": "evil"
+                },
+                {
+                    "speaker": "Корина",
+                    "text": "Сальвус! Твоя магия — мерзость! Остановись!",
+                    "portraitName": "korina_portrait",
+                    "emotion": "angry"
+                },
+                {
+                    "speaker": "Архинекромант Сальвус",
+                    "text": "Остановиться? Когда я так близок к совершенству? Смотрите на мощь смерти!",
+                    "portraitName": "salvus_portrait",
+                    "emotion": "evil"
+                }
+            ]
+        },
+        {
+            "id": "salvus_defeat",
+            "lines": [
+                {
+                    "speaker": "Архинекромант Сальвус",
+                    "text": "Нет... Мои творения... Моя армия...",
+                    "portraitName": "salvus_portrait",
+                    "emotion": "dying"
+                },
+                {
+                    "speaker": "Корина",
+                    "text": "Конец тебе, некромант. Мёртвые наконец обретут покой.",
+                    "portraitName": "korina_portrait",
+                    "emotion": "determined"
+                },
+                {
+                    "speaker": "Корина",
+                    "text": "Каэль, путь к Цитадели лежит через Штормовые Пики. Будь осторожен.",
+                    "portraitName": "korina_portrait",
+                    "emotion": "neutral"
+                },
+                {
+                    "speaker": "Каэль",
+                    "text": "Спасибо за помощь, Корина. Я не забуду.",
+                    "portraitName": "kael_portrait",
+                    "emotion": "neutral"
+                }
+            ]
+        },
+        {
+            "id": "storm_peaks_intro",
+            "lines": [
+                {
+                    "speaker": "Каэль",
+                    "text": "Штормовые Пики... Ледяные горы на краю мира.",
+                    "portraitName": "kael_portrait",
+                    "emotion": "neutral"
+                },
+                {
+                    "speaker": "Эльвира",
+                    "text": "Здесь обитают древние стражи. Они не любят чужаков.",
+                    "portraitName": "elvira_portrait",
+                    "emotion": "neutral"
+                },
+                {
+                    "speaker": "Каэль",
+                    "text": "У нас нет выбора. Это единственный путь к Цитадели.",
+                    "portraitName": "kael_portrait",
+                    "emotion": "determined"
+                }
+            ]
+        },
+        {
+            "id": "father_notes",
+            "lines": [
+                {
+                    "speaker": "Каэль",
+                    "text": "Это... почерк отца!",
+                    "portraitName": "kael_portrait",
+                    "emotion": "shocked"
+                },
+                {
+                    "speaker": "Каэль",
+                    "text": "\"Морганна захватила меня. Они везут меня в Цитадель. Если кто-то найдёт это...\"",
+                    "portraitName": "kael_portrait",
+                    "emotion": "sad"
+                },
+                {
+                    "speaker": "Каэль",
+                    "text": "\"...знай: ключ к победе — Семя Жизни. Оно в Сердце Печати. Тариэль.\"",
+                    "portraitName": "kael_portrait",
+                    "emotion": "shocked"
+                },
+                {
+                    "speaker": "Каэль",
+                    "text": "Отец жив! Я должен спасти его!",
+                    "portraitName": "kael_portrait",
+                    "emotion": "determined"
+                }
+            ]
+        },
+        {
+            "id": "kromar_intro",
+            "lines": [
+                {
+                    "speaker": "Кромар",
+                    "text": "СТОЙ, СМЕРТНЫЙ! Никто не пройдёт через мой перевал!",
+                    "portraitName": "kromar_portrait",
+                    "emotion": "angry"
+                },
+                {
+                    "speaker": "Каэль",
+                    "text": "Я не враг, страж! Мне нужно пройти, чтобы спасти мир!",
+                    "portraitName": "kael_portrait",
+                    "emotion": "determined"
+                },
+                {
+                    "speaker": "Кромар",
+                    "text": "Слова... пустые слова. Докажи свою силу!",
+                    "portraitName": "kromar_portrait",
+                    "emotion": "angry"
+                }
+            ]
+        },
+        {
+            "id": "kromar_choice",
+            "lines": [
+                {
+                    "speaker": "Каэль",
+                    "text": "Кромар повержен... Но я чувствую, что скверна ещё не полностью захватила его.",
+                    "portraitName": "kael_portrait",
+                    "emotion": "neutral"
+                },
+                {
+                    "speaker": "Эльвира",
+                    "text": "Ты можешь уничтожить его... или попытаться очистить. Выбор за тобой.",
+                    "portraitName": "elvira_portrait",
+                    "emotion": "neutral"
+                }
+            ]
+        },
+        {
+            "id": "kromar_purified",
+            "lines": [
+                {
+                    "speaker": "Кромар",
+                    "text": "Ты... очистил меня? Я был рабом тьмы так долго...",
+                    "portraitName": "kromar_portrait",
+                    "emotion": "sad"
+                },
+                {
+                    "speaker": "Кромар",
+                    "text": "Благодарю тебя, хранитель. Я покажу тебе тайную тропу — она сократит твой путь.",
+                    "portraitName": "kromar_portrait",
+                    "emotion": "happy"
+                },
+                {
+                    "speaker": "Каэль",
+                    "text": "Спасибо, Кромар. Береги эти горы.",
+                    "portraitName": "kael_portrait",
+                    "emotion": "neutral"
+                }
+            ]
+        },
+        {
+            "id": "sea_of_shards_intro",
+            "lines": [
+                {
+                    "speaker": "Каэль",
+                    "text": "Море Осколков... Бесчисленные острова парят над бездной.",
+                    "portraitName": "kael_portrait",
+                    "emotion": "neutral"
+                },
+                {
+                    "speaker": "Эльвира",
+                    "text": "Будь осторожен. Здесь обитают Небесные Пожиратели — они охотятся на путников.",
+                    "portraitName": "elvira_portrait",
+                    "emotion": "neutral"
+                }
+            ]
+        },
+        {
+            "id": "morgana_encounter",
+            "lines": [
+                {
+                    "speaker": "Морганна",
+                    "text": "Каэль... Сын Тариэля. Ты пришёл дальше, чем я ожидала.",
+                    "portraitName": "morgana_portrait",
+                    "emotion": "evil"
+                },
+                {
+                    "speaker": "Каэль",
+                    "text": "Морганна! Где мой отец?!",
+                    "portraitName": "kael_portrait",
+                    "emotion": "angry"
+                },
+                {
+                    "speaker": "Морганна",
+                    "text": "Твой отец? Он в Цитадели... помогает мне завершить ритуал. Добровольно или нет.",
+                    "portraitName": "morgana_portrait",
+                    "emotion": "evil"
+                },
+                {
+                    "speaker": "Морганна",
+                    "text": "Ты так похож на него... Такой же упрямый. Но это тебя не спасёт.",
+                    "portraitName": "morgana_portrait",
+                    "emotion": "evil"
+                },
+                {
+                    "speaker": "Каэль",
+                    "text": "Я найду его и остановлю тебя!",
+                    "portraitName": "kael_portrait",
+                    "emotion": "determined"
+                },
+                {
+                    "speaker": "Морганна",
+                    "text": "Дерзкий мальчишка. Мы ещё встретимся... в моём тронном зале.",
+                    "portraitName": "morgana_portrait",
+                    "emotion": "evil"
+                }
+            ]
+        },
+        {
+            "id": "skirra_intro",
+            "lines": [
+                {
+                    "speaker": "Королева Скирра",
+                    "text": "КРРР! Ещё одна жертва для моего выводка!",
+                    "portraitName": "skirra_portrait",
+                    "emotion": "angry"
+                },
+                {
+                    "speaker": "Каэль",
+                    "text": "Ты служишь Морганне?",
+                    "portraitName": "kael_portrait",
+                    "emotion": "neutral"
+                },
+                {
+                    "speaker": "Королева Скирра",
+                    "text": "Морганна? Нет! Я служу только себе! Но она платит хорошо за мёртвых хранителей!",
+                    "portraitName": "skirra_portrait",
+                    "emotion": "evil"
+                }
+            ]
+        },
+        {
+            "id": "skirra_defeat",
+            "lines": [
+                {
+                    "speaker": "Королева Скирра",
+                    "text": "Невозможно... Моё гнездо... Мой выводок...",
+                    "portraitName": "skirra_portrait",
+                    "emotion": "dying"
+                },
+                {
+                    "speaker": "Каэль",
+                    "text": "Путь к Цитадели открыт. Осталось немного.",
+                    "portraitName": "kael_portrait",
+                    "emotion": "determined"
+                }
+            ]
+        },
+        {
+            "id": "citadel_gates_intro",
+            "lines": [
+                {
+                    "speaker": "Каэль",
+                    "text": "Врата Цитадели... Армия порченых охраняет вход.",
+                    "portraitName": "kael_portrait",
+                    "emotion": "neutral"
+                },
+                {
+                    "speaker": "Эльвира",
+                    "text": "Их слишком много для прямого штурма. Нужно найти другой путь.",
+                    "portraitName": "elvira_portrait",
+                    "emotion": "neutral"
+                },
+                {
+                    "speaker": "Каэль",
+                    "text": "Тогда прорвёмся. Каждый враг, которого я повергну, — это шаг к отцу.",
+                    "portraitName": "kael_portrait",
+                    "emotion": "determined"
+                }
+            ]
+        },
+        {
+            "id": "father_cell",
+            "lines": [
+                {
+                    "speaker": "Каэль",
+                    "text": "Следы отца... Его здесь держали. Надписи на стенах...",
+                    "portraitName": "kael_portrait",
+                    "emotion": "sad"
+                },
+                {
+                    "speaker": "Каэль",
+                    "text": "\"Держись, Каэль. Я знаю, ты придёшь. Верю в тебя.\"",
+                    "portraitName": "kael_portrait",
+                    "emotion": "sad"
+                },
+                {
+                    "speaker": "Каэль",
+                    "text": "Отец... Я уже близко!",
+                    "portraitName": "kael_portrait",
+                    "emotion": "determined"
+                }
+            ]
+        },
+        {
+            "id": "maltorus_intro",
+            "lines": [
+                {
+                    "speaker": "Генерал Малторус",
+                    "text": "Ты тот самый хранитель, что доставляет столько хлопот моей госпоже?",
+                    "portraitName": "maltorus_portrait",
+                    "emotion": "evil"
+                },
+                {
+                    "speaker": "Каэль",
+                    "text": "Отойди с дороги, демон!",
+                    "portraitName": "kael_portrait",
+                    "emotion": "angry"
+                },
+                {
+                    "speaker": "Генерал Малторус",
+                    "text": "Дерзость молодости... Я раздавлю тебя, как насекомое.",
+                    "portraitName": "maltorus_portrait",
+                    "emotion": "evil"
+                }
+            ]
+        },
+        {
+            "id": "maltorus_defeat",
+            "lines": [
+                {
+                    "speaker": "Генерал Малторус",
+                    "text": "Как... ты... посмел...",
+                    "portraitName": "maltorus_portrait",
+                    "emotion": "dying"
+                },
+                {
+                    "speaker": "Каэль",
+                    "text": "Врата открыты. Путь в сердце Цитадели свободен.",
+                    "portraitName": "kael_portrait",
+                    "emotion": "determined"
+                }
+            ]
+        },
+        {
+            "id": "citadel_heart_intro",
+            "lines": [
+                {
+                    "speaker": "Каэль",
+                    "text": "Сердце Цитадели... Руны сдерживания повсюду.",
+                    "portraitName": "kael_portrait",
+                    "emotion": "neutral"
+                },
+                {
+                    "speaker": "Эльвира",
+                    "text": "Эти руны запечатывают что-то ужасное. Чувствуешь эту силу?",
+                    "portraitName": "elvira_portrait",
+                    "emotion": "neutral"
+                },
+                {
+                    "speaker": "Каэль",
+                    "text": "Велькор... Он здесь, под этими печатями.",
+                    "portraitName": "kael_portrait",
+                    "emotion": "neutral"
+                }
+            ]
+        },
+        {
+            "id": "father_reunion",
+            "lines": [
+                {
+                    "speaker": "Тариэль",
+                    "text": "Каэль?! Ты... ты пришёл!",
+                    "portraitName": "tariel_portrait",
+                    "emotion": "shocked"
+                },
+                {
+                    "speaker": "Каэль",
+                    "text": "Отец!",
+                    "portraitName": "kael_portrait",
+                    "emotion": "happy"
+                },
+                {
+                    "speaker": "Тариэль",
+                    "text": "Сын мой... Ты так вырос. Я знал, что ты справишься.",
+                    "portraitName": "tariel_portrait",
+                    "emotion": "happy"
+                },
+                {
+                    "speaker": "Каэль",
+                    "text": "Я нашёл твои записи. Семя Жизни — это наш шанс?",
+                    "portraitName": "kael_portrait",
+                    "emotion": "neutral"
+                },
+                {
+                    "speaker": "Тариэль",
+                    "text": "Да. Семя Жизни может навсегда запечатать Велькора. Но добраться до него непросто.",
+                    "portraitName": "tariel_portrait",
+                    "emotion": "neutral"
+                }
+            ]
+        },
+        {
+            "id": "father_explanation",
+            "lines": [
+                {
+                    "speaker": "Тариэль",
+                    "text": "Слушай внимательно, Каэль. Морганна уже сломала три Якоря из четырёх.",
+                    "portraitName": "tariel_portrait",
+                    "emotion": "neutral"
+                },
+                {
+                    "speaker": "Тариэль",
+                    "text": "Когда падёт последний, Велькор проснётся. Но у нас есть шанс.",
+                    "portraitName": "tariel_portrait",
+                    "emotion": "neutral"
+                },
+                {
+                    "speaker": "Тариэль",
+                    "text": "В Сердце Печати хранится Семя Жизни — древний артефакт первых хранителей.",
+                    "portraitName": "tariel_portrait",
+                    "emotion": "neutral"
+                },
+                {
+                    "speaker": "Тариэль",
+                    "text": "Если использовать его в момент пробуждения Велькора, можно запечатать его навечно.",
+                    "portraitName": "tariel_portrait",
+                    "emotion": "determined"
+                },
+                {
+                    "speaker": "Каэль",
+                    "text": "Тогда нам нужно спешить!",
+                    "portraitName": "kael_portrait",
+                    "emotion": "determined"
+                }
+            ]
+        },
+        {
+            "id": "father_sacrifice",
+            "lines": [
+                {
+                    "speaker": "Тариэль",
+                    "text": "Каэль, враги приближаются. Я задержу их здесь.",
+                    "portraitName": "tariel_portrait",
+                    "emotion": "determined"
+                },
+                {
+                    "speaker": "Каэль",
+                    "text": "Нет! Я только нашёл тебя!",
+                    "portraitName": "kael_portrait",
+                    "emotion": "sad"
+                },
+                {
+                    "speaker": "Тариэль",
+                    "text": "Каэль, мир важнее одной жизни. Ты знаешь это. Иди.",
+                    "portraitName": "tariel_portrait",
+                    "emotion": "determined"
+                },
+                {
+                    "speaker": "Тариэль",
+                    "text": "Я горжусь тобой, сын. Теперь ты — настоящий хранитель.",
+                    "portraitName": "tariel_portrait",
+                    "emotion": "happy"
+                },
+                {
+                    "speaker": "Каэль",
+                    "text": "Отец... Я вернусь за тобой. Обещаю.",
+                    "portraitName": "kael_portrait",
+                    "emotion": "determined"
+                }
+            ]
+        },
+        {
+            "id": "throne_hall_intro",
+            "lines": [
+                {
+                    "speaker": "Каэль",
+                    "text": "Тронный Зал Бездны... Здесь всё закончится.",
+                    "portraitName": "kael_portrait",
+                    "emotion": "determined"
+                },
+                {
+                    "speaker": "Эльвира",
+                    "text": "Я чувствую её присутствие. Морганна близко.",
+                    "portraitName": "elvira_portrait",
+                    "emotion": "neutral"
+                }
+            ]
+        },
+        {
+            "id": "morgana_final",
+            "lines": [
+                {
+                    "speaker": "Морганна",
+                    "text": "Каэль... Ты добрался до самого конца. Впечатляет.",
+                    "portraitName": "morgana_portrait",
+                    "emotion": "evil"
+                },
+                {
+                    "speaker": "Каэль",
+                    "text": "Это конец твоему безумию, Морганна!",
+                    "portraitName": "kael_portrait",
+                    "emotion": "angry"
+                },
+                {
+                    "speaker": "Морганна",
+                    "text": "Безумие? Я освобождаю бога! Велькор вернёт этому миру первозданный хаос!",
+                    "portraitName": "morgana_portrait",
+                    "emotion": "evil"
+                },
+                {
+                    "speaker": "Морганна",
+                    "text": "И ты не сможешь меня остановить. Ритуал почти завершён!",
+                    "portraitName": "morgana_portrait",
+                    "emotion": "evil"
+                }
+            ]
+        },
+        {
+            "id": "morgana_phase2",
+            "lines": [
+                {
+                    "speaker": "Морганна",
+                    "text": "Ты силён... Но недостаточно! ВЕЛЬКОР, ДАЙ МНЕ СВОЮ МОЩЬ!",
+                    "portraitName": "morgana_portrait",
+                    "emotion": "angry"
+                },
+                {
+                    "speaker": "Каэль",
+                    "text": "Что она делает?!",
+                    "portraitName": "kael_portrait",
+                    "emotion": "shocked"
+                },
+                {
+                    "speaker": "Эльвира",
+                    "text": "Она сливается с тенью Велькора! Будь осторожен!",
+                    "portraitName": "elvira_portrait",
+                    "emotion": "shocked"
+                }
+            ]
+        },
+        {
+            "id": "morgana_phase3",
+            "lines": [
+                {
+                    "speaker": "Морганна",
+                    "text": "ЧУВСТВУЕШЬ ЭТУ СИЛУ?! ЭТО ЛИШЬ МАЛАЯ ЧАСТЬ МОЩИ ВЕЛЬКОРА!",
+                    "portraitName": "morgana_portrait",
+                    "emotion": "evil"
+                },
+                {
+                    "speaker": "Каэль",
+                    "text": "Она... превращается в демона!",
+                    "portraitName": "kael_portrait",
+                    "emotion": "shocked"
+                },
+                {
+                    "speaker": "Эльвира",
+                    "text": "Не сдавайся, Каэль! Ты сильнее, чем думаешь!",
+                    "portraitName": "elvira_portrait",
+                    "emotion": "determined"
+                }
+            ]
+        },
+        {
+            "id": "morgana_defeat",
+            "lines": [
+                {
+                    "speaker": "Морганна",
+                    "text": "Нет... Невозможно... Я была так близка...",
+                    "portraitName": "morgana_portrait",
+                    "emotion": "dying"
+                },
+                {
+                    "speaker": "Каэль",
+                    "text": "Это конец, Морганна.",
+                    "portraitName": "kael_portrait",
+                    "emotion": "determined"
+                },
+                {
+                    "speaker": "Морганна",
+                    "text": "Глупец... Уже слишком поздно... Последний Якорь пал... Велькор... пробуждается...",
+                    "portraitName": "morgana_portrait",
+                    "emotion": "dying"
+                },
+                {
+                    "speaker": "Эльвира",
+                    "text": "Каэль! Земля трясётся! Что-то происходит!",
+                    "portraitName": "elvira_portrait",
+                    "emotion": "shocked"
+                }
+            ]
+        },
+        {
+            "id": "velkor_awakening",
+            "lines": [
+                {
+                    "speaker": "Велькор",
+                    "text": "СВОБОДЕН... НАКОНЕЦ-ТО СВОБОДЕН...",
+                    "portraitName": "velkor_portrait",
+                    "emotion": "evil"
+                },
+                {
+                    "speaker": "Каэль",
+                    "text": "Велькор! Ты не уничтожишь этот мир!",
+                    "portraitName": "kael_portrait",
+                    "emotion": "determined"
+                },
+                {
+                    "speaker": "Велькор",
+                    "text": "ЖАЛКИЙ СМЕРТНЫЙ... ТЫ ДУМАЕШЬ, ЧТО МОЖЕШЬ ПРОТИВОСТОЯТЬ БОГУ?",
+                    "portraitName": "velkor_portrait",
+                    "emotion": "evil"
+                },
+                {
+                    "speaker": "Каэль",
+                    "text": "Я — хранитель. И я запечатаю тебя навечно!",
+                    "portraitName": "kael_portrait",
+                    "emotion": "determined"
+                }
+            ]
+        },
+        {
+            "id": "chain1_activated",
+            "lines": [
+                {
+                    "speaker": "Каэль",
+                    "text": "Первая цепь активирована! Велькор слабеет!",
+                    "portraitName": "kael_portrait",
+                    "emotion": "determined"
+                },
+                {
+                    "speaker": "Велькор",
+                    "text": "ЧТО ТЫ ДЕЛАЕШЬ?! ОСТАНОВИСЬ!",
+                    "portraitName": "velkor_portrait",
+                    "emotion": "angry"
+                }
+            ]
+        },
+        {
+            "id": "chain2_activated",
+            "lines": [
+                {
+                    "speaker": "Каэль",
+                    "text": "Вторая цепь! Держись, мир!",
+                    "portraitName": "kael_portrait",
+                    "emotion": "determined"
+                },
+                {
+                    "speaker": "Велькор",
+                    "text": "НЕТ! ЭТО НЕВОЗМОЖНО!",
+                    "portraitName": "velkor_portrait",
+                    "emotion": "angry"
+                }
+            ]
+        },
+        {
+            "id": "chain3_activated",
+            "lines": [
+                {
+                    "speaker": "Каэль",
+                    "text": "Третья! Ещё одна — и печать восстановится!",
+                    "portraitName": "kael_portrait",
+                    "emotion": "determined"
+                },
+                {
+                    "speaker": "Велькор",
+                    "text": "Я УНИЧТОЖУ ТЕБЯ! УНИЧТОЖУ ВСЁ!",
+                    "portraitName": "velkor_portrait",
+                    "emotion": "angry"
+                }
+            ]
+        },
+        {
+            "id": "chain4_activated",
+            "lines": [
+                {
+                    "speaker": "Каэль",
+                    "text": "Последняя цепь! Теперь — к Сердцу Печати!",
+                    "portraitName": "kael_portrait",
+                    "emotion": "determined"
+                },
+                {
+                    "speaker": "Велькор",
+                    "text": "НЕТ!!! Я НЕ ВЕРНУСЬ ВО ТЬМУ!!!",
+                    "portraitName": "velkor_portrait",
+                    "emotion": "angry"
+                }
+            ]
+        },
+        {
+            "id": "final_climb",
+            "lines": [
+                {
+                    "speaker": "Каэль",
+                    "text": "Осталось немного... Семя Жизни совсем близко!",
+                    "portraitName": "kael_portrait",
+                    "emotion": "determined"
+                },
+                {
+                    "speaker": "Эльвира",
+                    "text": "Верю в тебя, Каэль! Ты справишься!",
+                    "portraitName": "elvira_portrait",
+                    "emotion": "determined"
+                }
+            ]
+        },
+        {
+            "id": "victory",
+            "lines": [
+                {
+                    "speaker": "Каэль",
+                    "text": "Семя Жизни... Активировано!",
+                    "portraitName": "kael_portrait",
+                    "emotion": "determined"
+                },
+                {
+                    "speaker": "Велькор",
+                    "text": "НЕЕЕЕТ!!!",
+                    "portraitName": "velkor_portrait",
+                    "emotion": "dying"
+                },
+                {
+                    "speaker": "Каэль",
+                    "text": "Печать восстановлена... Велькор запечатан навечно.",
+                    "portraitName": "kael_portrait",
+                    "emotion": "happy"
+                },
+                {
+                    "speaker": "Эльвира",
+                    "text": "Ты сделал это, Каэль! Ты спас мир!",
+                    "portraitName": "elvira_portrait",
+                    "emotion": "happy"
+                }
+            ]
+        },
+        {
+            "id": "epilogue",
+            "lines": [
+                {
+                    "speaker": "Тариэль",
+                    "text": "Каэль!",
+                    "portraitName": "tariel_portrait",
+                    "emotion": "happy"
+                },
+                {
+                    "speaker": "Каэль",
+                    "text": "Отец! Ты выжил!",
+                    "portraitName": "kael_portrait",
+                    "emotion": "happy"
+                },
+                {
+                    "speaker": "Тариэль",
+                    "text": "Конечно. Думаешь, я пропущу момент, когда мой сын спасёт мир?",
+                    "portraitName": "tariel_portrait",
+                    "emotion": "happy"
+                },
+                {
+                    "speaker": "Корина",
+                    "text": "Скверна отступает. Земли исцеляются.",
+                    "portraitName": "korina_portrait",
+                    "emotion": "happy"
+                },
+                {
+                    "speaker": "Эльвира",
+                    "text": "Рощи оживают. Мы победили.",
+                    "portraitName": "elvira_portrait",
+                    "emotion": "happy"
+                },
+                {
+                    "speaker": "Каэль",
+                    "text": "Нет... Мы победили. Вместе.",
+                    "portraitName": "kael_portrait",
+                    "emotion": "happy"
+                },
+                {
+                    "speaker": "Тариэль",
+                    "text": "Мир в безопасности благодаря тебе, сын. Торвальд гордился бы тобой.",
+                    "portraitName": "tariel_portrait",
+                    "emotion": "happy"
+                },
+                {
+                    "speaker": "Каэль",
+                    "text": "Это только начало. Нужно восстановить Якоря. Отстроить разрушенное.",
+                    "portraitName": "kael_portrait",
+                    "emotion": "determined"
+                },
+                {
+                    "speaker": "Каэль",
+                    "text": "И я буду хранить этот мир. Как истинный хранитель.",
+                    "portraitName": "kael_portrait",
+                    "emotion": "determined"
+                }
+            ]
+        }
+    ]
+}

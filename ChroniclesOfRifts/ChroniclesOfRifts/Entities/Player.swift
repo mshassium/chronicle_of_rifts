@@ -116,6 +116,14 @@ final class Player: SKSpriteNode {
     /// Таймер замедления
     private var slowTimer: TimeInterval = 0
 
+    // MARK: - Ice Platform
+
+    /// Находится ли персонаж на ледяной платформе
+    private(set) var isOnIce: Bool = false
+
+    /// Коэффициент трения ледяной платформы (0.0-1.0, меньше = скользче)
+    private(set) var iceFriction: CGFloat = 1.0
+
     // MARK: - Attack Hitbox
 
     /// Компонент ближней атаки
@@ -236,12 +244,23 @@ final class Player: SKSpriteNode {
         let targetSpeed = inputDirection * effectiveSpeed
 
         if isGrounded {
-            // На земле - полный контроль
-            velocity.dx = targetSpeed
+            if isOnIce {
+                // На льду - плавное ускорение/торможение (скольжение)
+                let acceleration = iceFriction * CGFloat(deltaTime) * 5.0  // Ускорение зависит от трения
+                velocity.dx = velocity.dx + (targetSpeed - velocity.dx) * acceleration
 
-            // Применяем трение при остановке
-            if abs(inputDirection) < 0.1 {
-                velocity.dx *= PlayerConfig.groundFriction
+                // Применяем очень слабое трение при остановке на льду
+                if abs(inputDirection) < 0.1 {
+                    velocity.dx *= (1.0 - iceFriction * 0.02)
+                }
+            } else {
+                // На обычной земле - полный контроль
+                velocity.dx = targetSpeed
+
+                // Применяем трение при остановке
+                if abs(inputDirection) < 0.1 {
+                    velocity.dx *= PlayerConfig.groundFriction
+                }
             }
         } else {
             // В воздухе - частичный контроль
@@ -780,6 +799,21 @@ final class Player: SKSpriteNode {
                 changeState(to: abs(inputDirection) > 0.1 ? .walking : .idle)
             }
         }
+
+        // Сбрасываем состояние льда если не на земле
+        if !grounded {
+            isOnIce = false
+            iceFriction = 1.0
+        }
+    }
+
+    /// Установить состояние "на льду"
+    /// - Parameters:
+    ///   - onIce: Находится ли персонаж на ледяной платформе
+    ///   - friction: Коэффициент трения льда (0.0-1.0)
+    func setOnIce(_ onIce: Bool, friction: CGFloat = 0.1) {
+        isOnIce = onIce
+        iceFriction = onIce ? friction : 1.0
     }
 
     // MARK: - Helpers
@@ -805,6 +839,8 @@ final class Player: SKSpriteNode {
         timeSinceGrounded = 0
         slowMultiplier = 1.0
         slowTimer = 0
+        isOnIce = false
+        iceFriction = 1.0
         stopInvulnerabilityEffect()
 
         // Удаляем визуальные эффекты замедления

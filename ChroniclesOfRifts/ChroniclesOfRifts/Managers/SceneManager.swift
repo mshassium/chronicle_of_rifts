@@ -15,6 +15,14 @@ final class SceneManager {
     /// Текущая активная сцена
     private(set) weak var currentScene: SKScene?
 
+    /// Текущий ID уровня
+    private(set) var currentLevelId: Int = 1
+
+    /// Статистика текущего уровня
+    private var levelCrystals: Int = 0
+    private var levelSecrets: Int = 0
+    private var levelStartTime: Date?
+
     // MARK: - Initialization
 
     private init() {}
@@ -158,6 +166,127 @@ final class SceneManager {
             presentMainMenu()
         }
     }
+
+    // MARK: - Level Transition System
+
+    /// Загрузить уровень по ID (используется LevelExit)
+    /// - Parameter levelId: ID уровня для загрузки
+    func loadLevel(_ levelId: Int) {
+        guard let view = view else { return }
+
+        // Проверяем существование уровня
+        let levelName = "level_\(levelId)"
+        guard Bundle.main.url(forResource: levelName, withExtension: "json") != nil else {
+            print("SceneManager: Уровень \(levelId) не найден")
+            // Если уровень не существует - показываем экран победы или меню
+            if levelId > 10 {
+                presentVictoryScreen()
+            } else {
+                presentMainMenu()
+            }
+            return
+        }
+
+        // Сохраняем прогресс текущего уровня
+        saveCurrentLevelProgress()
+
+        // Обновляем текущий ID уровня
+        currentLevelId = levelId
+
+        // Сбрасываем статистику для нового уровня
+        levelCrystals = 0
+        levelSecrets = 0
+        levelStartTime = Date()
+
+        // Создаём новую GameScene
+        let gameScene = GameScene(size: view.bounds.size)
+        gameScene.levelNumber = levelId
+
+        // Переход с анимацией
+        let transition = Self.portalTransition()
+        presentScene(gameScene, transition: transition)
+
+        // Обновляем GameManager
+        GameManager.shared.setCurrentLevel(levelId)
+        GameManager.shared.changeState(to: .playing)
+    }
+
+    /// Показать экран завершения уровня со статистикой
+    /// - Parameters:
+    ///   - crystals: Собранные кристаллы
+    ///   - secrets: Найденные секреты
+    ///   - time: Время прохождения
+    func showLevelCompleteScreen(crystals: Int, secrets: Int, time: TimeInterval) {
+        guard let view = view else { return }
+
+        // Сохраняем статистику
+        levelCrystals = crystals
+        levelSecrets = secrets
+
+        // Обновляем GameManager
+        GameManager.shared.completeLevelWith(crystals: crystals, secrets: secrets)
+
+        // Создаём сцену завершения уровня
+        let levelCompleteScene = LevelCompleteScene(size: view.bounds.size)
+        levelCompleteScene.crystalsCollected = crystals
+        levelCompleteScene.secretsFound = secrets
+        levelCompleteScene.completionTime = time
+        levelCompleteScene.currentLevelId = currentLevelId
+
+        presentScene(levelCompleteScene, transition: Self.fadeTransition())
+        GameManager.shared.changeState(to: .levelComplete)
+    }
+
+    /// Перейти к следующему уровню (используется из LevelCompleteScene)
+    func proceedToNextLevel() {
+        let nextLevelId = currentLevelId + 1
+        loadLevel(nextLevelId)
+    }
+
+    /// Сохранить прогресс текущего уровня
+    private func saveCurrentLevelProgress() {
+        if let startTime = levelStartTime {
+            let completionTime = Date().timeIntervalSince(startTime)
+            GameManager.shared.completeLevelWith(crystals: levelCrystals, secrets: levelSecrets)
+            _ = completionTime // Используется в completeLevelWith через GameManager.currentLevelTime()
+        }
+    }
+
+    /// Обновить статистику уровня
+    /// - Parameters:
+    ///   - crystals: Кристаллы
+    ///   - secrets: Секреты
+    func updateLevelStats(crystals: Int, secrets: Int) {
+        levelCrystals = crystals
+        levelSecrets = secrets
+    }
+
+    /// Получить время прохождения текущего уровня
+    func getCurrentLevelTime() -> TimeInterval {
+        guard let startTime = levelStartTime else { return 0 }
+        return Date().timeIntervalSince(startTime)
+    }
+
+    // MARK: - Special Transitions
+
+    /// Переход через портал
+    /// - Returns: SKTransition
+    static func portalTransition() -> SKTransition {
+        let transition = SKTransition.doorway(withDuration: 1.0)
+        transition.pausesOutgoingScene = true
+        transition.pausesIncomingScene = true
+        return transition
+    }
+
+    /// Показать экран победы (после прохождения всех уровней)
+    func presentVictoryScreen() {
+        guard let view = view else { return }
+
+        let victoryScene = VictoryScene(size: view.bounds.size)
+        presentScene(victoryScene, transition: Self.fadeTransition(duration: 1.0))
+
+        GameManager.shared.changeState(to: .levelComplete)
+    }
 }
 
 // MARK: - Placeholder Scenes
@@ -219,38 +348,312 @@ class GameOverScene: SKScene {
     }
 }
 
-/// Заглушка для LevelCompleteScene
+/// Сцена завершения уровня с детальной статистикой
 class LevelCompleteScene: SKScene {
     var crystalsCollected: Int = 0
     var secretsFound: Int = 0
+    var completionTime: TimeInterval = 0
+    var currentLevelId: Int = 1
+
+    // Максимальные значения для уровня (TODO: загружать из JSON)
+    private var maxCrystals: Int = 10
+    private var maxSecrets: Int = 3
 
     override func didMove(to view: SKView) {
-        backgroundColor = SKColor(red: 0.1, green: 0.15, blue: 0.1, alpha: 1.0)
+        backgroundColor = SKColor(red: 0.05, green: 0.1, blue: 0.15, alpha: 1.0)
 
-        let label = SKLabelNode(text: "УРОВЕНЬ ПРОЙДЕН!")
-        label.fontName = "AvenirNext-Bold"
-        label.fontSize = 48
-        label.fontColor = SKColor(red: 0.4, green: 0.8, blue: 0.4, alpha: 1.0)
-        label.position = CGPoint(x: size.width / 2, y: size.height * 0.65)
-        addChild(label)
+        setupBackground()
+        setupTitle()
+        setupStats()
+        setupButtons()
 
-        let statsLabel = SKLabelNode(text: "Кристаллы: \(crystalsCollected) | Секреты: \(secretsFound)")
-        statsLabel.fontName = "AvenirNext-Medium"
-        statsLabel.fontSize = 24
-        statsLabel.fontColor = .white
-        statsLabel.position = CGPoint(x: size.width / 2, y: size.height * 0.5)
-        addChild(statsLabel)
+        // Анимация появления
+        animateAppearance()
+    }
 
-        let nextLabel = SKLabelNode(text: "Нажмите для продолжения")
-        nextLabel.fontName = "AvenirNext-Medium"
-        nextLabel.fontSize = 24
-        nextLabel.fontColor = SKColor(white: 0.7, alpha: 1.0)
-        nextLabel.position = CGPoint(x: size.width / 2, y: size.height * 0.3)
-        addChild(nextLabel)
+    private func setupBackground() {
+        // Градиентный фон
+        let gradientNode = SKSpriteNode(color: SKColor(red: 0.1, green: 0.15, blue: 0.2, alpha: 1.0), size: size)
+        gradientNode.position = CGPoint(x: size.width / 2, y: size.height / 2)
+        gradientNode.zPosition = -10
+        addChild(gradientNode)
+
+        // Декоративные частицы
+        if let particles = createCelebrationParticles() {
+            particles.position = CGPoint(x: size.width / 2, y: size.height * 0.7)
+            particles.zPosition = -5
+            addChild(particles)
+        }
+    }
+
+    private func setupTitle() {
+        // Заголовок "УРОВЕНЬ ПРОЙДЕН"
+        let titleLabel = SKLabelNode(text: "УРОВЕНЬ ПРОЙДЕН!")
+        titleLabel.fontName = "AvenirNext-Bold"
+        titleLabel.fontSize = 48
+        titleLabel.fontColor = SKColor(red: 0.4, green: 0.9, blue: 0.5, alpha: 1.0)
+        titleLabel.position = CGPoint(x: size.width / 2, y: size.height * 0.75)
+        titleLabel.name = "title"
+        titleLabel.alpha = 0
+        addChild(titleLabel)
+
+        // Свечение заголовка
+        let glowLabel = SKLabelNode(text: "УРОВЕНЬ ПРОЙДЕН!")
+        glowLabel.fontName = "AvenirNext-Bold"
+        glowLabel.fontSize = 48
+        glowLabel.fontColor = SKColor(red: 0.4, green: 0.9, blue: 0.5, alpha: 0.3)
+        glowLabel.position = titleLabel.position
+        glowLabel.zPosition = -1
+        glowLabel.setScale(1.05)
+        glowLabel.name = "titleGlow"
+        glowLabel.alpha = 0
+        addChild(glowLabel)
+
+        // Название уровня
+        let levelName = getLevelName(currentLevelId)
+        let levelLabel = SKLabelNode(text: levelName)
+        levelLabel.fontName = "AvenirNext-Medium"
+        levelLabel.fontSize = 24
+        levelLabel.fontColor = SKColor(white: 0.7, alpha: 1.0)
+        levelLabel.position = CGPoint(x: size.width / 2, y: size.height * 0.68)
+        levelLabel.name = "levelName"
+        levelLabel.alpha = 0
+        addChild(levelLabel)
+    }
+
+    private func setupStats() {
+        let statsY = size.height * 0.52
+        let spacing: CGFloat = 50
+
+        // Кристаллы
+        let crystalContainer = createStatRow(
+            icon: "💎",
+            label: "Кристаллы",
+            value: "\(crystalsCollected)/\(maxCrystals)",
+            y: statsY
+        )
+        crystalContainer.name = "crystalStats"
+        crystalContainer.alpha = 0
+        addChild(crystalContainer)
+
+        // Секреты
+        let secretContainer = createStatRow(
+            icon: "🔮",
+            label: "Секреты",
+            value: "\(secretsFound)/\(maxSecrets)",
+            y: statsY - spacing
+        )
+        secretContainer.name = "secretStats"
+        secretContainer.alpha = 0
+        addChild(secretContainer)
+
+        // Время
+        let timeString = formatTime(completionTime)
+        let timeContainer = createStatRow(
+            icon: "⏱",
+            label: "Время",
+            value: timeString,
+            y: statsY - spacing * 2
+        )
+        timeContainer.name = "timeStats"
+        timeContainer.alpha = 0
+        addChild(timeContainer)
+    }
+
+    private func createStatRow(icon: String, label: String, value: String, y: CGFloat) -> SKNode {
+        let container = SKNode()
+        container.position = CGPoint(x: size.width / 2, y: y)
+
+        // Иконка
+        let iconLabel = SKLabelNode(text: icon)
+        iconLabel.fontSize = 28
+        iconLabel.position = CGPoint(x: -120, y: -5)
+        container.addChild(iconLabel)
+
+        // Название
+        let nameLabel = SKLabelNode(text: label)
+        nameLabel.fontName = "AvenirNext-Medium"
+        nameLabel.fontSize = 22
+        nameLabel.fontColor = .white
+        nameLabel.horizontalAlignmentMode = .left
+        nameLabel.position = CGPoint(x: -80, y: -5)
+        container.addChild(nameLabel)
+
+        // Значение
+        let valueLabel = SKLabelNode(text: value)
+        valueLabel.fontName = "AvenirNext-Bold"
+        valueLabel.fontSize = 22
+        valueLabel.fontColor = SKColor(red: 0.3, green: 0.8, blue: 1.0, alpha: 1.0)
+        valueLabel.horizontalAlignmentMode = .right
+        valueLabel.position = CGPoint(x: 120, y: -5)
+        container.addChild(valueLabel)
+
+        return container
+    }
+
+    private func setupButtons() {
+        let buttonY = size.height * 0.2
+        let buttonSpacing: CGFloat = 140
+
+        // Кнопка "Следующий уровень"
+        let nextButton = createButton(text: "Далее →", name: "nextButton")
+        nextButton.position = CGPoint(x: size.width / 2, y: buttonY)
+        nextButton.alpha = 0
+        addChild(nextButton)
+
+        // Кнопка "Повторить"
+        let retryButton = createButton(text: "Заново", name: "retryButton", secondary: true)
+        retryButton.position = CGPoint(x: size.width / 2 - buttonSpacing, y: buttonY)
+        retryButton.alpha = 0
+        addChild(retryButton)
+
+        // Кнопка "Меню"
+        let menuButton = createButton(text: "Меню", name: "menuButton", secondary: true)
+        menuButton.position = CGPoint(x: size.width / 2 + buttonSpacing, y: buttonY)
+        menuButton.alpha = 0
+        addChild(menuButton)
+    }
+
+    private func createButton(text: String, name: String, secondary: Bool = false) -> SKNode {
+        let container = SKNode()
+        container.name = name
+
+        let width: CGFloat = secondary ? 100 : 150
+        let height: CGFloat = 44
+
+        let background = SKShapeNode(rectOf: CGSize(width: width, height: height), cornerRadius: 8)
+        background.fillColor = secondary ?
+            SKColor(red: 0.2, green: 0.25, blue: 0.3, alpha: 1.0) :
+            SKColor(red: 0.2, green: 0.5, blue: 0.3, alpha: 1.0)
+        background.strokeColor = secondary ?
+            SKColor(white: 0.4, alpha: 1.0) :
+            SKColor(red: 0.4, green: 0.8, blue: 0.5, alpha: 1.0)
+        background.lineWidth = 2
+        container.addChild(background)
+
+        let label = SKLabelNode(text: text)
+        label.fontName = "AvenirNext-Medium"
+        label.fontSize = 18
+        label.fontColor = .white
+        label.verticalAlignmentMode = .center
+        container.addChild(label)
+
+        return container
+    }
+
+    private func animateAppearance() {
+        let fadeIn = SKAction.fadeIn(withDuration: 0.4)
+        let delay = SKAction.wait(forDuration: 0.15)
+
+        // Заголовок
+        childNode(withName: "title")?.run(SKAction.sequence([delay, fadeIn]))
+        childNode(withName: "titleGlow")?.run(SKAction.sequence([delay, fadeIn]))
+        childNode(withName: "levelName")?.run(SKAction.sequence([
+            SKAction.wait(forDuration: 0.3),
+            fadeIn
+        ]))
+
+        // Статистика
+        childNode(withName: "crystalStats")?.run(SKAction.sequence([
+            SKAction.wait(forDuration: 0.5),
+            fadeIn
+        ]))
+        childNode(withName: "secretStats")?.run(SKAction.sequence([
+            SKAction.wait(forDuration: 0.65),
+            fadeIn
+        ]))
+        childNode(withName: "timeStats")?.run(SKAction.sequence([
+            SKAction.wait(forDuration: 0.8),
+            fadeIn
+        ]))
+
+        // Кнопки
+        childNode(withName: "nextButton")?.run(SKAction.sequence([
+            SKAction.wait(forDuration: 1.0),
+            fadeIn
+        ]))
+        childNode(withName: "retryButton")?.run(SKAction.sequence([
+            SKAction.wait(forDuration: 1.1),
+            fadeIn
+        ]))
+        childNode(withName: "menuButton")?.run(SKAction.sequence([
+            SKAction.wait(forDuration: 1.2),
+            fadeIn
+        ]))
+    }
+
+    private func createCelebrationParticles() -> SKEmitterNode? {
+        let emitter = SKEmitterNode()
+
+        let texture = SKTexture(imageNamed: "spark") // Fallback to shape if not found
+        emitter.particleTexture = texture
+
+        emitter.particleBirthRate = 5
+        emitter.particleLifetime = 3
+        emitter.particleSize = CGSize(width: 8, height: 8)
+        emitter.particleScaleRange = 0.5
+
+        emitter.emissionAngle = .pi / 2
+        emitter.emissionAngleRange = .pi
+        emitter.particleSpeed = 50
+        emitter.particleSpeedRange = 30
+
+        emitter.particlePositionRange = CGVector(dx: size.width * 0.8, dy: 20)
+
+        emitter.particleColor = SKColor(red: 0.4, green: 0.8, blue: 0.5, alpha: 1.0)
+        emitter.particleColorBlendFactor = 1.0
+        emitter.particleAlpha = 0.6
+        emitter.particleAlphaSpeed = -0.2
+
+        emitter.particleBlendMode = .add
+
+        return emitter
+    }
+
+    private func formatTime(_ time: TimeInterval) -> String {
+        let minutes = Int(time) / 60
+        let seconds = Int(time) % 60
+        return String(format: "%02d:%02d", minutes, seconds)
+    }
+
+    private func getLevelName(_ levelId: Int) -> String {
+        let names = [
+            1: "Горящая деревня",
+            2: "Мосты Бездны",
+            3: "Корни Мира",
+            4: "Катакомбы Аурелиона",
+            5: "Штормовые Пики",
+            6: "Море Осколков",
+            7: "Врата Цитадели",
+            8: "Сердце Цитадели",
+            9: "Тронный Зал Бездны",
+            10: "Пробуждение"
+        ]
+        return names[levelId] ?? "Уровень \(levelId)"
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        SceneManager.shared.presentNextLevel()
+        guard let touch = touches.first else { return }
+        let location = touch.location(in: self)
+        let nodesAtPoint = nodes(at: location)
+
+        for node in nodesAtPoint {
+            if let name = node.name ?? node.parent?.name {
+                switch name {
+                case "nextButton":
+                    SceneManager.shared.proceedToNextLevel()
+                    return
+                case "retryButton":
+                    SceneManager.shared.restartCurrentLevel()
+                    return
+                case "menuButton":
+                    SceneManager.shared.presentMainMenu()
+                    return
+                default:
+                    break
+                }
+            }
+        }
     }
 }
 
@@ -328,6 +731,87 @@ class LevelSelectScene: SKScene {
                     SceneManager.shared.presentLevel(levelNum)
                     return
                 }
+            }
+        }
+    }
+}
+
+/// Сцена победы (после прохождения всех уровней)
+class VictoryScene: SKScene {
+    override func didMove(to view: SKView) {
+        backgroundColor = SKColor(red: 0.05, green: 0.05, blue: 0.1, alpha: 1.0)
+
+        // Заголовок
+        let titleLabel = SKLabelNode(text: "ПОБЕДА!")
+        titleLabel.fontName = "AvenirNext-Bold"
+        titleLabel.fontSize = 64
+        titleLabel.fontColor = SKColor(red: 1.0, green: 0.85, blue: 0.3, alpha: 1.0)
+        titleLabel.position = CGPoint(x: size.width / 2, y: size.height * 0.7)
+        addChild(titleLabel)
+
+        // Свечение заголовка
+        let glowLabel = SKLabelNode(text: "ПОБЕДА!")
+        glowLabel.fontName = "AvenirNext-Bold"
+        glowLabel.fontSize = 64
+        glowLabel.fontColor = SKColor(red: 1.0, green: 0.85, blue: 0.3, alpha: 0.4)
+        glowLabel.position = titleLabel.position
+        glowLabel.zPosition = -1
+        glowLabel.setScale(1.1)
+        addChild(glowLabel)
+
+        // Подзаголовок
+        let subtitleLabel = SKLabelNode(text: "Хроники Разломов пройдены!")
+        subtitleLabel.fontName = "AvenirNext-Medium"
+        subtitleLabel.fontSize = 28
+        subtitleLabel.fontColor = .white
+        subtitleLabel.position = CGPoint(x: size.width / 2, y: size.height * 0.58)
+        addChild(subtitleLabel)
+
+        // Текст благодарности
+        let thanksLabel = SKLabelNode(text: "Спасибо за игру!")
+        thanksLabel.fontName = "AvenirNext-Medium"
+        thanksLabel.fontSize = 24
+        thanksLabel.fontColor = SKColor(white: 0.7, alpha: 1.0)
+        thanksLabel.position = CGPoint(x: size.width / 2, y: size.height * 0.45)
+        addChild(thanksLabel)
+
+        // Кнопка "В меню"
+        let menuButton = SKNode()
+        menuButton.name = "menuButton"
+        menuButton.position = CGPoint(x: size.width / 2, y: size.height * 0.25)
+
+        let buttonBg = SKShapeNode(rectOf: CGSize(width: 200, height: 50), cornerRadius: 10)
+        buttonBg.fillColor = SKColor(red: 0.2, green: 0.3, blue: 0.5, alpha: 1.0)
+        buttonBg.strokeColor = SKColor(red: 0.4, green: 0.6, blue: 0.9, alpha: 1.0)
+        buttonBg.lineWidth = 2
+        menuButton.addChild(buttonBg)
+
+        let buttonLabel = SKLabelNode(text: "В главное меню")
+        buttonLabel.fontName = "AvenirNext-Medium"
+        buttonLabel.fontSize = 20
+        buttonLabel.fontColor = .white
+        buttonLabel.verticalAlignmentMode = .center
+        menuButton.addChild(buttonLabel)
+
+        addChild(menuButton)
+
+        // Анимация пульсации свечения
+        let pulse = SKAction.sequence([
+            SKAction.scale(to: 1.15, duration: 1.0),
+            SKAction.scale(to: 1.05, duration: 1.0)
+        ])
+        glowLabel.run(SKAction.repeatForever(pulse))
+    }
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let touch = touches.first else { return }
+        let location = touch.location(in: self)
+        let nodesAtPoint = nodes(at: location)
+
+        for node in nodesAtPoint {
+            if node.name == "menuButton" || node.parent?.name == "menuButton" {
+                SceneManager.shared.presentMainMenu()
+                return
             }
         }
     }

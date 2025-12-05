@@ -2,6 +2,11 @@ import SpriteKit
 
 class LevelLoader {
 
+    // MARK: - Properties
+
+    /// Хранит созданные движущиеся платформы для доступа из сцены
+    private(set) var createdMovingPlatforms: [MovingPlatform] = []
+
     // MARK: - Node Names
 
     struct NodeNames {
@@ -11,6 +16,12 @@ class LevelLoader {
         static let triggersContainer = "triggers"
         static let interactablesContainer = "interactables"
         static let backgroundContainer = "background"
+        static let hazardsContainer = "hazards"
+        static let darkZonesContainer = "darkZones"
+        static let torchesContainer = "torches"
+        static let fallingGatesContainer = "fallingGates"
+        static let iciclesContainer = "icicles"
+        static let avalanchesContainer = "avalanches"
     }
 
     // MARK: - Loading
@@ -37,6 +48,9 @@ class LevelLoader {
     func buildLevel(from data: LevelData, in parentNode: SKNode) {
         let tileSize = data.tileSize
 
+        // Очищаем список движущихся платформ от предыдущего уровня
+        createdMovingPlatforms.removeAll()
+
         // Create containers
         let platformsContainer = SKNode()
         platformsContainer.name = NodeNames.platformsContainer
@@ -61,6 +75,30 @@ class LevelLoader {
         let backgroundContainer = SKNode()
         backgroundContainer.name = NodeNames.backgroundContainer
         parentNode.addChild(backgroundContainer)
+
+        let hazardsContainer = SKNode()
+        hazardsContainer.name = NodeNames.hazardsContainer
+        parentNode.addChild(hazardsContainer)
+
+        let darkZonesContainer = SKNode()
+        darkZonesContainer.name = NodeNames.darkZonesContainer
+        parentNode.addChild(darkZonesContainer)
+
+        let torchesContainer = SKNode()
+        torchesContainer.name = NodeNames.torchesContainer
+        parentNode.addChild(torchesContainer)
+
+        let fallingGatesContainer = SKNode()
+        fallingGatesContainer.name = NodeNames.fallingGatesContainer
+        parentNode.addChild(fallingGatesContainer)
+
+        let iciclesContainer = SKNode()
+        iciclesContainer.name = NodeNames.iciclesContainer
+        parentNode.addChild(iciclesContainer)
+
+        let avalanchesContainer = SKNode()
+        avalanchesContainer.name = NodeNames.avalanchesContainer
+        parentNode.addChild(avalanchesContainer)
 
         // Build background layers (lowest z)
         for layerData in data.backgroundLayers {
@@ -100,6 +138,50 @@ class LevelLoader {
             let trigger = createTrigger(from: triggerData, tileSize: tileSize)
             triggersContainer.addChild(trigger)
         }
+
+        // Build hazards
+        for hazardData in data.hazards {
+            let hazard = createHazard(from: hazardData, tileSize: tileSize)
+            hazardsContainer.addChild(hazard)
+        }
+
+        // Build dark zones
+        for darkZoneData in data.darkZones {
+            let darkZone = createDarkZone(from: darkZoneData, tileSize: tileSize)
+            darkZonesContainer.addChild(darkZone)
+        }
+
+        // Build torches
+        for torchData in data.torches {
+            let torch = createTorch(from: torchData, tileSize: tileSize)
+            torchesContainer.addChild(torch)
+        }
+
+        // Build falling gates
+        for fallingGateData in data.fallingGates {
+            let fallingGate = createFallingGate(from: fallingGateData, tileSize: tileSize)
+            fallingGatesContainer.addChild(fallingGate)
+        }
+
+        // Build icicles
+        for icicleData in data.icicles {
+            let icicle = createIcicle(from: icicleData, tileSize: tileSize)
+            iciclesContainer.addChild(icicle)
+        }
+
+        // Build avalanches
+        for avalancheData in data.avalanches {
+            let avalanche = createAvalanche(from: avalancheData, tileSize: tileSize)
+            avalanchesContainer.addChild(avalanche)
+        }
+    }
+
+    // MARK: - Platform Access
+
+    /// Возвращает все созданные движущиеся платформы
+    /// - Returns: Массив MovingPlatform
+    func getMovingPlatforms() -> [MovingPlatform] {
+        return createdMovingPlatforms
     }
 
     // MARK: - Platform Creation
@@ -107,6 +189,50 @@ class LevelLoader {
     func createPlatform(from data: PlatformData, tileSize: CGFloat) -> SKNode {
         let position = data.position.toPixels(tileSize: tileSize)
         let size = data.size.toPixels(tileSize: tileSize)
+
+        // Moving platform - создаём специальный класс MovingPlatform
+        if data.type == .moving, let path = data.movementPath, !path.isEmpty {
+            // Конвертируем путь в пиксели
+            var pixelPath = path.map { $0.toPixels(tileSize: tileSize) }
+
+            // Добавляем начальную позицию в начало пути, если её там нет
+            if pixelPath.first != position {
+                pixelPath.insert(position, at: 0)
+            }
+
+            let moveSpeed = data.movementSpeed ?? 50.0
+            let movementType = data.movementType ?? .loop
+
+            let movingPlatform = MovingPlatform(size: size, waypoints: pixelPath, moveSpeed: moveSpeed)
+            movingPlatform.position = position
+            movingPlatform.movementType = movementType
+
+            if let pauseTime = data.pauseAtWaypoints {
+                movingPlatform.pauseAtWaypoints = pauseTime
+            }
+
+            // Сохраняем ссылку на платформу для доступа из сцены
+            createdMovingPlatforms.append(movingPlatform)
+
+            return movingPlatform
+        }
+
+        // Crumbling platform - создаём специальный класс
+        if data.type == .crumbling {
+            let crumblingPlatform = CrumblingPlatform(size: size)
+            crumblingPlatform.position = position
+            crumblingPlatform.saveOriginalPosition()
+
+            // Опциональные параметры из данных уровня
+            if let crumbleDelay = data.crumbleDelay {
+                crumblingPlatform.crumbleDelay = crumbleDelay
+            }
+            if let respawnDelay = data.respawnDelay {
+                crumblingPlatform.respawnDelay = respawnDelay
+            }
+
+            return crumblingPlatform
+        }
 
         let platform = SKSpriteNode(color: platformColor(for: data.type), size: size)
         platform.position = position
@@ -125,20 +251,44 @@ class LevelLoader {
             platform.userData = ["oneWay": true]
         }
 
-        // Moving platform setup
-        if data.type == .moving, let path = data.movementPath, !path.isEmpty {
-            let pixelPath = path.map { $0.toPixels(tileSize: tileSize) }
-            let speed = data.movementSpeed ?? 50.0
+        // Moving platform setup - теперь используем специальный класс MovingPlatform
+        // (обрабатывается выше, этот код оставлен для совместимости)
+
+        // Bouncy platform setup
+        if data.type == .bouncy {
             platform.userData = platform.userData ?? [:]
-            platform.userData?["movementPath"] = pixelPath
-            platform.userData?["movementSpeed"] = speed
-            setupMovingPlatform(platform, path: pixelPath, speed: speed)
+            platform.userData?["bouncy"] = true
+            platform.userData?["bounceMultiplier"] = data.bounceMultiplier ?? 2.0
         }
 
-        // Crumbling platform setup
-        if data.type == .crumbling {
+        // Ice platform setup
+        if data.type == .ice {
             platform.userData = platform.userData ?? [:]
-            platform.userData?["crumbling"] = true
+            platform.userData?["ice"] = true
+            platform.userData?["friction"] = data.friction ?? 0.1
+        }
+
+        // Disappearing platform setup
+        if data.type == .disappearing {
+            let visibleTime = data.visibleTime ?? 2.0
+            let hiddenTime = data.hiddenTime ?? 1.5
+            let startVisible = data.startVisible ?? true
+            platform.userData = platform.userData ?? [:]
+            platform.userData?["disappearing"] = true
+            platform.userData?["visibleTime"] = visibleTime
+            platform.userData?["hiddenTime"] = hiddenTime
+            setupDisappearingPlatform(platform, visibleTime: visibleTime, hiddenTime: hiddenTime, startVisible: startVisible)
+        }
+
+        // Floating platform setup
+        if data.type == .floating {
+            let amplitude = (data.floatAmplitude ?? 0.5) * tileSize
+            let period = data.floatPeriod ?? 3.0
+            platform.userData = platform.userData ?? [:]
+            platform.userData?["floating"] = true
+            platform.userData?["floatAmplitude"] = amplitude
+            platform.userData?["floatPeriod"] = period
+            setupFloatingPlatform(platform, amplitude: amplitude, period: period)
         }
 
         return platform
@@ -154,29 +304,69 @@ class LevelLoader {
             return SKColor(red: 0.5, green: 0.4, blue: 0.3, alpha: 1.0) // Cracked look
         case .moving:
             return SKColor(red: 0.3, green: 0.4, blue: 0.5, alpha: 1.0) // Blue-gray
+        case .bouncy:
+            return SKColor(red: 0.8, green: 0.3, blue: 0.5, alpha: 1.0) // Mushroom pink/red
+        case .ice:
+            return SKColor(red: 0.7, green: 0.85, blue: 0.95, alpha: 1.0) // Light blue ice
+        case .disappearing:
+            return SKColor(red: 0.6, green: 0.7, blue: 0.9, alpha: 0.8) // Ethereal blue
+        case .floating:
+            return SKColor(red: 0.5, green: 0.6, blue: 0.4, alpha: 1.0) // Mossy green
         }
     }
 
-    private func setupMovingPlatform(_ platform: SKSpriteNode, path: [CGPoint], speed: CGFloat) {
-        guard path.count >= 1 else { return }
+    // setupMovingPlatform удалён - теперь используется класс MovingPlatform
 
-        var actions: [SKAction] = []
-        var previousPoint = platform.position
-
-        for point in path {
-            let distance = hypot(point.x - previousPoint.x, point.y - previousPoint.y)
-            let duration = TimeInterval(distance / speed)
-            actions.append(SKAction.move(to: point, duration: duration))
-            previousPoint = point
+    private func setupDisappearingPlatform(_ platform: SKSpriteNode, visibleTime: CGFloat, hiddenTime: CGFloat, startVisible: Bool) {
+        let showAction = SKAction.run { [weak platform] in
+            platform?.alpha = 1.0
+            platform?.physicsBody?.categoryBitMask = PhysicsCategory.ground
+            platform?.physicsBody?.collisionBitMask = PhysicsCategory.player | PhysicsCategory.enemy
+        }
+        let hideAction = SKAction.run { [weak platform] in
+            platform?.alpha = 0.2
+            platform?.physicsBody?.categoryBitMask = 0
+            platform?.physicsBody?.collisionBitMask = 0
         }
 
-        // Return to start
-        let distanceBack = hypot(platform.position.x - previousPoint.x, platform.position.y - previousPoint.y)
-        let durationBack = TimeInterval(distanceBack / speed)
-        actions.append(SKAction.move(to: platform.position, duration: durationBack))
+        let visibleWait = SKAction.wait(forDuration: TimeInterval(visibleTime))
+        let hiddenWait = SKAction.wait(forDuration: TimeInterval(hiddenTime))
 
-        let sequence = SKAction.sequence(actions)
-        platform.run(SKAction.repeatForever(sequence))
+        let fadeOut = SKAction.fadeAlpha(to: 0.2, duration: 0.3)
+        let fadeIn = SKAction.fadeAlpha(to: 1.0, duration: 0.3)
+
+        let cycle = SKAction.sequence([
+            showAction,
+            visibleWait,
+            fadeOut,
+            hideAction,
+            hiddenWait,
+            fadeIn
+        ])
+
+        // Set initial state
+        if !startVisible {
+            platform.alpha = 0.2
+            platform.physicsBody?.categoryBitMask = 0
+            platform.physicsBody?.collisionBitMask = 0
+            // Offset the cycle start
+            platform.run(SKAction.sequence([
+                SKAction.wait(forDuration: TimeInterval(hiddenTime)),
+                SKAction.repeatForever(cycle)
+            ]))
+        } else {
+            platform.run(SKAction.repeatForever(cycle))
+        }
+    }
+
+    private func setupFloatingPlatform(_ platform: SKSpriteNode, amplitude: CGFloat, period: CGFloat) {
+        let moveUp = SKAction.moveBy(x: 0, y: amplitude, duration: TimeInterval(period / 2))
+        moveUp.timingMode = .easeInEaseOut
+        let moveDown = SKAction.moveBy(x: 0, y: -amplitude, duration: TimeInterval(period / 2))
+        moveDown.timingMode = .easeInEaseOut
+
+        let floatCycle = SKAction.sequence([moveUp, moveDown])
+        platform.run(SKAction.repeatForever(floatCycle))
     }
 
     // MARK: - Enemy Creation
@@ -352,49 +542,101 @@ class LevelLoader {
     func createInteractable(from data: InteractableData, tileSize: CGFloat) -> SKNode {
         let position = data.position.toPixels(tileSize: tileSize)
 
-        let size: CGSize
-        let color: SKColor
-
         switch data.type {
         case .door:
-            size = CGSize(width: 48, height: 80)
-            color = SKColor(red: 0.5, green: 0.35, blue: 0.2, alpha: 1.0) // Wood brown
+            // Используем новый класс GameDoor
+            let openDirection: GameDoor.OpenDirection
+            if let dirString = data.openDirection {
+                openDirection = GameDoor.OpenDirection(rawValue: dirString) ?? .up
+            } else {
+                openDirection = .up
+            }
+
+            let doorSize = data.size?.toPixels(tileSize: tileSize) ?? CGSize(width: 48, height: 96)
+            let door = GameDoor(
+                doorId: data.linkedId ?? UUID().uuidString,
+                openDirection: openDirection,
+                size: doorSize
+            )
+            door.position = position
+            door.saveOriginalPosition()
+
+            // Автозакрытие если указано
+            if let autoClose = data.autoCloseDelay {
+                door.autoCloseDelay = autoClose
+            }
+
+            // Регистрируем в менеджере
+            SwitchDoorManager.shared.registerDoor(door)
+
+            return door
+
         case .switch:
-            size = CGSize(width: 24, height: 32)
-            color = SKColor(red: 0.7, green: 0.7, blue: 0.3, alpha: 1.0) // Yellow
+            // Используем новый класс GameSwitch
+            let activationType: GameSwitch.ActivationType
+            if let typeString = data.activationType {
+                activationType = GameSwitch.ActivationType(rawValue: typeString) ?? .attack
+            } else {
+                activationType = .attack
+            }
+
+            let switchSize = data.size?.toPixels(tileSize: tileSize) ?? CGSize(width: 32, height: 32)
+            let gameSwitch = GameSwitch(
+                linkedDoorId: data.linkedId ?? "",
+                activationType: activationType,
+                size: switchSize
+            )
+            gameSwitch.position = position
+
+            // Toggle режим если указан
+            if let isToggle = data.isToggleable {
+                gameSwitch.isToggleable = isToggle
+            }
+
+            // Регистрируем в менеджере
+            SwitchDoorManager.shared.registerSwitch(gameSwitch)
+
+            return gameSwitch
+
         case .levelExit:
-            size = CGSize(width: 64, height: 96)
-            color = SKColor(red: 0.8, green: 0.6, blue: 1.0, alpha: 0.8) // Purple glow
+            // Определяем ID следующего уровня (из linkedId или nextLevelId)
+            var nextLevelId: Int
+            if let explicitId = data.nextLevelId {
+                nextLevelId = explicitId
+            } else if let linkedIdString = data.linkedId, let parsedId = Int(linkedIdString) {
+                nextLevelId = parsedId
+            } else {
+                // По умолчанию - следующий уровень
+                nextLevelId = GameManager.shared.currentLevel + 1
+            }
+
+            // Определяем тип перехода
+            let transitionType: TransitionType
+            if let typeString = data.transitionType {
+                switch typeString {
+                case "door":
+                    transitionType = .door
+                case "path":
+                    transitionType = .path
+                default:
+                    transitionType = .portal
+                }
+            } else {
+                transitionType = .portal
+            }
+
+            // Создаём LevelExit
+            let levelExit = LevelExit(nextLevelId: nextLevelId, transitionType: transitionType)
+            levelExit.position = position
+
+            // Настраиваем требование ключа
+            if let requiresKey = data.requiresKey, requiresKey {
+                levelExit.requiresKey = true
+                levelExit.keyId = data.keyId
+            }
+
+            return levelExit
         }
-
-        let interactable = SKSpriteNode(color: color, size: size)
-        interactable.position = position
-        interactable.name = "interactable_\(data.type.rawValue)"
-
-        // Physics body
-        interactable.physicsBody = SKPhysicsBody(rectangleOf: size)
-        interactable.physicsBody?.isDynamic = false
-        interactable.physicsBody?.categoryBitMask = PhysicsCategory.trigger
-        interactable.physicsBody?.contactTestBitMask = PhysicsCategory.player
-        interactable.physicsBody?.collisionBitMask = data.type == .door ? PhysicsCategory.player : 0
-
-        // Store data
-        interactable.userData = [
-            "type": data.type.rawValue,
-            "linkedId": data.linkedId ?? "",
-            "isActive": true
-        ]
-
-        // Level exit glow effect
-        if data.type == .levelExit {
-            let pulse = SKAction.sequence([
-                SKAction.fadeAlpha(to: 0.5, duration: 1.0),
-                SKAction.fadeAlpha(to: 1.0, duration: 1.0)
-            ])
-            interactable.run(SKAction.repeatForever(pulse))
-        }
-
-        return interactable
     }
 
     // MARK: - Trigger Creation
@@ -465,5 +707,253 @@ class LevelLoader {
         layer.userData = ["parallaxFactor": data.parallaxFactor]
 
         return layer
+    }
+
+    // MARK: - Hazard Creation
+
+    func createHazard(from data: HazardData, tileSize: CGFloat) -> SKNode {
+        let position = data.position.toPixels(tileSize: tileSize)
+        let size = data.size.toPixels(tileSize: tileSize)
+
+        // Определяем тип опасности
+        let hazardType = HazardType(rawValue: data.hazardType) ?? .spikes
+
+        // Создаём опасность используя новый класс Hazard
+        let hazard = Hazard(type: hazardType, size: size)
+        hazard.position = position
+
+        // Настраиваем опциональные параметры
+        if let damage = data.damage {
+            hazard.damage = damage
+        }
+
+        if let interval = data.damageInterval {
+            hazard.damageInterval = interval
+        }
+
+        return hazard
+    }
+
+    // MARK: - Dark Zone Creation
+
+    func createDarkZone(from data: DarkZoneData, tileSize: CGFloat) -> SKNode {
+        let position = data.position.toPixels(tileSize: tileSize)
+        let size = data.size.toPixels(tileSize: tileSize)
+
+        let darkZone = SKNode()
+        darkZone.position = position
+        darkZone.name = "darkZone"
+
+        // Create darkness overlay
+        let darkness = SKSpriteNode(color: SKColor.black.withAlphaComponent(0.85), size: size)
+        darkness.position = CGPoint(x: size.width / 2, y: size.height / 2)
+        darkness.zPosition = 50 // Above game elements but below HUD
+        darkness.name = "darkness_overlay"
+        darkZone.addChild(darkness)
+
+        // Physics body for detection
+        darkZone.physicsBody = SKPhysicsBody(rectangleOf: size, center: CGPoint(x: size.width / 2, y: size.height / 2))
+        darkZone.physicsBody?.isDynamic = false
+        darkZone.physicsBody?.categoryBitMask = PhysicsCategory.trigger
+        darkZone.physicsBody?.contactTestBitMask = PhysicsCategory.player
+        darkZone.physicsBody?.collisionBitMask = 0
+
+        // Store dark zone data
+        darkZone.userData = [
+            "type": "darkZone",
+            "lightRadius": data.lightRadius
+        ]
+
+        return darkZone
+    }
+
+    // MARK: - Torch Creation
+
+    func createTorch(from data: TorchData, tileSize: CGFloat) -> SKNode {
+        let position = data.position.toPixels(tileSize: tileSize)
+
+        let torch = SKNode()
+        torch.position = position
+        torch.name = "torch"
+
+        // Torch holder (brown rectangle)
+        let holder = SKSpriteNode(color: SKColor(red: 0.4, green: 0.25, blue: 0.1, alpha: 1.0), size: CGSize(width: 8, height: 24))
+        holder.position = .zero
+        torch.addChild(holder)
+
+        // Flame (yellow/orange)
+        let flameColor = data.isLit ? SKColor(red: 1.0, green: 0.6, blue: 0.2, alpha: 1.0) : SKColor.darkGray
+        let flame = SKSpriteNode(color: flameColor, size: CGSize(width: 12, height: 16))
+        flame.position = CGPoint(x: 0, y: 16)
+        flame.name = "flame"
+        torch.addChild(flame)
+
+        // Light glow effect (if lit)
+        if data.isLit {
+            let glow = SKShapeNode(circleOfRadius: data.lightRadius)
+            glow.fillColor = SKColor(red: 1.0, green: 0.8, blue: 0.4, alpha: 0.15)
+            glow.strokeColor = .clear
+            glow.position = CGPoint(x: 0, y: 16)
+            glow.zPosition = -1
+            glow.name = "glow"
+            torch.addChild(glow)
+
+            // Flickering animation
+            let flicker = SKAction.sequence([
+                SKAction.fadeAlpha(to: 0.8, duration: 0.1),
+                SKAction.fadeAlpha(to: 1.0, duration: 0.1),
+                SKAction.wait(forDuration: Double.random(in: 0.1...0.3))
+            ])
+            flame.run(SKAction.repeatForever(flicker))
+        }
+
+        // Physics body for interaction
+        torch.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 16, height: 32))
+        torch.physicsBody?.isDynamic = false
+        torch.physicsBody?.categoryBitMask = PhysicsCategory.trigger
+        torch.physicsBody?.contactTestBitMask = PhysicsCategory.playerAttack
+        torch.physicsBody?.collisionBitMask = 0
+
+        // Store torch data
+        torch.userData = [
+            "type": "torch",
+            "isLit": data.isLit,
+            "lightRadius": data.lightRadius
+        ]
+
+        return torch
+    }
+
+    // MARK: - Falling Gate Creation
+
+    func createFallingGate(from data: FallingGateData, tileSize: CGFloat) -> SKNode {
+        let position = data.position.toPixels(tileSize: tileSize)
+
+        let gate = SKNode()
+        gate.position = position
+        gate.name = "fallingGate"
+
+        // Gate visual (iron bars)
+        let gateSize = CGSize(width: 32, height: 96)
+        let gateSprite = SKSpriteNode(color: SKColor(red: 0.3, green: 0.3, blue: 0.35, alpha: 1.0), size: gateSize)
+        gateSprite.position = CGPoint(x: 0, y: gateSize.height / 2) // Anchor at bottom
+        gateSprite.name = "gateSprite"
+        gate.addChild(gateSprite)
+
+        // Add bar pattern
+        for i in 0..<4 {
+            let bar = SKSpriteNode(color: SKColor(red: 0.4, green: 0.4, blue: 0.45, alpha: 1.0), size: CGSize(width: 4, height: gateSize.height - 8))
+            bar.position = CGPoint(x: CGFloat(i) * 8 - 12, y: gateSize.height / 2)
+            gate.addChild(bar)
+        }
+
+        // Trigger zone (invisible, larger area)
+        let triggerZone = SKNode()
+        triggerZone.name = "triggerZone"
+        triggerZone.position = CGPoint(x: 0, y: -data.triggerDistance / 2)
+        triggerZone.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: data.triggerDistance * 2, height: data.triggerDistance))
+        triggerZone.physicsBody?.isDynamic = false
+        triggerZone.physicsBody?.categoryBitMask = PhysicsCategory.trigger
+        triggerZone.physicsBody?.contactTestBitMask = PhysicsCategory.player
+        triggerZone.physicsBody?.collisionBitMask = 0
+        gate.addChild(triggerZone)
+
+        // Store gate data
+        gate.userData = [
+            "type": "fallingGate",
+            "triggerDistance": data.triggerDistance,
+            "fallSpeed": data.fallSpeed,
+            "hasFallen": false
+        ]
+
+        return gate
+    }
+
+    // MARK: - Icicle Creation
+
+    func createIcicle(from data: IcicleData, tileSize: CGFloat) -> SKNode {
+        let position = data.position.toPixels(tileSize: tileSize)
+
+        let icicle = SKNode()
+        icicle.position = position
+        icicle.name = "icicle"
+
+        // Icicle visual (triangular shape approximated with sprite)
+        let icicleSize = CGSize(width: 16, height: 48)
+        let icicleSprite = SKSpriteNode(color: SKColor(red: 0.8, green: 0.9, blue: 1.0, alpha: 0.9), size: icicleSize)
+        icicleSprite.position = CGPoint(x: 0, y: -icicleSize.height / 2)
+        icicleSprite.name = "icicleSprite"
+        icicle.addChild(icicleSprite)
+
+        // Add icy shine effect
+        let shine = SKSpriteNode(color: SKColor.white.withAlphaComponent(0.4), size: CGSize(width: 4, height: 40))
+        shine.position = CGPoint(x: -4, y: -icicleSize.height / 2)
+        icicle.addChild(shine)
+
+        // Trigger zone (invisible, detects player proximity)
+        let triggerZone = SKNode()
+        triggerZone.name = "triggerZone"
+        triggerZone.position = CGPoint(x: 0, y: -data.triggerRadius)
+        triggerZone.physicsBody = SKPhysicsBody(circleOfRadius: data.triggerRadius)
+        triggerZone.physicsBody?.isDynamic = false
+        triggerZone.physicsBody?.categoryBitMask = PhysicsCategory.trigger
+        triggerZone.physicsBody?.contactTestBitMask = PhysicsCategory.player
+        triggerZone.physicsBody?.collisionBitMask = 0
+        icicle.addChild(triggerZone)
+
+        // Store icicle data
+        icicle.userData = [
+            "type": "icicle",
+            "triggerRadius": data.triggerRadius,
+            "damage": data.damage,
+            "respawnTime": data.respawnTime,
+            "hasFallen": false,
+            "originalPosition": position
+        ]
+
+        return icicle
+    }
+
+    // MARK: - Avalanche Creation
+
+    func createAvalanche(from data: AvalancheData, tileSize: CGFloat) -> SKNode {
+        let triggerPosition = data.triggerPosition.toPixels(tileSize: tileSize)
+
+        let avalanche = SKNode()
+        avalanche.position = triggerPosition
+        avalanche.name = "avalanche"
+
+        // Trigger zone (invisible, starts avalanche when player enters)
+        let triggerZone = SKShapeNode(rectOf: CGSize(width: tileSize * 2, height: tileSize * 4))
+        triggerZone.name = "triggerZone"
+        triggerZone.fillColor = .clear
+        triggerZone.strokeColor = .clear
+        triggerZone.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: tileSize * 2, height: tileSize * 4))
+        triggerZone.physicsBody?.isDynamic = false
+        triggerZone.physicsBody?.categoryBitMask = PhysicsCategory.trigger
+        triggerZone.physicsBody?.contactTestBitMask = PhysicsCategory.player
+        triggerZone.physicsBody?.collisionBitMask = 0
+        avalanche.addChild(triggerZone)
+
+        #if DEBUG
+        // Debug visualization
+        let debugRect = SKShapeNode(rectOf: CGSize(width: tileSize * 2, height: tileSize * 4))
+        debugRect.strokeColor = SKColor.red.withAlphaComponent(0.5)
+        debugRect.lineWidth = 2
+        debugRect.fillColor = SKColor.red.withAlphaComponent(0.1)
+        avalanche.addChild(debugRect)
+        #endif
+
+        // Store avalanche data
+        avalanche.userData = [
+            "type": "avalanche",
+            "startX": data.startX * tileSize,
+            "endX": data.endX * tileSize,
+            "speed": data.speed,
+            "isActive": false,
+            "hasTriggered": false
+        ]
+
+        return avalanche
     }
 }

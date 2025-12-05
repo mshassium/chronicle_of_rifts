@@ -1,0 +1,354 @@
+{
+    "id": 7,
+    "name": "Врата Цитадели",
+    "width": 90,
+    "height": 20,
+    "tileSize": 32,
+
+    "playerSpawn": { "x": 3, "y": 3 },
+
+    "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 90,
+        "height": 20
+    },
+    "deathZoneY": -3,
+
+    "backgroundLayers": [
+        {
+            "imageName": "bg_citadel_gates_far",
+            "parallaxFactor": 0.1,
+            "zPosition": -100
+        },
+        {
+            "imageName": "bg_citadel_gates_mid",
+            "parallaxFactor": 0.3,
+            "zPosition": -50
+        },
+        {
+            "imageName": "bg_citadel_gates_near",
+            "parallaxFactor": 0.6,
+            "zPosition": -20
+        }
+    ],
+
+    "platforms": [
+        {
+            "position": { "x": 0, "y": 1 },
+            "size": { "width": 8, "height": 2 },
+            "type": "solid"
+        },
+        {
+            "position": { "x": 10, "y": 2 },
+            "size": { "width": 4, "height": 1 },
+            "type": "solid"
+        },
+        {
+            "position": { "x": 15, "y": 4 },
+            "size": { "width": 3, "height": 1 },
+            "type": "oneWay"
+        },
+        {
+            "position": { "x": 19, "y": 6 },
+            "size": { "width": 6, "height": 2 },
+            "type": "solid"
+        },
+
+        {
+            "position": { "x": 27, "y": 1 },
+            "size": { "width": 18, "height": 2 },
+            "type": "solid"
+        },
+        {
+            "position": { "x": 30, "y": 4 },
+            "size": { "width": 4, "height": 1 },
+            "type": "oneWay"
+        },
+        {
+            "position": { "x": 35, "y": 6 },
+            "size": { "width": 3, "height": 1 },
+            "type": "moving",
+            "movementPath": [
+                { "x": 35, "y": 6 },
+                { "x": 40, "y": 6 }
+            ],
+            "movementSpeed": 35
+        },
+        {
+            "position": { "x": 38, "y": 3 },
+            "size": { "width": 4, "height": 1 },
+            "type": "crumbling"
+        },
+
+        {
+            "position": { "x": 47, "y": 1 },
+            "size": { "width": 18, "height": 2 },
+            "type": "solid"
+        },
+        {
+            "position": { "x": 50, "y": 4 },
+            "size": { "width": 5, "height": 1 },
+            "type": "solid"
+        },
+        {
+            "position": { "x": 56, "y": 6 },
+            "size": { "width": 4, "height": 1 },
+            "type": "oneWay"
+        },
+        {
+            "position": { "x": 61, "y": 4 },
+            "size": { "width": 3, "height": 1 },
+            "type": "crumbling"
+        },
+
+        {
+            "position": { "x": 67, "y": 1 },
+            "size": { "width": 13, "height": 2 },
+            "type": "solid"
+        },
+        {
+            "position": { "x": 70, "y": 4 },
+            "size": { "width": 4, "height": 1 },
+            "type": "solid"
+        },
+        {
+            "position": { "x": 75, "y": 6 },
+            "size": { "width": 3, "height": 1 },
+            "type": "oneWay"
+        },
+
+        {
+            "position": { "x": 82, "y": 1 },
+            "size": { "width": 8, "height": 3 },
+            "type": "solid"
+        },
+        {
+            "position": { "x": 84, "y": 5 },
+            "size": { "width": 4, "height": 1 },
+            "type": "solid"
+        }
+    ],
+
+    "enemies": [
+        {
+            "type": "EliteCultist",
+            "position": { "x": 12, "y": 4 },
+            "facing": "left"
+        },
+        {
+            "type": "Skeleton",
+            "position": { "x": 20, "y": 9 },
+            "patrolPath": [
+                { "x": 19, "y": 9 },
+                { "x": 24, "y": 9 }
+            ],
+            "facing": "right"
+        },
+        {
+            "type": "FloatingEye",
+            "position": { "x": 25, "y": 12 },
+            "facing": "left"
+        },
+        {
+            "type": "EliteCultist",
+            "position": { "x": 32, "y": 3 },
+            "patrolPath": [
+                { "x": 28, "y": 3 },
+                { "x": 36, "y": 3 }
+            ],
+            "facing": "right"
+        },
+        {
+            "type": "Skeleton",
+            "position": { "x": 40, "y": 3 },
+            "facing": "left"
+        },
+        {
+            "type": "EliteCultist",
+            "position": { "x": 50, "y": 3 },
+            "patrolPath": [
+                { "x": 48, "y": 3 },
+                { "x": 54, "y": 3 }
+            ],
+            "facing": "left"
+        },
+        {
+            "type": "FloatingEye",
+            "position": { "x": 55, "y": 8 },
+            "facing": "right"
+        },
+        {
+            "type": "Skeleton",
+            "position": { "x": 58, "y": 8 },
+            "facing": "left"
+        },
+        {
+            "type": "EliteCultist",
+            "position": { "x": 62, "y": 3 },
+            "facing": "right"
+        },
+        {
+            "type": "Skeleton",
+            "position": { "x": 70, "y": 3 },
+            "patrolPath": [
+                { "x": 68, "y": 3 },
+                { "x": 74, "y": 3 }
+            ],
+            "facing": "left"
+        },
+        {
+            "type": "FloatingEye",
+            "position": { "x": 76, "y": 10 },
+            "facing": "left"
+        },
+        {
+            "type": "EliteCultist",
+            "position": { "x": 78, "y": 3 },
+            "facing": "right"
+        }
+    ],
+
+    "collectibles": [
+        { "type": "manaCrystal", "position": { "x": 4, "y": 4 } },
+        { "type": "manaCrystal", "position": { "x": 6, "y": 4 } },
+        { "type": "manaCrystal", "position": { "x": 11, "y": 4 } },
+        { "type": "manaCrystal", "position": { "x": 16, "y": 6 } },
+        { "type": "manaCrystal", "position": { "x": 21, "y": 9 } },
+        { "type": "manaCrystal", "position": { "x": 23, "y": 9 } },
+
+        { "type": "checkpoint", "position": { "x": 25, "y": 3 } },
+
+        { "type": "manaCrystal", "position": { "x": 29, "y": 4 } },
+        { "type": "manaCrystal", "position": { "x": 31, "y": 6 } },
+        { "type": "manaCrystal", "position": { "x": 33, "y": 6 } },
+        { "type": "manaCrystal", "position": { "x": 37, "y": 8 } },
+        { "type": "manaCrystal", "position": { "x": 39, "y": 5 } },
+        { "type": "manaCrystal", "position": { "x": 42, "y": 4 } },
+
+        { "type": "healthPickup", "position": { "x": 44, "y": 3 } },
+
+        { "type": "manaCrystal", "position": { "x": 48, "y": 4 } },
+        { "type": "manaCrystal", "position": { "x": 51, "y": 6 } },
+        { "type": "manaCrystal", "position": { "x": 53, "y": 6 } },
+        { "type": "manaCrystal", "position": { "x": 57, "y": 8 } },
+        { "type": "manaCrystal", "position": { "x": 59, "y": 8 } },
+        { "type": "manaCrystal", "position": { "x": 62, "y": 6 } },
+
+        { "type": "checkpoint", "position": { "x": 55, "y": 3 } },
+
+        { "type": "manaCrystal", "position": { "x": 68, "y": 4 } },
+        { "type": "manaCrystal", "position": { "x": 71, "y": 6 } },
+        { "type": "manaCrystal", "position": { "x": 73, "y": 6 } },
+        { "type": "manaCrystal", "position": { "x": 76, "y": 8 } },
+
+        { "type": "healthPickup", "position": { "x": 72, "y": 6 } },
+
+        {
+            "type": "chroniclePage",
+            "position": { "x": 74, "y": 5 },
+            "id": "page_7_1"
+        },
+
+        { "type": "checkpoint", "position": { "x": 78, "y": 3 } },
+
+        { "type": "manaCrystal", "position": { "x": 83, "y": 5 } },
+        { "type": "manaCrystal", "position": { "x": 85, "y": 7 } },
+        { "type": "manaCrystal", "position": { "x": 87, "y": 7 } },
+        { "type": "manaCrystal", "position": { "x": 86, "y": 5 } },
+        { "type": "manaCrystal", "position": { "x": 88, "y": 5 } },
+
+        { "type": "healthPickup", "position": { "x": 84, "y": 7 } }
+    ],
+
+    "interactables": [
+        {
+            "type": "levelExit",
+            "position": { "x": 88, "y": 5 }
+        }
+    ],
+
+    "triggers": [
+        {
+            "type": "dialog",
+            "position": { "x": 5, "y": 3 },
+            "size": { "width": 3, "height": 4 },
+            "dialogId": "citadel_gates_intro",
+            "oneTime": true
+        },
+        {
+            "type": "dialog",
+            "position": { "x": 74, "y": 4 },
+            "size": { "width": 3, "height": 4 },
+            "dialogId": "father_notes",
+            "oneTime": true
+        },
+        {
+            "type": "bossSpawn",
+            "position": { "x": 82, "y": 4 },
+            "size": { "width": 6, "height": 6 },
+            "bossType": "GeneralMaltorus",
+            "oneTime": true
+        },
+        {
+            "type": "dialog",
+            "position": { "x": 87, "y": 4 },
+            "size": { "width": 2, "height": 4 },
+            "dialogId": "maltorus_defeat",
+            "oneTime": true
+        }
+    ],
+
+    "hazards": [
+        {
+            "type": "spikes",
+            "position": { "x": 14, "y": 1 },
+            "size": { "width": 2, "height": 1 }
+        },
+        {
+            "type": "spikes",
+            "position": { "x": 45, "y": 1 },
+            "size": { "width": 2, "height": 1 }
+        },
+        {
+            "type": "flamethrower",
+            "position": { "x": 34, "y": 3 },
+            "direction": "up",
+            "interval": 3.0,
+            "duration": 1.5
+        },
+        {
+            "type": "flamethrower",
+            "position": { "x": 60, "y": 3 },
+            "direction": "up",
+            "interval": 2.5,
+            "duration": 1.0
+        }
+    ],
+
+    "fallingGates": [
+        {
+            "position": { "x": 26, "y": 1 },
+            "size": { "width": 1, "height": 6 },
+            "triggerX": 24,
+            "fallSpeed": 200
+        },
+        {
+            "position": { "x": 46, "y": 1 },
+            "size": { "width": 1, "height": 6 },
+            "triggerX": 44,
+            "fallSpeed": 180
+        },
+        {
+            "position": { "x": 66, "y": 1 },
+            "size": { "width": 1, "height": 6 },
+            "triggerX": 64,
+            "fallSpeed": 220
+        }
+    ],
+
+    "darkZones": [],
+    "torches": [],
+    "icicles": [],
+    "avalanches": []
+}

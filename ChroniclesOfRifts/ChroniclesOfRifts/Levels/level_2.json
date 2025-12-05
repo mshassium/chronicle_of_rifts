@@ -1,0 +1,339 @@
+{
+    "id": 2,
+    "name": "Мосты Бездны",
+    "width": 80,
+    "height": 20,
+    "tileSize": 32,
+
+    "playerSpawn": { "x": 2, "y": 3 },
+
+    "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 80,
+        "height": 20
+    },
+    "deathZoneY": -5,
+
+    "backgroundLayers": [
+        {
+            "imageName": "bg_abyss_far",
+            "parallaxFactor": 0.05,
+            "zPosition": -100
+        },
+        {
+            "imageName": "bg_clouds_mid",
+            "parallaxFactor": 0.2,
+            "zPosition": -50
+        },
+        {
+            "imageName": "bg_chains_near",
+            "parallaxFactor": 0.5,
+            "zPosition": -20
+        }
+    ],
+
+    "platforms": [
+        {
+            "position": { "x": 0, "y": 1 },
+            "size": { "width": 6, "height": 2 },
+            "type": "solid"
+        },
+        {
+            "position": { "x": 7, "y": 2 },
+            "size": { "width": 2, "height": 1 },
+            "type": "solid"
+        },
+        {
+            "position": { "x": 10, "y": 2 },
+            "size": { "width": 2, "height": 1 },
+            "type": "solid"
+        },
+        {
+            "position": { "x": 13, "y": 2 },
+            "size": { "width": 2, "height": 1 },
+            "type": "solid"
+        },
+        {
+            "position": { "x": 16, "y": 2 },
+            "size": { "width": 4, "height": 1 },
+            "type": "solid"
+        },
+
+        {
+            "position": { "x": 21, "y": 3 },
+            "size": { "width": 4, "height": 1 },
+            "type": "moving",
+            "movementPath": [
+                { "x": 21, "y": 3 },
+                { "x": 27, "y": 3 }
+            ],
+            "movementSpeed": 30
+        },
+        {
+            "position": { "x": 29, "y": 4 },
+            "size": { "width": 4, "height": 1 },
+            "type": "moving",
+            "movementPath": [
+                { "x": 29, "y": 4 },
+                { "x": 34, "y": 4 }
+            ],
+            "movementSpeed": 35
+        },
+        {
+            "position": { "x": 36, "y": 3 },
+            "size": { "width": 4, "height": 1 },
+            "type": "moving",
+            "movementPath": [
+                { "x": 36, "y": 3 },
+                { "x": 40, "y": 3 }
+            ],
+            "movementSpeed": 25
+        },
+        {
+            "position": { "x": 25, "y": 7 },
+            "size": { "width": 3, "height": 1 },
+            "type": "oneWay"
+        },
+        {
+            "position": { "x": 30, "y": 9 },
+            "size": { "width": 3, "height": 1 },
+            "type": "oneWay"
+        },
+        {
+            "position": { "x": 35, "y": 10 },
+            "size": { "width": 3, "height": 1 },
+            "type": "oneWay"
+        },
+
+        {
+            "position": { "x": 41, "y": 3 },
+            "size": { "width": 3, "height": 1 },
+            "type": "solid"
+        },
+        {
+            "position": { "x": 43, "y": 5 },
+            "size": { "width": 3, "height": 1 },
+            "type": "crumbling"
+        },
+        {
+            "position": { "x": 45, "y": 7 },
+            "size": { "width": 3, "height": 1 },
+            "type": "solid"
+        },
+        {
+            "position": { "x": 47, "y": 9 },
+            "size": { "width": 3, "height": 1 },
+            "type": "crumbling"
+        },
+        {
+            "position": { "x": 49, "y": 11 },
+            "size": { "width": 4, "height": 1 },
+            "type": "moving",
+            "movementPath": [
+                { "x": 49, "y": 11 },
+                { "x": 49, "y": 14 }
+            ],
+            "movementSpeed": 25
+        },
+        {
+            "position": { "x": 51, "y": 12 },
+            "size": { "width": 4, "height": 2 },
+            "type": "solid"
+        },
+        {
+            "position": { "x": 47, "y": 15 },
+            "size": { "width": 3, "height": 1 },
+            "type": "crumbling"
+        },
+
+        {
+            "position": { "x": 55, "y": 12 },
+            "size": { "width": 3, "height": 1 },
+            "type": "solid"
+        },
+        {
+            "position": { "x": 58, "y": 10 },
+            "size": { "width": 4, "height": 1 },
+            "type": "crumbling"
+        },
+        {
+            "position": { "x": 62, "y": 8 },
+            "size": { "width": 4, "height": 1 },
+            "type": "solid"
+        },
+        {
+            "position": { "x": 66, "y": 6 },
+            "size": { "width": 3, "height": 1 },
+            "type": "crumbling"
+        },
+        {
+            "position": { "x": 69, "y": 4 },
+            "size": { "width": 3, "height": 1 },
+            "type": "solid"
+        },
+
+        {
+            "position": { "x": 72, "y": 2 },
+            "size": { "width": 8, "height": 2 },
+            "type": "solid"
+        },
+        {
+            "position": { "x": 73, "y": 6 },
+            "size": { "width": 6, "height": 1 },
+            "type": "solid"
+        },
+        {
+            "position": { "x": 74, "y": 10 },
+            "size": { "width": 4, "height": 1 },
+            "type": "solid"
+        }
+    ],
+
+    "enemies": [
+        {
+            "type": "Cultist",
+            "position": { "x": 8, "y": 4 },
+            "patrolPath": [
+                { "x": 5, "y": 4 },
+                { "x": 12, "y": 4 }
+            ],
+            "facing": "right"
+        },
+        {
+            "type": "Cultist",
+            "position": { "x": 15, "y": 4 },
+            "patrolPath": [
+                { "x": 13, "y": 4 },
+                { "x": 18, "y": 4 }
+            ],
+            "facing": "left"
+        },
+        {
+            "type": "Cultist",
+            "position": { "x": 18, "y": 4 },
+            "facing": "left"
+        },
+        {
+            "type": "FloatingEye",
+            "position": { "x": 30, "y": 8 },
+            "facing": "left"
+        },
+        {
+            "type": "Cultist",
+            "position": { "x": 35, "y": 5 },
+            "facing": "left"
+        },
+        {
+            "type": "FloatingEye",
+            "position": { "x": 45, "y": 6 },
+            "facing": "right"
+        },
+        {
+            "type": "FloatingEye",
+            "position": { "x": 48, "y": 10 },
+            "facing": "left"
+        },
+        {
+            "type": "Cultist",
+            "position": { "x": 60, "y": 10 },
+            "patrolPath": [
+                { "x": 58, "y": 10 },
+                { "x": 65, "y": 10 }
+            ],
+            "facing": "right"
+        },
+        {
+            "type": "Cultist",
+            "position": { "x": 65, "y": 9 },
+            "patrolPath": [
+                { "x": 62, "y": 9 },
+                { "x": 68, "y": 9 }
+            ],
+            "facing": "left"
+        }
+    ],
+
+    "collectibles": [
+        { "type": "manaCrystal", "position": { "x": 3, "y": 4 } },
+        { "type": "manaCrystal", "position": { "x": 8, "y": 4 } },
+        { "type": "manaCrystal", "position": { "x": 11, "y": 4 } },
+        { "type": "manaCrystal", "position": { "x": 14, "y": 4 } },
+        { "type": "manaCrystal", "position": { "x": 17, "y": 4 } },
+
+        { "type": "manaCrystal", "position": { "x": 24, "y": 5 } },
+        { "type": "manaCrystal", "position": { "x": 32, "y": 6 } },
+        { "type": "manaCrystal", "position": { "x": 38, "y": 5 } },
+        { "type": "manaCrystal", "position": { "x": 26, "y": 9 } },
+        { "type": "manaCrystal", "position": { "x": 31, "y": 11 } },
+        { "type": "manaCrystal", "position": { "x": 36, "y": 12 } },
+
+        { "type": "manaCrystal", "position": { "x": 42, "y": 5 } },
+        { "type": "manaCrystal", "position": { "x": 44, "y": 7 } },
+        { "type": "manaCrystal", "position": { "x": 46, "y": 9 } },
+        { "type": "manaCrystal", "position": { "x": 48, "y": 11 } },
+        { "type": "manaCrystal", "position": { "x": 50, "y": 13 } },
+        { "type": "manaCrystal", "position": { "x": 48, "y": 17 } },
+
+        { "type": "manaCrystal", "position": { "x": 56, "y": 14 } },
+        { "type": "manaCrystal", "position": { "x": 59, "y": 12 } },
+        { "type": "manaCrystal", "position": { "x": 63, "y": 10 } },
+        { "type": "manaCrystal", "position": { "x": 67, "y": 8 } },
+        { "type": "manaCrystal", "position": { "x": 70, "y": 6 } },
+
+        { "type": "manaCrystal", "position": { "x": 74, "y": 4 } },
+        { "type": "manaCrystal", "position": { "x": 76, "y": 4 } },
+        { "type": "manaCrystal", "position": { "x": 78, "y": 4 } },
+
+        { "type": "healthPickup", "position": { "x": 53, "y": 14 } },
+        { "type": "healthPickup", "position": { "x": 75, "y": 8 } },
+
+        { "type": "checkpoint", "position": { "x": 18, "y": 4 } },
+        { "type": "checkpoint", "position": { "x": 52, "y": 14 } },
+        { "type": "checkpoint", "position": { "x": 72, "y": 4 } },
+
+        {
+            "type": "chroniclePage",
+            "position": { "x": 36, "y": 12 },
+            "id": "page_2_1"
+        }
+    ],
+
+    "interactables": [
+        {
+            "type": "levelExit",
+            "position": { "x": 78, "y": 4 }
+        }
+    ],
+
+    "triggers": [
+        {
+            "type": "dialog",
+            "position": { "x": 3, "y": 3 },
+            "size": { "width": 3, "height": 4 },
+            "dialogId": "intro_level2",
+            "oneTime": true
+        },
+        {
+            "type": "dialog",
+            "position": { "x": 55, "y": 12 },
+            "size": { "width": 3, "height": 4 },
+            "dialogId": "bridge_crumbling",
+            "oneTime": true
+        },
+        {
+            "type": "bossSpawn",
+            "position": { "x": 72, "y": 3 },
+            "size": { "width": 2, "height": 4 },
+            "bossType": "Grondar",
+            "oneTime": true
+        },
+        {
+            "type": "dialog",
+            "position": { "x": 77, "y": 3 },
+            "size": { "width": 2, "height": 4 },
+            "dialogId": "grondar_defeat",
+            "oneTime": true
+        }
+    ]
+}

@@ -31,6 +31,15 @@
 		E0000203 /* LevelLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000212 /* LevelLoader.swift */; };
 		E0000204 /* level_1.json in Resources */ = {isa = PBXBuildFile; fileRef = E0000213 /* level_1.json */; };
 		E0000205 /* level_test.json in Resources */ = {isa = PBXBuildFile; fileRef = E0000214 /* level_test.json */; };
+		E0000206 /* level_2.json in Resources */ = {isa = PBXBuildFile; fileRef = E0000215 /* level_2.json */; };
+		E0000207 /* level_3.json in Resources */ = {isa = PBXBuildFile; fileRef = E0000216 /* level_3.json */; };
+		E0000208 /* level_4.json in Resources */ = {isa = PBXBuildFile; fileRef = E0000217 /* level_4.json */; };
+		E0000209 /* level_5.json in Resources */ = {isa = PBXBuildFile; fileRef = E0000218 /* level_5.json */; };
+		E000020A /* level_6.json in Resources */ = {isa = PBXBuildFile; fileRef = E0000219 /* level_6.json */; };
+		E000020B /* level_7.json in Resources */ = {isa = PBXBuildFile; fileRef = E000021A /* level_7.json */; };
+		E000020C /* level_8.json in Resources */ = {isa = PBXBuildFile; fileRef = E000021B /* level_8.json */; };
+		E000020D /* level_9.json in Resources */ = {isa = PBXBuildFile; fileRef = E000021C /* level_9.json */; };
+		E000020E /* level_10.json in Resources */ = {isa = PBXBuildFile; fileRef = E000021D /* level_10.json */; };
 		E0000301 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000310 /* Player.swift */; };
 		E0000302 /* AnimationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000311 /* AnimationManager.swift */; };
 		E0000401 /* MeleeAttack.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0000410 /* MeleeAttack.swift */; };
@@ -58,6 +67,18 @@
 		E000200C /* Morgana.swift in Sources */ = {isa = PBXBuildFile; fileRef = E000201C /* Morgana.swift */; };
 		E000200D /* Velkor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E000201D /* Velkor.swift */; };
 		E0003001 /* EnemyFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0003010 /* EnemyFactory.swift */; };
+		E0004001 /* TileSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0004010 /* TileSystem.swift */; };
+		E0004002 /* TileMapLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0004011 /* TileMapLoader.swift */; };
+		E0004003 /* PlaceholderTextures.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0004012 /* PlaceholderTextures.swift */; };
+		E0004101 /* CrumblingPlatform.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0004110 /* CrumblingPlatform.swift */; };
+		E0004102 /* MovingPlatform.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0004111 /* MovingPlatform.swift */; };
+		E0004103 /* SwitchAndDoor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0004112 /* SwitchAndDoor.swift */; };
+		E0004104 /* Checkpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0004113 /* Checkpoint.swift */; };
+		E0004105 /* LevelExit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0004114 /* LevelExit.swift */; };
+		E0004106 /* Hazard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0004115 /* Hazard.swift */; };
+		E0005001 /* DialogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0005010 /* DialogManager.swift */; };
+		E0005002 /* dialogs.json in Resources */ = {isa = PBXBuildFile; fileRef = E0005011 /* dialogs.json */; };
+		E0005003 /* DialogBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0005012 /* DialogBox.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -87,6 +108,15 @@
 		E0000212 /* LevelLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelLoader.swift; sourceTree = "<group>"; };
 		E0000213 /* level_1.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = level_1.json; sourceTree = "<group>"; };
 		E0000214 /* level_test.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = level_test.json; sourceTree = "<group>"; };
+		E0000215 /* level_2.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = level_2.json; sourceTree = "<group>"; };
+		E0000216 /* level_3.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = level_3.json; sourceTree = "<group>"; };
+		E0000217 /* level_4.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = level_4.json; sourceTree = "<group>"; };
+		E0000218 /* level_5.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = level_5.json; sourceTree = "<group>"; };
+		E0000219 /* level_6.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = level_6.json; sourceTree = "<group>"; };
+		E000021A /* level_7.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = level_7.json; sourceTree = "<group>"; };
+		E000021B /* level_8.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = level_8.json; sourceTree = "<group>"; };
+		E000021C /* level_9.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = level_9.json; sourceTree = "<group>"; };
+		E000021D /* level_10.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = level_10.json; sourceTree = "<group>"; };
 		E0000310 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		E0000311 /* AnimationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationManager.swift; sourceTree = "<group>"; };
 		E0000410 /* MeleeAttack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeleeAttack.swift; sourceTree = "<group>"; };
@@ -114,6 +144,18 @@
 		E000201C /* Morgana.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Morgana.swift; sourceTree = "<group>"; };
 		E000201D /* Velkor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Velkor.swift; sourceTree = "<group>"; };
 		E0003010 /* EnemyFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyFactory.swift; sourceTree = "<group>"; };
+		E0004010 /* TileSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileSystem.swift; sourceTree = "<group>"; };
+		E0004011 /* TileMapLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileMapLoader.swift; sourceTree = "<group>"; };
+		E0004012 /* PlaceholderTextures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderTextures.swift; sourceTree = "<group>"; };
+		E0004110 /* CrumblingPlatform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrumblingPlatform.swift; sourceTree = "<group>"; };
+		E0004111 /* MovingPlatform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovingPlatform.swift; sourceTree = "<group>"; };
+		E0004112 /* SwitchAndDoor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchAndDoor.swift; sourceTree = "<group>"; };
+		E0004113 /* Checkpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkpoint.swift; sourceTree = "<group>"; };
+		E0004114 /* LevelExit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelExit.swift; sourceTree = "<group>"; };
+		E0004115 /* Hazard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hazard.swift; sourceTree = "<group>"; };
+		E0005010 /* DialogManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogManager.swift; sourceTree = "<group>"; };
+		E0005011 /* dialogs.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = dialogs.json; sourceTree = "<group>"; };
+		E0005012 /* DialogBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogBox.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -231,6 +273,13 @@
 				E0000122 /* ActionButton.swift */,
 				E0000124 /* TouchControlsOverlay.swift */,
 				E0000410 /* MeleeAttack.swift */,
+				E0004110 /* CrumblingPlatform.swift */,
+				E0004111 /* MovingPlatform.swift */,
+				E0004112 /* SwitchAndDoor.swift */,
+				E0004113 /* Checkpoint.swift */,
+				E0004114 /* LevelExit.swift */,
+				E0004115 /* Hazard.swift */,
+				E0005012 /* DialogBox.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -244,6 +293,7 @@
 				E0000113 /* SceneManager.swift */,
 				E0000126 /* InputManager.swift */,
 				E0000311 /* AnimationManager.swift */,
+				E0005010 /* DialogManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -263,8 +313,20 @@
 			children = (
 				E0000211 /* LevelData.swift */,
 				E0000212 /* LevelLoader.swift */,
+				E0004010 /* TileSystem.swift */,
+				E0004011 /* TileMapLoader.swift */,
 				E0000213 /* level_1.json */,
 				E0000214 /* level_test.json */,
+				E0000215 /* level_2.json */,
+				E0000216 /* level_3.json */,
+				E0000217 /* level_4.json */,
+				E0000218 /* level_5.json */,
+				E0000219 /* level_6.json */,
+				E000021A /* level_7.json */,
+				E000021B /* level_8.json */,
+				E000021C /* level_9.json */,
+				E000021D /* level_10.json */,
+				E0005011 /* dialogs.json */,
 			);
 			path = Levels;
 			sourceTree = "<group>";
@@ -273,6 +335,7 @@
 			isa = PBXGroup;
 			children = (
 				E0000210 /* PhysicsCategories.swift */,
+				E0004012 /* PlaceholderTextures.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -361,6 +424,16 @@
 				E0000006 /* LaunchScreen.storyboard in Resources */,
 				E0000204 /* level_1.json in Resources */,
 				E0000205 /* level_test.json in Resources */,
+				E0000206 /* level_2.json in Resources */,
+				E0000207 /* level_3.json in Resources */,
+				E0000208 /* level_4.json in Resources */,
+				E0000209 /* level_5.json in Resources */,
+				E000020A /* level_6.json in Resources */,
+				E000020B /* level_7.json in Resources */,
+				E000020C /* level_8.json in Resources */,
+				E000020D /* level_9.json in Resources */,
+				E000020E /* level_10.json in Resources */,
+				E0005002 /* dialogs.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -417,6 +490,17 @@
 				E000200C /* Morgana.swift in Sources */,
 				E000200D /* Velkor.swift in Sources */,
 				E0003001 /* EnemyFactory.swift in Sources */,
+				E0004001 /* TileSystem.swift in Sources */,
+				E0004002 /* TileMapLoader.swift in Sources */,
+				E0004003 /* PlaceholderTextures.swift in Sources */,
+				E0004101 /* CrumblingPlatform.swift in Sources */,
+				E0004102 /* MovingPlatform.swift in Sources */,
+				E0004103 /* SwitchAndDoor.swift in Sources */,
+				E0004104 /* Checkpoint.swift in Sources */,
+				E0004105 /* LevelExit.swift in Sources */,
+				E0004106 /* Hazard.swift in Sources */,
+				E0005001 /* DialogManager.swift in Sources */,
+				E0005003 /* DialogBox.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

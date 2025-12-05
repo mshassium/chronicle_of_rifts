@@ -1,0 +1,407 @@
+{
+    "id": 10,
+    "name": "Пробуждение",
+    "width": 50,
+    "height": 40,
+    "tileSize": 32,
+
+    "playerSpawn": { "x": 25, "y": 3 },
+
+    "bounds": {
+        "x": 0,
+        "y": 0,
+        "width": 50,
+        "height": 40
+    },
+    "deathZoneY": -5,
+
+    "backgroundLayers": [
+        {
+            "imageName": "bg_awakening_far",
+            "parallaxFactor": 0.1,
+            "zPosition": -100
+        },
+        {
+            "imageName": "bg_awakening_mid",
+            "parallaxFactor": 0.3,
+            "zPosition": -50
+        },
+        {
+            "imageName": "bg_awakening_near",
+            "parallaxFactor": 0.6,
+            "zPosition": -20
+        }
+    ],
+
+    "platforms": [
+        {
+            "position": { "x": 20, "y": 1 },
+            "size": { "width": 10, "height": 2 },
+            "type": "solid"
+        },
+
+        {
+            "position": { "x": 5, "y": 5 },
+            "size": { "width": 6, "height": 2 },
+            "type": "solid"
+        },
+        {
+            "position": { "x": 39, "y": 5 },
+            "size": { "width": 6, "height": 2 },
+            "type": "solid"
+        },
+
+        {
+            "position": { "x": 12, "y": 3 },
+            "size": { "width": 3, "height": 1 },
+            "type": "crumbling"
+        },
+        {
+            "position": { "x": 35, "y": 3 },
+            "size": { "width": 3, "height": 1 },
+            "type": "crumbling"
+        },
+
+        {
+            "position": { "x": 2, "y": 12 },
+            "size": { "width": 5, "height": 2 },
+            "type": "solid"
+        },
+        {
+            "position": { "x": 43, "y": 12 },
+            "size": { "width": 5, "height": 2 },
+            "type": "solid"
+        },
+
+        {
+            "position": { "x": 8, "y": 10 },
+            "size": { "width": 3, "height": 1 },
+            "type": "moving",
+            "movementPath": [
+                { "x": 8, "y": 10 },
+                { "x": 8, "y": 14 }
+            ],
+            "movementSpeed": 25
+        },
+        {
+            "position": { "x": 39, "y": 10 },
+            "size": { "width": 3, "height": 1 },
+            "type": "moving",
+            "movementPath": [
+                { "x": 39, "y": 10 },
+                { "x": 39, "y": 14 }
+            ],
+            "movementSpeed": 25
+        },
+
+        {
+            "position": { "x": 5, "y": 20 },
+            "size": { "width": 6, "height": 2 },
+            "type": "solid"
+        },
+        {
+            "position": { "x": 39, "y": 20 },
+            "size": { "width": 6, "height": 2 },
+            "type": "solid"
+        },
+
+        {
+            "position": { "x": 12, "y": 18 },
+            "size": { "width": 3, "height": 1 },
+            "type": "crumbling"
+        },
+        {
+            "position": { "x": 35, "y": 18 },
+            "size": { "width": 3, "height": 1 },
+            "type": "crumbling"
+        },
+
+        {
+            "position": { "x": 16, "y": 16 },
+            "size": { "width": 3, "height": 1 },
+            "type": "moving",
+            "movementPath": [
+                { "x": 16, "y": 16 },
+                { "x": 20, "y": 20 }
+            ],
+            "movementSpeed": 30
+        },
+        {
+            "position": { "x": 31, "y": 16 },
+            "size": { "width": 3, "height": 1 },
+            "type": "moving",
+            "movementPath": [
+                { "x": 31, "y": 16 },
+                { "x": 27, "y": 20 }
+            ],
+            "movementSpeed": 30
+        },
+
+        {
+            "position": { "x": 20, "y": 24 },
+            "size": { "width": 10, "height": 2 },
+            "type": "solid"
+        },
+
+        {
+            "position": { "x": 15, "y": 28 },
+            "size": { "width": 4, "height": 1 },
+            "type": "solid"
+        },
+        {
+            "position": { "x": 31, "y": 28 },
+            "size": { "width": 4, "height": 1 },
+            "type": "solid"
+        },
+
+        {
+            "position": { "x": 20, "y": 32 },
+            "size": { "width": 10, "height": 2 },
+            "type": "solid"
+        },
+
+        {
+            "position": { "x": 23, "y": 36 },
+            "size": { "width": 4, "height": 2 },
+            "type": "solid"
+        }
+    ],
+
+    "enemies": [
+        {
+            "type": "Skeleton",
+            "position": { "x": 7, "y": 8 },
+            "facing": "right"
+        },
+        {
+            "type": "Skeleton",
+            "position": { "x": 42, "y": 8 },
+            "facing": "left"
+        },
+        {
+            "type": "FloatingEye",
+            "position": { "x": 25, "y": 15 },
+            "facing": "left"
+        },
+        {
+            "type": "EliteCultist",
+            "position": { "x": 7, "y": 22 },
+            "facing": "right"
+        },
+        {
+            "type": "EliteCultist",
+            "position": { "x": 42, "y": 22 },
+            "facing": "left"
+        }
+    ],
+
+    "collectibles": [
+        { "type": "manaCrystal", "position": { "x": 23, "y": 4 } },
+        { "type": "manaCrystal", "position": { "x": 25, "y": 4 } },
+        { "type": "manaCrystal", "position": { "x": 27, "y": 4 } },
+
+        { "type": "manaCrystal", "position": { "x": 7, "y": 8 } },
+        { "type": "manaCrystal", "position": { "x": 42, "y": 8 } },
+
+        { "type": "healthPickup", "position": { "x": 25, "y": 26 } }
+    ],
+
+    "interactables": [
+        {
+            "type": "chain",
+            "position": { "x": 4, "y": 14 },
+            "chainId": "chain_1",
+            "description": "First Seal Chain"
+        },
+        {
+            "type": "chain",
+            "position": { "x": 45, "y": 14 },
+            "chainId": "chain_2",
+            "description": "Second Seal Chain"
+        },
+        {
+            "type": "chain",
+            "position": { "x": 7, "y": 22 },
+            "chainId": "chain_3",
+            "description": "Third Seal Chain"
+        },
+        {
+            "type": "chain",
+            "position": { "x": 42, "y": 22 },
+            "chainId": "chain_4",
+            "description": "Fourth Seal Chain"
+        },
+        {
+            "type": "sealHeart",
+            "position": { "x": 25, "y": 38 },
+            "description": "Heart of the Seal"
+        },
+        {
+            "type": "levelExit",
+            "position": { "x": 25, "y": 38 }
+        }
+    ],
+
+    "triggers": [
+        {
+            "type": "dialog",
+            "position": { "x": 23, "y": 3 },
+            "size": { "width": 4, "height": 4 },
+            "dialogId": "awakening_intro",
+            "oneTime": true
+        },
+        {
+            "type": "bossSpawn",
+            "position": { "x": 20, "y": 5 },
+            "size": { "width": 10, "height": 30 },
+            "bossType": "Velkor",
+            "oneTime": true
+        },
+        {
+            "type": "chainActivation",
+            "position": { "x": 4, "y": 13 },
+            "size": { "width": 3, "height": 3 },
+            "chainId": "chain_1",
+            "oneTime": true
+        },
+        {
+            "type": "chainActivation",
+            "position": { "x": 45, "y": 13 },
+            "size": { "width": 3, "height": 3 },
+            "chainId": "chain_2",
+            "oneTime": true
+        },
+        {
+            "type": "chainActivation",
+            "position": { "x": 6, "y": 21 },
+            "size": { "width": 3, "height": 3 },
+            "chainId": "chain_3",
+            "oneTime": true
+        },
+        {
+            "type": "chainActivation",
+            "position": { "x": 41, "y": 21 },
+            "size": { "width": 3, "height": 3 },
+            "chainId": "chain_4",
+            "oneTime": true
+        },
+        {
+            "type": "finalPlatforming",
+            "position": { "x": 20, "y": 24 },
+            "size": { "width": 10, "height": 4 },
+            "description": "Final ascent after all chains",
+            "oneTime": true
+        },
+        {
+            "type": "dialog",
+            "position": { "x": 24, "y": 37 },
+            "size": { "width": 2, "height": 3 },
+            "dialogId": "velkor_defeat",
+            "oneTime": true
+        },
+        {
+            "type": "dialog",
+            "position": { "x": 24, "y": 37 },
+            "size": { "width": 2, "height": 3 },
+            "dialogId": "game_epilogue",
+            "oneTime": true
+        }
+    ],
+
+    "hazards": [
+        {
+            "type": "darknessRay",
+            "position": { "x": 25, "y": 35 },
+            "direction": "down",
+            "interval": 4.0,
+            "duration": 2.0,
+            "width": 6
+        },
+        {
+            "type": "darknessWave",
+            "position": { "x": 0, "y": 10 },
+            "direction": "right",
+            "interval": 5.0,
+            "speed": 100
+        },
+        {
+            "type": "darknessWave",
+            "position": { "x": 50, "y": 18 },
+            "direction": "left",
+            "interval": 5.0,
+            "speed": 100
+        }
+    ],
+
+    "darkZones": [],
+    "torches": [],
+    "fallingGates": [],
+    "icicles": [],
+    "avalanches": [],
+
+    "collapsingFloor": [
+        {
+            "position": { "x": 12, "y": 3 },
+            "size": { "width": 3, "height": 1 },
+            "collapseDelay": 0.5
+        },
+        {
+            "position": { "x": 35, "y": 3 },
+            "size": { "width": 3, "height": 1 },
+            "collapseDelay": 0.5
+        },
+        {
+            "position": { "x": 12, "y": 18 },
+            "size": { "width": 3, "height": 1 },
+            "collapseDelay": 0.5
+        },
+        {
+            "position": { "x": 35, "y": 18 },
+            "size": { "width": 3, "height": 1 },
+            "collapseDelay": 0.5
+        }
+    ],
+
+    "bossArena": {
+        "bounds": {
+            "x": 0,
+            "y": 0,
+            "width": 50,
+            "height": 40
+        },
+        "bossType": "Velkor",
+        "mechanics": {
+            "chains": ["chain_1", "chain_2", "chain_3", "chain_4"],
+            "weakenPerChain": 0.25,
+            "finalObjective": "sealHeart"
+        },
+        "attacks": [
+            {
+                "name": "darknessRay",
+                "description": "Vertical beam of darkness",
+                "damage": 25
+            },
+            {
+                "name": "darknessWave",
+                "description": "Horizontal wave of shadow",
+                "damage": 20
+            },
+            {
+                "name": "tentacleSlam",
+                "description": "Abyssal tentacles strike from below",
+                "damage": 30
+            },
+            {
+                "name": "voidPull",
+                "description": "Pulls player toward Velkor",
+                "damage": 0
+            }
+        ]
+    },
+
+    "victoryCondition": {
+        "type": "activateSealHeart",
+        "requiredChains": 4,
+        "dialogOnVictory": "game_epilogue"
+    }
+}

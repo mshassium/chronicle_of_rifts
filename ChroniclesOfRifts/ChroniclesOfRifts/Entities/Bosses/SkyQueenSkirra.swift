@@ -136,19 +136,4 @@ class SkyHatchling: Enemy {
 }
 
 // MARK: - MovingPlatform
-
-/// Движущаяся платформа для арены SkyQueenSkirra
-class MovingPlatform: SKSpriteNode {
-    // TODO: Реализовать движущуюся платформу
-    // - Путь движения (точки)
-    // - Скорость
-    // - Опционально: исчезновение
-
-    init() {
-        fatalError("MovingPlatform: Not implemented")
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
+// MovingPlatform теперь определён в Components/MovingPlatform.swift

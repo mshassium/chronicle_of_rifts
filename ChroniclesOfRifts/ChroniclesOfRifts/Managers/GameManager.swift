@@ -28,6 +28,14 @@ final class GameManager: ObservableObject {
     /// Время начала уровня (для статистики)
     private var levelStartTime: Date?
 
+    // MARK: - Checkpoint
+
+    /// Позиция текущего чекпоинта
+    private(set) var currentCheckpointPosition: CGPoint?
+
+    /// ID уровня для текущего чекпоинта
+    private(set) var currentCheckpointLevelId: Int?
+
     /// Ключи для UserDefaults
     private enum Keys {
         static let playerData = "com.chroniclesofrifts.playerData"
@@ -174,5 +182,30 @@ final class GameManager: ObservableObject {
     func collectPage(_ pageId: String) {
         playerData.collectPage(pageId)
         saveProgress()
+    }
+
+    // MARK: - Checkpoint Management
+
+    /// Установить чекпоинт
+    /// - Parameters:
+    ///   - position: Позиция респавна
+    ///   - levelId: ID уровня
+    func setCheckpoint(position: CGPoint, levelId: Int) {
+        currentCheckpointPosition = position
+        currentCheckpointLevelId = levelId
+    }
+
+    /// Получить позицию чекпоинта для указанного уровня
+    /// - Parameter levelId: ID уровня
+    /// - Returns: Позиция чекпоинта или nil если нет чекпоинта
+    func getCheckpointPosition(for levelId: Int) -> CGPoint? {
+        guard currentCheckpointLevelId == levelId else { return nil }
+        return currentCheckpointPosition
+    }
+
+    /// Очистить текущий чекпоинт
+    func clearCheckpoint() {
+        currentCheckpointPosition = nil
+        currentCheckpointLevelId = nil
     }
 }
